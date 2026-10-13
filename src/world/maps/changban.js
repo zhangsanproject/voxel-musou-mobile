@@ -1,17 +1,17 @@
-// 長坂坡 (Changban, 208 AD) laid out along +Z, ≈ 360 m from 劉備's side of the river to 曹操 on 景山 — an out-and-back
+// 长坂坡 (Changban, 208 AD) laid out along +Z, ≈ 360 m from 刘备's side of the river to 曹操 on 景山 — an out-and-back
 // stage: the hero starts on the bridge, rides north through the host to the burnt village, and fights his way back.
-//   長坂橋南  Liu Bei's side     z -176 … -134  h 0     a grove (張飛's riders drag branches for dust), the fleeing column
-//   長坂橋    Changban Bridge    z -137 … -119  h 0→1.3 the only crossing: a narrow plank bridge on a raised stone
+//   长坂桥南  Liu Bei's side     z -176 … -134  h 0     a grove (张飞's riders drag branches for dust), the fleeing column
+//   长坂桥    Changban Bridge    z -137 … -119  h 0→1.3 the only crossing: a narrow plank bridge on a raised stone
 //                                                       footing (water ford with a negative depth), 2.3 m either side
-//   長坂      the slopes          z -130 …   22  h 0→3   rolling open ground: abandoned refugee carts, dropped bundles,
+//   长坂      the slopes          z -130 …   22  h 0→3   rolling open ground: abandoned refugee carts, dropped bundles,
 //                                                       burning wrecks (free-mode arena at z -40)
-//   當陽      village ruins       z   14 …  100  h ≈ 3   burnt farmhouses and broken courtyard walls (solid props /
+//   当阳      village ruins       z   14 …  100  h ≈ 3   burnt farmhouses and broken courtyard walls (solid props /
 //                                                       carves), 糜夫人's well (anchor 'well', set 'well')
 //   景山      the hillside        z   96 …  188  h 3→16  a ramp up to 曹操's command post under his banners and parasol;
 //                                                       barricade gate 'jingshan' on the ramp (story never opens it)
 // Dusk: a low amber sun straight up the valley behind 景山, the air thick with the smoke of burning farmland. Sets (story
 // `set`): 'well' — the earthen wall beside the well topples over it; 'bridge' — the bridge's middle span comes down into
-// the river (據水斷橋). Format: ./index.js.
+// the river (据水断桥). Format: ./index.js.
 import * as THREE from 'three';
 import { boxesGeometry, shade } from '../../core/voxel.js';
 import { lit } from '../castle.js';
@@ -34,7 +34,7 @@ const WALLS = [[-42, 60, -27, 60.7], [-12.6, 62, -11.9, 75], [26, 60, 38, 60.7],
 
 export default {
   id: 'changban',
-  name: { zh: '長坂坡', en: 'Changban' },
+  name: { zh: '长坂坡', en: 'Changban' },
   grid: [-112, -206, 112, 232],
   pieces: [
     { id: 'south', rect: [-34, -176, 34, -126], h: 0, edge: 3, rise: 6 },
@@ -48,20 +48,20 @@ export default {
   // farmhouse ruins, the well with its wall, 曹操's dais on 景山
   props: [...HOUSES.map(foot), [WELL[0] - 1.4, WELL[1] - 2.4, WELL[0] + 2.6, WELL[1] + 2.4], [-5, 170, 5, 177]],
   zones: [
-    { id: 'grove', name: { zh: '長坂橋南', en: 'South of the Bridge' }, x: 0, z: -155, w: 64, d: 42 },
-    { id: 'bridge', name: { zh: '長坂橋', en: 'Changban Bridge' }, x: 0, z: -115, w: 80, d: 30 },
-    { id: 'slopes', name: { zh: '長坂', en: 'Changban Slopes' }, x: 0, z: -40, w: 108, d: 120 },
-    { id: 'village', name: { zh: '當陽', en: 'Dangyang' }, x: 0, z: 58, w: 92, d: 76 },
+    { id: 'grove', name: { zh: '长坂桥南', en: 'South of the Bridge' }, x: 0, z: -155, w: 64, d: 42 },
+    { id: 'bridge', name: { zh: '长坂桥', en: 'Changban Bridge' }, x: 0, z: -115, w: 80, d: 30 },
+    { id: 'slopes', name: { zh: '长坂', en: 'Changban Slopes' }, x: 0, z: -40, w: 108, d: 120 },
+    { id: 'village', name: { zh: '当阳', en: 'Dangyang' }, x: 0, z: 58, w: 92, d: 76 },
     { id: 'jingshan', name: { zh: '景山', en: 'Mount Jing' }, x: 0, z: 164, r: 30 },
   ],
   route: [[0, -168], [0, -140], [0, -128], [0, -114], [-6, -84], [4, -52], [-4, -20], [2, 10], [0, 30], [5, 55], [4, 80], [1, 97],
     [2, 124], [0, 148], [0, 164]],
   gates: {
-    jingshan: { rect: [-10, 121.5, 12, 124.5], name: { zh: '景山柵', en: 'Mount Jing Barricade' }, kind: 'barricade', at: [2, 123, 0, 9] },
+    jingshan: { rect: [-10, 121.5, 12, 124.5], name: { zh: '景山栅', en: 'Mount Jing Barricade' }, kind: 'barricade', at: [2, 123, 0, 9] },
   },
   // bridge: the deck's middle · gan / mizhu: where 甘夫人 and 糜竺 are found · well · jingshan: 曹操's post
   anchors: { bridge: [0, RIVER_Z], gan: [-30, -52], mizhu: [28, -18], well: WELL, cao: [0, 168] },
-  // story: the north end of the deck, facing up the slopes (张飛 beside him on the planks); free: the open slopes
+  // story: the north end of the deck, facing up the slopes (张飞 beside him on the planks); free: the open slopes
   spawn: { story: { x: 0, z: -121, yaw: 0, tilt: -0.06 }, free: { x: 0, z: -40, yaw: 0 } },
   // the river the lane crosses: deep everywhere but the bridge (a raised deck 1.3 m over the plain)
   water: { along: 'x', c: (x) => RIVER_Z + 7 * Math.sin(x * 0.04) * Math.min(1, (x / 22) ** 2), hw: HW, bed: [1.8, 0.45],
@@ -100,9 +100,9 @@ export default {
 
   dress(k) {
     const { r, mats, props, poles, shade: sh } = k;
-    const liu = k.banner('劉', { bg: '#2f5a3a', fg: '#e8d6a8', border: '#c7a574', w: 128, h: 256, seed: 12 });
+    const liu = k.banner('刘', { bg: '#2f5a3a', fg: '#e8d6a8', border: '#c7a574', w: 128, h: 256, seed: 12 });
     const cao = k.banner('曹', { bg: '#141a2e', fg: '#e6c870', border: '#8a6a2a', w: 160, h: 320, seed: 13 });
-    const han = k.banner('漢', { bg: '#6a1a14', fg: '#f0d8a0', border: '#c8a050', w: 128, h: 256, seed: 14 });
+    const han = k.banner('汉', { bg: '#6a1a14', fg: '#f0d8a0', border: '#c8a050', w: 128, h: 256, seed: 14 });
     const CLOTH = [0x3a4a6a, 0x9a7a3a, 0x8a4a3a, 0x5a6a4a, 0x7a6a5a, 0xa89a7a];
     /** A tree: trunk and autumn canopy clumps (burnt: a black stump with bare limbs). */
     const tree = (x, z, s = 1, burnt = false) => {
@@ -162,7 +162,7 @@ export default {
       if (burning) k.fire(x + r.range(-1, 1), k.ground(x, z) + 0.6, z + r.range(-1, 1), r.range(1.3, 1.7), true);
     };
 
-    // ---- 長坂橋南: the grove, 劉 standards at the bridge foot, the column retreating south, 張飛's riders' dust
+    // ---- 长坂桥南: the grove, 刘 standards at the bridge foot, the column retreating south, 张飞's riders' dust
     for (let i = 0; i < 26; i++) {
       const x = (r.chance(0.5) ? -1 : 1) * r.range(11, 33), z = r.range(-172, -142);
       tree(x, z, r.range(0.9, 1.25));
@@ -171,11 +171,11 @@ export default {
     for (const sx of [-1, 1]) { k.standard(sx * 5.5, -143, 1.15, liu, 9, [0, -128]); k.standard(sx * 14, -150, 1.05, mats.ally, 8, [0, -128]); }
     k.lamp(0, -141, 0.7);
     for (const [x, z, yaw] of [[-18, -160, 0.3], [16, -165, -0.4], [-8, -170, 0.1], [24, -150, 1.2]]) k.cart(x, z, yaw);
-    // ---- the bridge foot on the north bank: braziers, a pair of 漢 standards the bridge's guard planted
+    // ---- the bridge foot on the north bank: braziers, a pair of 汉 standards the bridge's guard planted
     for (const sx of [-1, 1]) k.lamp(sx * 3.4, -116.5, 0.6);
     k.standard(-7, -113, 1.1, han, 9, [0, -128]); k.standard(7, -113, 1.1, mats.ally, 8.5, [0, -128]);
     k.reeds();
-    // ---- 長坂: the refugees' flight — carts left where they stuck, their loads spilled, the dead; burning wrecks
+    // ---- 长坂: the refugees' flight — carts left where they stuck, their loads spilled, the dead; burning wrecks
     for (const [x, z, yaw, b] of [[-14, -104, 0.5, 0], [12, -96, -0.4, 1], [-24, -88, 1.9, 0], [18, -70, 2.6, 0], [-10, -58, 0.2, 1], [28, -60, 1.1, 0],
       [-34, -40, 0.7, 0], [14, -28, 2.2, 1], [-18, -16, 1.4, 0], [34, -8, 0.3, 1], [-30, 6, 2.8, 0], [12, 14, 0.9, 0], [-40, -64, 1.6, 1]]) k.cart(x, z, yaw, !!b);
     for (let i = 0; i < 90; i++) {
@@ -189,7 +189,7 @@ export default {
     for (const [x, z] of [[-46, -96], [46, -84], [-50, -46], [48, -40], [-46, 4], [44, 14], [-26, -112], [26, -110]]) k.standard(x, z, 1.05, r.chance(0.25) ? mats.pennant : mats.foe);
     for (let i = 0; i < 24; i++) { const x = (r.chance(0.5) ? -1 : 1) * r.range(56, 90), z = r.range(-120, 100); if (k.inAt(x, z) < -3) tree(x, z, r.range(0.9, 1.3), r.chance(0.3)); }
     for (const [x, z] of [[-48, -110], [49, -66], [-49, -12], [47, 20]]) tree(x, z, 1.1, true);
-    // ---- 當陽: the burnt village — farmhouse ruins, broken walls, burnt trees, the well
+    // ---- 当阳: the burnt village — farmhouse ruins, broken walls, burnt trees, the well
     HOUSES.forEach(house);
     for (const [x0, z0, x1, z1] of WALLS) (x1 - x0 > z1 - z0) ? earthWall(x0, (z0 + z1) / 2, x1, (z0 + z1) / 2) : earthWall((x0 + x1) / 2, z0, (x0 + x1) / 2, z1);
     for (const [x, z] of [[-8, 36], [12, 26], [-40, 58], [40, 64], [-8, 72], [18, 76], [-38, 88], [36, 92], [-4, 94]]) tree(x, z, r.range(0.9, 1.15), true);
@@ -214,7 +214,7 @@ export default {
       props.push({ s: [10, 1.0, 7], p: [0, gy + 0.5, 173.5], c: 0x5e524a }, { s: [10.2, 0.1, 0.16], p: [0, gy + 1.0, 170], c: 0x8a7a68 });
       for (let q = 0; q < 2; q++) props.push({ s: [4, 0.35 * (q + 1), 1.1 - q * 0.45], p: [0, gy + 0.175 * (q + 1), 169.5 - (1.1 - q * 0.45) / 2 + 0.05], c: sh(0x5a4e46, 1 + q * 0.05) });
       k.commandTable(0, 173.5, Math.PI);
-      // 曹操's parasol (華蓋): a tall pole, a gilt finial, a red canopy in stepped rings, a fringe of short hangings
+      // 曹操's parasol (华盖): a tall pole, a gilt finial, a red canopy in stepped rings, a fringe of short hangings
       const px = 2.6, pz = 174.5, top = gy + 1 + 5.2;
       poles.push({ s: [0.18, 5.4, 0.18], p: [px, gy + 1 + 2.7, pz], c: 0x2a1c14 }, { s: [0.3, 0.6, 0.3], p: [px, top + 0.7, pz], c: 0xd0a040 });
       for (const [w, dy, c] of [[3.6, 0, 0x8a1a14], [2.8, 0.22, 0xa02418], [1.8, 0.42, 0x8a1a14], [0.9, 0.58, 0xc8a040]]) props.push({ s: [w, 0.22, w], p: [px, top + dy, pz], c });
@@ -237,7 +237,7 @@ export default {
     k.arrows([-48, -118, 48, 96], 60);
     k.debris([-50, -118, 50, 96], 140);
     k.torchPosts(-114, 96);
-    // ---- reserve armies off the walkable ground: 劉 south of the river, the 曹 host on the ridges and round 景山
+    // ---- reserve armies off the walkable ground: 刘 south of the river, the 曹 host on the ridges and round 景山
     for (const [x, z, f] of [[-48, -150, Math.PI], [48, -156, Math.PI], [0, -190, Math.PI], [-44, -178, Math.PI - 0.3]]) k.formation('ally', x, z, f, r.int(8, 12), r.int(4, 6));
     for (const [x, z, f] of [[-66, -30, 1.4], [66, -50, -1.4], [-64, 40, 1.5], [64, 70, -1.5], [-40, 150, 0.6], [40, 150, -0.6], [-30, 200, Math.PI], [30, 204, Math.PI], [-62, 110, 1.2], [62, 118, -1.2]]) k.formation('foe', x, z, f, r.int(9, 14), r.int(4, 7));
     k.aftermath({ fallen: [[-44, 44, -110, 16, 30], [-40, 40, 20, 96, 16], [-20, 20, -122, -104, 6]], standards: [10, -44, -108, 44, 90],

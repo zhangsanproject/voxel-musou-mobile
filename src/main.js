@@ -11,7 +11,7 @@
 // flow.go() returns a promise that settles once the new state's materials are compiled and two frames have presented
 // (menu.js inkWipe holds the ink until then; the page boots under it, inkBoot). Every screen change but prologue →
 // battle (its own fade onto the live field) goes through the ink wipe; the HUD slides in on each battle entry (#hud.in).
-// 'loading' (after 出陣, or 再戰 on the result) runs deploy(): once the card is fully uncovered, startBattle for the chosen
+// 'loading' (after 出阵, or 再战 on the result) runs deploy(): once the card is fully uncovered, startBattle for the chosen
 // officer (flow.go('battle') then keeps it: no second reset under a visible field), compile, warm frames
 // (the bar tracks those real stages), a minimum dwell, then ink on into the prologue / battle — the officer on the field
 // is the chosen one before anything of the field is seen again, and his kit's first draws never stall on screen.
@@ -196,7 +196,7 @@ function startBattle({ char = 'zhaoyun', mode = 'free', ch, map } = {}) {
   game.actors.reset(); game.pickups.reset();                                              // C5
   game.story.reset({ mode, char, ch });                                                    // C2
   menu.querySelector('.t').innerHTML = `${who.name.zh}<i>${who.seal}</i>`;
-  menu.querySelector('.sub').innerHTML = `戰局暫停・${game.diff.zh}<small>Battle paused · ${game.diff.en}</small>`;
+  menu.querySelector('.sub').innerHTML = `战局暂停・${game.diff.zh}<small>Battle paused · ${game.diff.en}</small>`;
   document.title = `${who.name.zh} — Voxel Musou`;
   emit('scenario', { mode, char, ch, map });
 }
@@ -214,13 +214,13 @@ const menu = $('menu'), hudEl = $('hud');
 // the bindings mid-battle too (critic: checking aim meant quitting the chapter)
 menu.querySelector('.hint').insertAdjacentHTML('beforebegin', `<table>${CONTROLS.map(([zh, en, kb, pad]) => `<tr><td>${zh}<small>${en}</small></td><td>${kb}</td><td class="pad">${pad}</td></tr>`).join('')}</table>`);
 let paused = false, state = null, ctx = {}, hold = false;   // hold: loading, no renders until the new kit is compiled
-// pause menu: title-screen vocabulary (diamond + swash on the focused item), 繼續 focused on open, ↑/↓ / pad move,
-// Enter / A confirm, Esc / B resume. 撤退 asks once (確定撤退？), a second confirm ink-wipes to the title.
+// pause menu: title-screen vocabulary (diamond + swash on the focused item), 继续 focused on open, ↑/↓ / pad move,
+// Enter / A confirm, Esc / B resume. 撤退 asks once (确定撤退？), a second confirm ink-wipes to the title.
 const mBtns = [$('go'), $('quit')], quitEl = $('quit');
 let mCur = 0, quitArm = false;
 const armQuit = (v) => {
   quitArm = v; quitEl.classList.toggle('arm', v);
-  quitEl.innerHTML = v ? '確定撤退？<small>Confirm · progress is lost</small>' : '撤退<small>Quit to title</small>';
+  quitEl.innerHTML = v ? '确定撤退？<small>Confirm · progress is lost</small>' : '撤退<small>Quit to title</small>';
 };
 const mFocus = (i) => {
   mCur = (i + mBtns.length) % mBtns.length;
@@ -293,11 +293,11 @@ async function deploy(c) {
   while (wiping()) await nextFrame();
   if (state !== 'loading') return;
   const t0 = performance.now(), stage = async (p, zh, en) => { L.progress(p, zh, en); await nextFrame(); await nextFrame(); };
-  await stage(0.18, '點將', 'Summoning the officer');
+  await stage(0.18, '点将', 'Summoning the officer');
   startBattle(c);
-  await stage(0.5, '佈陣', 'Deploying the ranks');
+  await stage(0.5, '布阵', 'Deploying the ranks');
   await post.compile(scene, camRig.camera);
-  await stage(0.82, '整軍備戰', 'Preparing the field');
+  await stage(0.82, '整军备战', 'Preparing the field');
   hold = false;                                    // the loop renders the field behind the card: shadow / first-draw variants
   for (let i = 0; i < 4; i++) await nextFrame();
   L.progress(1);

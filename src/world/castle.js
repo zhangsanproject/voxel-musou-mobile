@@ -1,4 +1,4 @@
-// Voxel castle (def.castle; 定軍山: the 魏軍營寨's front): stone curtain wall facing -Z with two bastions (its west end
+// Voxel castle (def.castle; 定军山: the 魏军营寨's front): stone curtain wall facing -Z with two bastions (its west end
 // runs into the cliffs), a gate passage through the wall with two studded door leaves that swing open (the def's
 // `gate`, a map gate of kind 'doors': world.js), two-tier gatehouse, tall corner tower and the flank wall that closes
 // the courtyard's east side, and a garrison of archers on the wall walk. Params { gate, wallZ, gateX, x0, y }: the wall

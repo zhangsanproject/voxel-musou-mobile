@@ -1,14 +1,14 @@
-// 定軍山 (Mount Dingjun, 219 AD) laid out along +Z, ≈ 370 m from the Shu camp to the summit — the DW8 stage shape:
+// 定军山 (Mount Dingjun, 219 AD) laid out along +Z, ≈ 370 m from the Shu camp to the summit — the DW8 stage shape:
 // a wide opening field, a narrowing valley with one chokepoint, a gate you break through, then the climb to the
 // enemy commander on the high ground, who stands where the whole map can see him. The HOME map (title / select).
-//   蜀軍本陣  Shu main camp       z -156 … -119   h 0    palisade, tents, 蜀 banners; story start
-//   漢水渡口  Han River ford      z -120 …  -44   h 0    open plain cut by the river: three shallow crossings
+//   蜀军本阵  Shu main camp       z -156 … -119   h 0    palisade, tents, 蜀 banners; story start
+//   汉水渡口  Han River ford      z -120 …  -44   h 0    open plain cut by the river: three shallow crossings
 //   山道      mountain pass       z  -52 …   80   h 1→12 valley mouth → basin (free-mode arena, origin) → climb →
 //                                                        chokepoint (z ≈ 62, 14 m wide, barricade gate 'pass')
-//   魏軍營寨  Wei fortified camp  z   76 …  140   h 12   plaza at the castle wall (face z = WALL_Z), gate passage at
+//   魏军营寨  Wei fortified camp  z   76 …  140   h 12   plaza at the castle wall (face z = WALL_Z), gate passage at
 //                                                        GATE_X (gate 'weiCamp'), courtyard behind it
 //   (ramp)    switchback          z  134 …  180   h 12→28 up the west flank (barricade gate 'summit' at x ≈ -20)
-//   定軍山頂  summit plateau      z  168 …  220   h 28   夏侯淵's command tent, drums, the great 夏侯 banner
+//   定军山顶  summit plateau      z  168 …  220   h 28   夏侯渊's command tent, drums, the great 夏侯 banner
 // Golden hour (the sky / light / post defaults): a low sun straight up the valley between the castle's corner tower
 // and the camp-shelf watchtowers. Format: ./index.js.
 const WALL_Z = 100, GATE_X = -10;      // castle wall face / gate centre
@@ -16,7 +16,7 @@ const CAMP_H = 12, SUMMIT_H = 28;      // plateau heights (m): the camp (the cas
 
 export default {
   id: 'dingjun',
-  name: { zh: '定軍山', en: 'Mount Dingjun' },
+  name: { zh: '定军山', en: 'Mount Dingjun' },
   grid: [-112, -178, 112, 238],
   pieces: [
     { id: 'honjin', rect: [-24, -156, 24, -119], h: 0, rise: 5 },
@@ -30,27 +30,27 @@ export default {
     { id: 'ramp', path: [[-30, 133, 6, CAMP_H], [-41, 145, 6, 13.5], [-45, 159, 6, 18], [-33, 171, 6, 23], [-17, 176.5, 6, 26.5], [-6, 180, 7, SUMMIT_H]], rise: 16 },
     { id: 'summit', ell: [2, 194, 26, 26], h: SUMMIT_H, edge: 1.5, rise: 40, drop: 212 },   // the vista: a rim, then the drop
   ],
-  // the 本陣 front palisade either side of its gate
+  // the 本阵 front palisade either side of its gate
   carve: [[-25, -121.5, -9, -117.5], [9, -121.5, 25, -117.5]],
-  // 夏侯淵's pavilion platform on the summit (stair, balustrade and step braziers included: 1.2 m of stone nobody may
+  // 夏侯渊's pavilion platform on the summit (stair, balustrade and step braziers included: 1.2 m of stone nobody may
   // walk through); the Wei camp courtyard's command table with its stools and brazier (solid set pieces)
   props: [[-4.8, 201.8, 12.8, 214.8], [-6.5, 127.6, -1.5, 132.4]],
   zones: [
-    { id: 'honjin', name: { zh: '蜀軍本陣', en: 'Shu Main Camp' }, x: 0, z: -138, w: 52, d: 40 },
-    { id: 'ford', name: { zh: '漢水渡口', en: 'Han River Ford' }, x: 0, z: -81, w: 96, d: 74 },
+    { id: 'honjin', name: { zh: '蜀军本阵', en: 'Shu Main Camp' }, x: 0, z: -138, w: 52, d: 40 },
+    { id: 'ford', name: { zh: '汉水渡口', en: 'Han River Ford' }, x: 0, z: -81, w: 96, d: 74 },
     { id: 'pass', name: { zh: '山道', en: 'Mountain Pass' }, x: 0, z: 16, w: 84, d: 124 },
-    { id: 'camp', name: { zh: '魏軍營寨', en: 'Wei Fortified Camp' }, x: -16, z: 123, w: 76, d: 90 },
-    { id: 'summit', name: { zh: '定軍山頂', en: 'Dingjun Summit' }, x: 2, z: 194, r: 34 },
+    { id: 'camp', name: { zh: '魏军营寨', en: 'Wei Fortified Camp' }, x: -16, z: 123, w: 76, d: 90 },
+    { id: 'summit', name: { zh: '定军山顶', en: 'Dingjun Summit' }, x: 2, z: 194, r: 34 },
   ],
   route: [[0, -150], [0, -118], [0, -86], [0, -46], [0, 0], [0, 28], [7, 44], [4, 55], [2, 64], [-5, 72], [-10, 84], [GATE_X, 104],
     [GATE_X, 118], [-22, 128], [-30, 133], [-41, 145], [-45, 159], [-33, 171], [-17, 176.5], [-6, 180], [2, 192]],
   gates: {
-    pass: { rect: [-14, 59.5, 20, 62.5], name: { zh: '山道柵', en: 'Pass Barricade' }, kind: 'barricade', at: [2, 61, 0, 11] },
-    weiCamp: { rect: [GATE_X - 7, 99.5, GATE_X + 7, 102.5], name: { zh: '營寨門', en: 'Camp Gate' }, kind: 'doors' },
-    summit: { rect: [-21.5, 166, -18.5, 186], name: { zh: '山頂柵', en: 'Summit Barricade' }, kind: 'barricade', at: [-20, 176, Math.PI / 2, 9] },
+    pass: { rect: [-14, 59.5, 20, 62.5], name: { zh: '山道栅', en: 'Pass Barricade' }, kind: 'barricade', at: [2, 61, 0, 11] },
+    weiCamp: { rect: [GATE_X - 7, 99.5, GATE_X + 7, 102.5], name: { zh: '营寨门', en: 'Camp Gate' }, kind: 'doors' },
+    summit: { rect: [-21.5, 166, -18.5, 186], name: { zh: '山顶栅', en: 'Summit Barricade' }, kind: 'barricade', at: [-20, 176, Math.PI / 2, 9] },
   },
   anchors: { gate: [GATE_X, WALL_Z] },   // ch1.js ['gate', dx, dz]: metres from the camp gate
-  // story: at the head of the Shu ranks just inside the 本陣 gate, facing the ford through it (tilt levels the camera a
+  // story: at the head of the Shu ranks just inside the 本阵 gate, facing the ford through it (tilt levels the camera a
   // little so the gate towers, standards and the valley fill the top of the first frame, not the paving); free: the
   // pass basin
   spawn: { story: { x: 0, z: -127, yaw: 0, tilt: -0.09 }, free: { x: 0, z: 0, yaw: 0 } },
@@ -60,14 +60,14 @@ export default {
   // clear fight disc; haze reaches 63 % 28 + 290 m out: the far zones of the 370 m valley stay silhouettes, the summit a
   // dark shoulder under its beacon smoke from the Shu camp
   sky: {}, fog: [36, 330], post: {},
-  // key: the select screen's warm key rests by the ford wreck; fill: the sun sits straight behind 夏侯淵's pavilion,
+  // key: the select screen's warm key rests by the ford wreck; fill: the sun sits straight behind 夏侯渊's pavilion,
   // so its lacquer and gilt face the lens in shade — a warm low fill eases in on the summit approach (z 160 → 188)
   light: { key: [-33, -64], fill: [160, 188, 1.5] },
   castle: { gate: 'weiCamp', wallZ: WALL_Z, gateX: GATE_X, x0: -64, y: CAMP_H },
   terrain: {
     pave: (x, z) => (z > 76 && z < 140 && x > -30 && x < 5 ? 0.55 : 0)      // plaza + courtyard: worn paving
       + (Math.hypot(x - 2, z - 194) < 13 ? 0.7 : 0)                          // summit parade ground
-      + (Math.hypot(x, z + 140) < 11 ? 0.6 : 0),                             // 本陣 square
+      + (Math.hypot(x, z + 140) < 11 ? 0.6 : 0),                             // 本阵 square
     bare: (x, z) => z > 74 && z < 142 && x > -44 && x < 7,                   // the Wei camp: beaten earth
     rock: (h, x, z) => h - 3 - z / 18,                                       // bare rock above the basin's slope
     // burnt ground where the camp and the summit were fought over (courtyard, parade ground, round the beacon)
@@ -87,9 +87,9 @@ export default {
 
   dress(k) {
     const { r, mats, props, poles, shade } = k;
-    const han = k.banner('漢', { bg: '#2f5a3a', fg: '#e8d6a8', border: '#c7a574', w: 128, h: 256, seed: 8 });
+    const han = k.banner('汉', { bg: '#2f5a3a', fg: '#e8d6a8', border: '#c7a574', w: 128, h: 256, seed: 8 });
     const xiahou = k.banner('夏侯', { bg: '#1c1414', fg: '#d8b060', border: '#7d2a1f', w: 160, h: 320, seed: 9 });
-    // ---- 蜀軍本陣: palisade round three sides and either side of the gate, gate towers, tents, HQ, standards
+    // ---- 蜀军本阵: palisade round three sides and either side of the gate, gate towers, tents, HQ, standards
     k.palisade([[-25.5, -118], [-25.5, -157.5], [25.5, -157.5], [25.5, -118]]);
     k.palisade([[-25, -119.5], [-10.5, -119.5]]);
     k.palisade([[10.5, -119.5], [25, -119.5]]);
@@ -105,7 +105,7 @@ export default {
       const L = k.local(x, k.ground(x, z), z, r.range(0, 3));
       L(0, 0.45, 0, [0.9, 0.9, 0.9], shade(0x6e5038, r.range(0.8, 1.1))); L(0.3, 1.2, 0.1, [0.7, 0.6, 0.7], shade(0x5a4030, r.range(0.8, 1.1)));
     }
-    // ---- 漢水渡口: reeds on the banks, the Shu supply train on the south side, wrecks and Wei standards to the north
+    // ---- 汉水渡口: reeds on the banks, the Shu supply train on the south side, wrecks and Wei standards to the north
     k.reeds();
     for (const [x, z, yaw] of [[-38, -112, 0.4], [-33, -106, 0.2], [36, -110, -0.3], [31, -114, -0.5], [-24, -115, 1.2]]) k.cart(x, z, yaw);
     for (const [x, z, yaw] of [[-33, -64, 2.2], [32, -58, 0.8]]) k.cart(x, z, yaw, true);
@@ -129,7 +129,7 @@ export default {
       if (Math.abs(x - GATE_X) < 6) continue;
       props.push({ s: [s, s * r.range(0.5, 1), s], p: [x, CAMP_H + s * 0.35, WALL_Z - r.range(0.6, 3.5)], r: [r.range(-0.3, 0.3), r.range(0, 3), r.range(-0.3, 0.3)], c: shade(0x5e4e4c, r.range(0.75, 1.15)) });
     }
-    // ---- 魏軍營寨 courtyard: palisade on the open sides (the ramp leaves through the north-west corner), tents beyond
+    // ---- 魏军营寨 courtyard: palisade on the open sides (the ramp leaves through the north-west corner), tents beyond
     k.palisade([[-43.5, 109.5], [-43.5, 135]]);
     k.palisade([[-29.5, 141], [6.5, 141]]);
     for (let z = 113; z < 136; z += 7) k.tent(-52 + r.range(-2, 2), z, Math.PI / 2 + r.range(-0.2, 0.2), r.chance(0.5) ? 0x8a3025 : 0xb09a7c);
@@ -165,7 +165,7 @@ export default {
     }
     k.barricade('summit');
     k.burn(-20, 172.5, 1.0, 'summit'); k.burn(-20.5, 179.5, 1.1, 'summit');
-    // ---- 定軍山頂: 夏侯淵's pavilion on a stone platform, war drums, the great 夏侯 banner, the beacon, rim standards
+    // ---- 定军山顶: 夏侯渊's pavilion on a stone platform, war drums, the great 夏侯 banner, the beacon, rim standards
     { const gy = k.ground(4, 209);
       props.push({ s: [17, 1.2, 11], p: [4, gy + 0.6, 209], c: 0x6a5a50 }, { s: [17.2, 0.1, 0.16], p: [4, gy + 1.2, 203.5], c: 0x9a8a78 });
       for (let q = 0; q < 3; q++) {                                            // stepped stair, pale worn nosing
@@ -227,7 +227,7 @@ export default {
     k.flag(GATE_X + 7, wy + 0.6, WALL_Z + 1, 9, mats.pennant);
     k.flag(c.cornerX + 4, CAMP_H + c.towerH, WALL_Z - 0.5, 4, mats.pennant);
 
-    // ---- reserve armies off the walkable ground: 蜀 behind the 本陣 and on the ford hills, 魏 on the camp shelf,
+    // ---- reserve armies off the walkable ground: 蜀 behind the 本阵 and on the ford hills, 魏 on the camp shelf,
     // archers lining the cliffs over the chokepoint, a guard on the summit's back shoulder
     for (const [x, z, f] of [[-32, -170, 0], [0, -171, 0], [32, -170, 0], [-58, -138, 0.9], [58, -136, -0.9], [-60, -100, 1.3], [60, -96, -1.3]]) k.formation('ally', x, z, f, r.int(10, 16), r.int(5, 8));
     for (const [x, z, f] of [[30, 124, -1.4], [44, 136, -1.6], [42, 106, -1.2], [60, 118, -1.5], [-58, 124, 1.5], [-6, 227, Math.PI], [20, 229, Math.PI]]) k.formation('foe', x, z, f, r.int(9, 14), r.int(4, 7));

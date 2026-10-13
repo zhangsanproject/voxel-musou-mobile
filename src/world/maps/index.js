@@ -8,7 +8,7 @@
 // all assume it); everything within ±230 m of the origin (crowd hash / arrow grid). Sim y is height above ground, so a
 // def never adds ground() to sim positions. Keep ~30 m between a plateau or full-height cliff and the grid edge (the
 // rock settles onto the outer plain there). Required keys: id, name, grid, pieces, zones, route, spawn; the rest
-// defaults to nothing (no water / castle / dressing / fires) and 定軍山's golden-hour atmosphere. Worked example:
+// defaults to nothing (no water / castle / dressing / fires) and 定军山's golden-hour atmosphere. Worked example:
 // ./dingjun.js.
 //
 // ---- sim (map.js)
@@ -60,7 +60,7 @@
 //   fog: [near, far]                     haze start / 63 % distance past it (default [36, 330])
 //   light: { hemi: [sky, ground, i], sun: [colour, i], rim: [colour, i], dir: [x, y, z] key-light direction (shadows),
 //            fire: firelight colour, key: [x, z] the select screen's warm key (HOME), fill: [z0, z1, i] a warm fill
-//            easing in as the focus goes from z0 to z1 }            (defaults: 定軍山's)
+//            easing in as the focus goes from z0 to z1 }            (defaults: 定军山's)
 //   post: { … }                          post.js look overrides (keys of its P: exposure, sat, bloom, rays, …)
 //   castle: null | { gate, wallZ, gateX, x0, y }   castle.js: wall face at z = wallZ facing -Z, from x0 to gateX + 18
 //                                        (corner tower beyond), standing on ground y (a plateau height); gate = its

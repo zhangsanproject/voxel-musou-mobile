@@ -24,7 +24,7 @@
 //              charge winds up, + musou through his Musou
 //   view?(model, hero, dt, rig)   extra per-frame render hook (after IK, before the chains)
 //   fxView?(scene, game, camera) → { update(dt), dispose() }   his own render layer beside the shared kit view (built
-//              with his Musou view, e.g. 諸葛亮's 八卦 sigils: src/chars/zhugeliang/fx.js)
+//              with his Musou view, e.g. 诸葛亮's 八卦 sigils: src/chars/zhugeliang/fx.js)
 // }
 // moveset = {
 //   moves() → move table (hero/moves.js format incl. proj / roar / beam / rain windows); must have n1 c1 dash jatk jc,

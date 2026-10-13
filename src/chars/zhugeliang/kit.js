@@ -1,8 +1,8 @@
-// 諸葛亮's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus
+// 诸葛亮's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus
 // his look: default size, light (camera kicks × 0.8), a light clear voice; violet-white wind and starlight in every
 // effect (the ribbon along the fan's wind blade, contacts, dodge ghosts), gold for the 八卦; the wind blade on the fan
 // shows while he attacks (view hook below); his own render layer (fx.js: the 八卦 sigils, the Musou's rain and east
-// wind); the 東風・八陣 cut-in (臥龍 / 南陽 諸葛孔明), no dragon.
+// wind); the 东风・八阵 cut-in (卧龙 / 南阳 诸葛孔明), no dragon.
 import { defKit } from '../defkit.js';
 import { ZHUGELIANG_DEF } from './model.js';
 import { createZhugeFx } from './fx.js';
@@ -27,7 +27,7 @@ export const ZHUGELIANG_KIT = defKit({
     mu: { crack: [2.4, 1.9, 0.8], wall: [0.8, 0.7, 1.4], light: [0.85, 0.78, 1] },
   },
   look: {
-    cut: { sub: '南陽 諸葛孔明', seal: '臥龍', css: {
+    cut: { sub: '南阳 诸葛孔明', seal: '卧龙', css: {
       big: 'color: #f6f4ff; text-shadow: 0 0 2px #0a0818, 6px 8px 0 rgba(6,4,16,.55), 0 0 28px rgba(160,140,255,.6);',
       sub: 'color: #e6e0ff; text-shadow: 0 0 10px rgba(150,130,255,.75), 2px 2px 0 rgba(0,0,0,.6);' } },
     pal: { rays: [1.0, 0.9, 1.4], ring: [1.7, 1.5, 2.4], bolt: null, burst: [1.4, 1.2, 2.0], ko: [0.8, 0.7, 1.1], glow: 0xc8b8ff,

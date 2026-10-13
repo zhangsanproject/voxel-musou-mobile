@@ -4,7 +4,7 @@
 //    rolled ±0.7 rad, fluttering), ring (a small faint crescent: 360° volleys), roar (a shock band standing on the ground
 //    round his launch point — a ring of ≈ 14 tiles into one expanding wall — kicking dust where it runs); they fade at
 //    the end of their flight and near the lens
-//  · signature windows (attack:swing on a moves.js window flagged): roar (當陽一喝: rolling shock rings, a shock wall,
+//  · signature windows (attack:swing on a moves.js window flagged): roar (当阳一喝: rolling shock rings, a shock wall,
 //    the ground split under him, a dust ring and a horizontal ray burst from his head), beam (a light streak down the
 //    hit line), rain (light columns striking a fan ahead)
 //  · musou:fx kinds: roar, slam, rocks, crack, aura, beams (n radial streaks), rain · wave:launch: a muzzle star

@@ -1,4 +1,4 @@
-// 張遼 文遠 (NPC model def: ./kit.js header, polearm class ./polearm.js), fine voxels (chars/parts.js FV) on the shared rig,
+// 张辽 文远 (NPC model def: ./kit.js header, polearm class ./polearm.js), fine voxels (chars/parts.js FV) on the shared rig,
 // kit scale 1.1 — the 赤壁 boss, Wei's coldest blade. A lean, stern face (hollow cheeks, narrow eyes under brows slanting
 // up, a long straight nose, a thin moustache and a short trimmed jaw beard) under a black-iron helmet: steel-ribbed
 // bowl, steel brow band with a dull-gold plate, cheek guards and a neck guard, and a tall gold crest tube whose long
@@ -7,7 +7,7 @@
 // straps behind; three-tier plated pauldrons on both shoulders with an upswept steel ridge and a gold boss; a long
 // lamellar skirt (short and open in front), a leather belt with a round gold buckle, slate-blue sash tails; lamellar
 // sleeves, steel-edged bracers, navy trousers with iron tassets, steel greaves, black boots. A dark navy cape in three
-// panels. Weapon: the 鉤鐮刀 halberd — black lacquered shaft with steel bands and leather grips, a dull-gold collar, a
+// panels. Weapon: the 钩镰刀 halberd — black lacquered shaft with steel bands and leather grips, a dull-gold collar, a
 // long leaf spear point, a crescent moon-blade on the −X side (horns turned out) and a back hook on +X; dark blue
 // ribbons hang under the head.
 import { vox, B, P, md, mirX, lamellar } from '../../hero/model.js';
@@ -161,7 +161,7 @@ function head() {
   ];
 }
 
-// ---------------------------------------------------------------- 鉤鐮刀 (weapon joint: shaft +Z, origin = rear grip)
+// ---------------------------------------------------------------- 钩镰刀 (weapon joint: shaft +Z, origin = rear grip)
 function weaponGeo() {
   // shaft at 0.02 (z −0.84 … 1.52): black lacquer, steel bands, leather wrap at both grips, a steel butt spike
   const shaft = vox([

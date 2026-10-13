@@ -1,7 +1,7 @@
-// 關羽's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus his
+// 关羽's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus his
 // look: the default body scale (broad, not bigger), heavy (camera kicks × 1.3), a deep measured voice, jade-green light in
-// every effect (ribbon, contacts, dodge ghosts, the blade glowing through a charge, the crescent waves), the 河東 關雲長 /
-// 武聖 cut-in, and a jade 青龍 rising off the blade at the Musou's contact (musou/view.js look.dragon palette).
+// every effect (ribbon, contacts, dodge ghosts, the blade glowing through a charge, the crescent waves), the 河东 关云长 /
+// 武圣 cut-in, and a jade 青龙 rising off the blade at the Musou's contact (musou/view.js look.dragon palette).
 // Edge lead (view): the clips key a spear line, so a glaive would often cut with its flat or spine. Each rendered frame,
 // after IK, the weapon rolls about its shaft so the edge (weapon +y) turns into the blade's motion — eased in through a
 // swing, held through hitstop, relaxed back to the authored roll out of combat. Render only (hands sit on the shaft, hit
@@ -51,10 +51,10 @@ export const GUANYU_KIT = defKit({
     mu: { crack: [0.6, 2.6, 1.1], wall: [0.2, 0.85, 0.35], light: [0.5, 1, 0.7] },
   },
   look: {
-    cut: { sub: '河東 關雲長', seal: '武聖', css: {
+    cut: { sub: '河东 关云长', seal: '武圣', css: {
       big: 'color: #f2fff4; text-shadow: 0 0 2px #04140a, 6px 8px 0 rgba(2,14,6,.55), 0 0 28px rgba(60,230,130,.6);',
       sub: 'color: #d8ffe4; text-shadow: 0 0 10px rgba(50,220,120,.75), 2px 2px 0 rgba(0,0,0,.6);' } },
-    // the jade 青龍 (musou/view.js dragon palette: linear HDR; shell = its rim glow, ink = its outline)
+    // the jade 青龙 (musou/view.js dragon palette: linear HDR; shell = its rim glow, ink = its outline)
     dragon: { body: [0.02, 0.3, 0.1], scale: [0.05, 0.56, 0.22], belly: [0.9, 0.82, 0.36], fin: [0.5, 1.3, 0.55], eye: [3.0, 2.2, 0.5],
       horn: [1.4, 1.15, 0.6], white: [1.05, 1.2, 1.0], whisker: [0.7, 1.5, 0.8], mouth: [0.32, 0.01, 0.03], shell: [0.25, 1.2, 0.55], ink: 0x021a0c },
     pal: { rays: [0.5, 1.3, 0.6], ring: [0.8, 2.1, 1.0], bolt: [1.4, 2.4, 1.5], burst: [0.5, 1.8, 0.8], ko: [0.3, 1.0, 0.45], glow: 0x8affb8,

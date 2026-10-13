@@ -1,6 +1,6 @@
 // Sword boss set (NPC kit weapon class: ./kit.js header) — a one-handed straight sword (origin = the grip, blade along
 // +Z to ≈ 0.95 m, flat in local XZ: roll 90 stands the edge up / down), the right hand on it, the left free (a two-handed
-// cut brings it onto the pommel, gripL −0.12): 曹操's 倚天劍. A lord's swordplay, fast and exact:
+// cut brings it onto the pommel, gripL −0.12): 曹操's 倚天剑. A lord's swordplay, fast and exact:
 //   slash   drawn back high over the right shoulder, a lunging diagonal cut and the backhand rising behind it (lane 5.5 m)
 //   whirl   the arm flung out straight, two full turns (circle 3.6 m, a hit every 11 sf)
 //   leap    a bound onto the hero, both hands on the hilt, the point driven into the ground (circle 3.6 m)

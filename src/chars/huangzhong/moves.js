@@ -1,6 +1,6 @@
 // Huang Zhong moveset (data only), modelled on the DW7/DW8 弓 (bow) moveset: the string mixes bow-limb slashes at
 // arm's length with point-blank shots, the charges are shots (fan, barrage, rain, fire arrow), plus the DW5 aim mode
-// (瞄準: hold △ from neutral). All timings in 60 Hz sim frames. Format = header of src/hero/moves.js, plus:
+// (瞄准: hold △ from neutral). All timings in 60 Hz sim frames. Format = header of src/hero/moves.js, plus:
 //
 //   shots: [{ f: frame (or [first, last] with `every`), n arrows, spread (total fan, degrees), dir (degrees, + = left),
 //             pitch (degrees, + = up), speed (m/s), g (gravity, m/s²), range (m of homing flight before the arrow drops),
@@ -104,7 +104,7 @@ export const MOVES = {
       dmg: 10, kb: 'flinch', force: 2, hitstop: 0, burst: { range: 2.3, dmg: 12, kb: 'launch', force: 3, lift: 7, hitstop: 2, heavy: true } }],
     hits: [{ f: [36, 38], every: ONCE, shape: 'circle', range: 2.4, dmg: 10, kb: 'flinch', force: 4, hitstop: 3 }] },
 
-  // 瞄準 aim mode (DW5): driven by aim.js; the clip is keyed on these frames, hits/shots are fired by aim.js itself
+  // 瞄准 aim mode (DW5): driven by aim.js; the clip is keyed on these frames, hits/shots are fired by aim.js itself
   aim: { frames: 30, cancel: 999, dodgeCancel: 0, steer: 0, tell: 14 },
 };
 

@@ -1,4 +1,4 @@
-// 張飛's moveset (def-kit moveset: src/chars/defkit.js header) — the 丈八蛇矛 swung like a club by a man who would rather
+// 张飞's moveset (def-kit moveset: src/chars/defkit.js header) — the 丈八蛇矛 swung like a club by a man who would rather
 // hit you with his fist: big flat swings, a haymaker, chops from over the shoulder, the butt of the spear driven into the
 // earth. Data like src/hero/moves.js (+ roar / proj windows); clips frame-keyed with hero/anims/author.js.
 //   N1 flat swing right → left · N2 rising backhand left → right · N3 two-handed driving thrust · N4 left haymaker, the
@@ -7,7 +7,7 @@
 //   C1 (neutral) 裂地: wound back over the head, slammed flat — the crack runs 7 m ahead · C2 (N1→) scoop launcher ·
 //   C3 (N2→) three chops walking forward, left, right, the last one two-handed · C4 (N3→) one full turn at arm's length
 //   from the butt · C5 (N4→) the butt stamped down left, right, then the shaft slammed flat across the front
-//   C6 (N5→) 當陽一喝: swung up, planted upright, a breath — the roar (rings of shock, proj 'roar')
+//   C6 (N5→) 当阳一喝: swung up, planted upright, a breath — the roar (rings of shock, proj 'roar')
 //   dash: head-down bull rush, spear trailed low, into a rising swing · air: chop ↓, backhand, a whirl ·
 //   jump charge: the spear twirled flat over the head through the hang, then dropped point-first into the ground
 // Musou 燕人咆哮 (musou/scripted.js): the roar · bull rush (CONTACT) · three chops · a turn · FINISHER: the shaft slammed
@@ -296,7 +296,7 @@ export function clips(A, M) {
       [d - 4, { ...torso(0, -16, 1.06, 0.06), spear: sp(0, 1.6, 0.12, -90, 0, 0), ...kneeL('c5', d - 4, 0.38) }, 'io'],
       [d, flat, 'snap'],
       [c, { ...flat, hips: [0, 0.62, 0.18] }, 'io'], [F, G]]); }
-  // C6 當陽一喝: swung up round the left, over the head, planted upright — a breath over it — and the roar
+  // C6 当阳一喝: swung up round the left, over the head, planted upright — a breath over it — and the roar
   { const [a] = hit('c6', 0), [r] = hit('c6', 1), { F, c } = frame('c6');
     const hold = { ...torso(-6, 12, 0.7, 0.12), spear: PLANT, gripL: 0.42 };
     out.c6 = clipF('c6', [[0, G],
@@ -385,7 +385,7 @@ export function clips(A, M) {
   return out;
 }
 
-// ---------------------------------------------------------------- 真・無雙 燕人咆哮 (musou/scripted.js)
+// ---------------------------------------------------------------- 真・无双 燕人咆哮 (musou/scripted.js)
 const MH = (dmg, kb, force, lift, extra) => ({ shape: 'circle', range: 5, dmg, kb, force, lift, hitstop: 0, yMax: 5, ...extra });
 const RING = (count, dmg) => ({ dmg, kb: 'blow', force: 13, lift: 5, hitstop: 0, heavy: true, proj: { count, spread: 360, speed: 23, life: 34, r: 2.3, y: 0.9, kind: 'roar' } });
 export const musou = {

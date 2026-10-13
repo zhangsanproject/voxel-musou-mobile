@@ -3,7 +3,7 @@
 //    damp water banks, scorched earth, cliff-foot AO and bare rock on the high ground, a dry-grass map splatted in by
 //    grassAt() and flagstone paving drawn in the shader (+ instanced wind-swayed tufts, voxel boulders at the cliff feet);
 //  · cliffs: 2 m voxel rock columns on every node outside the walkable edge, stepped in 1 m courses, climbing toward
-//    the owning piece's `rise` (定軍山: tall and sheer along the pass — DW8's canyon stages —, low ridges round the camp
+//    the owning piece's `rise` (定军山: tall and sheer along the pass — DW8's canyon stages —, low ridges round the camp
 //    plateau, gentle hills round the ford) or, for a piece with `drop`, a rim and a fall-away on its near side (the
 //    summit's vista). Only exposed faces are built, so a camera that slips inside a cliff sees through it; they
 //    receive shadows but cast none (a 30 m wall would black out the whole pass floor under a low sun);
@@ -107,7 +107,7 @@ function groundTexture() {
 
 /**
  * Dry golden-olive grass mask 0..1 on the open ground: gone on the road and the paving, trampled into patches where
- * the fight runs, lush on the water's banks, bare where def.terrain.bare says (定軍山: the Wei camp). Also seeds the
+ * the fight runs, lush on the water's banks, bare where def.terrain.bare says (定军山: the Wei camp). Also seeds the
  * grass tufts.
  */
 function grassAt(x, z) {
@@ -452,7 +452,7 @@ function cliffs() {
 }
 
 /** Voxel pines on the rock tops (instanced trunk + three tiers): wooded shoulders, thicker over def.terrain.pines
- *  [z0, z1] (定軍山: toward the summit). */
+ *  [z0, z1] (定军山: toward the summit). */
 function pines() {
   const spots = [], [pz0, pz1] = T.pines || [G.z0, G.z1];
   for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) {
@@ -522,7 +522,7 @@ function ringNoise(n, seed) {
  * Three rings of jagged mountains round the middle of the grid (MX, MZ), faceted (flat triangles) with baked light and
  * haze so they need no fog and blend into the sky at their base. Peaks stay low in angle (≈ 2-7°) so the gameplay
  * camera still sees sky above them — except a named peak on the first ring (def.terrain.mountains { peakA: bearing,
- * peak: m }; 定軍山: Dingjun's own, straight up the valley just right of the sunset saddle — the dark shoulder every
+ * peak: m }; 定军山: Dingjun's own, straight up the valley just right of the sunset saddle — the dark shoulder every
  * zone looks toward, the summit's backdrop). A saddle always opens where the sun sets (SUN_AZ).
  * Blue-leaning mauve: the post grade warms them onto the concept's #7e7384–#898197.
  */

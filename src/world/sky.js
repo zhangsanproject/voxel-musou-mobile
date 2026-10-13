@@ -1,6 +1,6 @@
 // Atmosphere, per map (def.sky): a sky dome (sun, glow, blocky clouds, zenith) and a sun-aware aerial haze that replaces
 // three's fog chunk, so every fogged material (ground, castle, crowd, hero, debris) washes out toward the same colour
-// the sky has at the horizon in that direction (定軍山: golden amber toward the low sun, cool lavender-blue away from it).
+// the sky has at the horizon in that direction (定军山: golden amber toward the low sun, cool lavender-blue away from it).
 // Switching maps never recompiles: the haze palette lives in shared fog-chunk uniforms (ATMO: plain {x, y, z(, w)}
 // values, which three's cloneUniforms keeps by reference, so every program — built-in materials via ShaderLib, the
 // river / vfx dust via UniformsLib.fog, the sky — reads the same objects) that setAtmo() rewrites; SUN_DIR / SKY_UP /
@@ -10,7 +10,7 @@
 // keep them in sync.
 import * as THREE from 'three';
 
-/** def.sky keys (all optional; colours sRGB hex). The defaults are 定軍山's golden hour. */
+/** def.sky keys (all optional; colours sRGB hex). The defaults are 定军山's golden hour. */
 export const SKY = {
   // visible sun: 18° left of the wall-facing view, in the gap between the castle's corner tower and the watchtowers;
   // 2.9° up so the disc sits inside the gameplay frame (its top edge is ≈ 5° above level) instead of above it

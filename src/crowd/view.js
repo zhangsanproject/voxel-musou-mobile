@@ -381,7 +381,7 @@ export function createCrowdView(scene, game) {
   nearFade(mat, 2.4, (sh) => {
     // backlit golden hour: a little self-light keeps the army from reading as black blocks, and the armies' accent
     // colours (headbands, crests, tassels, sashes) glow enough to read as a pattern at distance and at night. The hue
-    // masks are disjoint (red: 魏 · green: 蜀 / 劉 · blue: 曹 · purple: 董); dark coats stay under them
+    // masks are disjoint (red: 魏 · green: 蜀 / 刘 · blue: 曹 · purple: 董); dark coats stay under them
     sh.uniforms.uGlow = uGlow;
     sh.fragmentShader = 'uniform vec4 uGlow;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
       #ifdef USE_COLOR

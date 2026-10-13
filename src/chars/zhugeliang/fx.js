@@ -1,7 +1,7 @@
-// 諸葛亮's own render layer (def.fxView: src/chars/defkit.js — part of his Musou view; render-only, reads the sim and bus
+// 诸葛亮's own render layer (def.fxView: src/chars/defkit.js — part of his Musou view; render-only, reads the sim and bus
 // events, never writes it). On top of the shared kit view (chars/kitview.js: wind blades, beams, rain, musou:fx):
 //  · 八卦 sigils: a glowing trigram circle draped on the terrain (conforming grid like vfx.js cracks, pattern in the
-//    fragment shader): a double octagon rim, the eight trigrams in 先天 order (乾 toward his facing) turning slowly, a
+//    fragment shader): a double octagon rim, the eight trigrams in 先天 order (干 toward his facing) turning slowly, a
 //    ticked inner ring and a turning taiji, over a faint violet wash. It is drawn round like a brush stroke, pulses while
 //    it holds, flares white-gold when it detonates and fades.
 //      C6 (moves.js `sigil` windows): drawn where window 1 opens (SIGIL box centre, 4.6 m ahead, r 3.1 m), synced to his
@@ -27,7 +27,7 @@ const VS = /* glsl */`
 const FS = /* glsl */`
   uniform float uT, uGrow, uA, uFlash, uYaw; uniform vec3 uGold, uViolet; varying vec2 vP;
   float ln(float d, float w) { float aa = fwidth(d) * 1.2; return 1.0 - smoothstep(w - aa, w + aa, abs(d)); }
-  float tri(float s) {                          // 先天八卦 clockwise from 乾: bit k = line k from the inside (1 = unbroken)
+  float tri(float s) {                          // 先天八卦 clockwise from 干: bit k = line k from the inside (1 = unbroken)
     return s < 0.5 ? 7.0 : s < 1.5 ? 6.0 : s < 2.5 ? 2.0 : s < 3.5 ? 4.0 : s < 4.5 ? 0.0 : s < 5.5 ? 1.0 : s < 6.5 ? 5.0 : 3.0;
   }
   void main() {

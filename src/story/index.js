@@ -8,7 +8,7 @@
 //                                          frozen on the win / loss frame; the result animation adds no time or KOs
 //   story.morale                           ally share of the HUD morale bar 0-1 (undefined in free mode: HUD falls back)
 //   story.target                           {x, z} the HUD objective arrow points at, or null
-//   story.hq                               [x, z] of the foe's 本陣 on the minimap (CH.hq), or null (free: the HUD's default)
+//   story.hq                               [x, z] of the foe's 本阵 on the minimap (CH.hq), or null (free: the HUD's default)
 //   story.timer                            seconds left on the objective countdown (obj.timer), or null (HUD)
 //   story.defend                           { name {zh, en}, f (HP fraction), x, z } of the point being defended, or null
 // Modes: 'story' plays one chapter, 'trial' one trial (trials.js: the same format, no prologue, gates left open, the
@@ -236,7 +236,7 @@ export function createStory(game) {
   };
 
   /** DW-style rank from KOs, clear time and damage taken: 3 points each (+ game.diff.rankBonus; KO / time steps from
-   *  CH.rank), S ≥ 8, A ≥ 6, B ≥ 4, else C; never above game.diff.rankMax (初級 tops out at A).
+   *  CH.rank), S ≥ 8, A ≥ 6, B ≥ 4, else C; never above game.diff.rankMax (初级 tops out at A).
    *  CH.rank.s, when present, also requires time ≤ s.time, KOs ≥ s.kos and damage ≤ hpMax × s.dmg for S. */
   function rank({ kos, time, dmg, hpMax }) {
     const R = C.CH.rank;

@@ -76,24 +76,24 @@ export function createHud(root, game, camera) {
   const nOff = game.crowd.N - game.crowd.grunts;                     // officer slots (crowd CROWD.officerSlots)
   const nAct = 4;                                                    // actors lane: tags for hero-model actors (after the officers')
   root.innerHTML = `
-    <div class="h-obj"><i>◆</i><b></b><small></small><span class="tm"><i>限時</i><b></b></span><span class="go"><i class="ar"></i><em></em></span></div>
+    <div class="h-obj"><i>◆</i><b></b><small></small><span class="tm"><i>限时</i><b></b></span><span class="go"><i class="ar"></i><em></em></span></div>
     <div class="h-def"><i class="seal">守</i><b></b><span></span><div class="bar"><em></em><i></i></div></div>
     <div class="h-intro"><div class="zh"></div><i class="seal"></i><div class="en"></div>
       <div class="sub"></div>
       <div class="keys"></div></div>
-    <div class="h-target"><i class="seal">將</i><b></b><span></span><div class="bar"><em></em><i></i></div><strong>擊破</strong></div>
+    <div class="h-target"><i class="seal">将</i><b></b><span></span><div class="bar"><em></em><i></i></div><strong>击破</strong></div>
     <div class="h-boss"><div class="nm"><b></b><i class="seal"></i><span></span></div><div class="bar bhp"><em></em><i></i></div><div class="bar bpo"><i></i></div></div>
     <div class="h-map"><div class="morale"><i></i><span></span><span></span></div><canvas width="200" height="200"></canvas><i class="seal">${MAP.name.zh}</i></div>
     <div class="h-offs">${'<div class="off"><i class="ld"></i><div class="mk">▼▼</div><div class="bd"><b></b><span></span><div class="bar"><em></em><i></i></div></div></div>'.repeat(nOff + nAct)}</div>
-    <div class="h-chain"><div class="num"><b class="dig" data-t="0"><span>0</span></b><u></u><u></u><u></u></div><small><em>連擊</em>CHAIN</small></div>
-    <div class="h-mile"><b class="dig" data-t="50"><span>50</span></b><i class="seal">擊破</i></div>
+    <div class="h-chain"><div class="num"><b class="dig" data-t="0"><span>0</span></b><u></u><u></u><u></u></div><small><em>连击</em>CHAIN</small></div>
+    <div class="h-mile"><b class="dig" data-t="50"><span>50</span></b><i class="seal">击破</i></div>
     <div class="h-band"><p></p><small></small></div>
     <div class="h-dlg"><canvas width="20" height="20"></canvas><i class="dseal"></i><div><b><i></i> <span></span></b><p></p><small></small></div></div>
     <div class="h-copy"></div>
     <div class="h-player"><div class="badge"><canvas width="20" height="20"></canvas></div><div class="name"></div>
       <div class="bar hp"><em></em><i></i></div>
-      <div class="mu"><div><i></i></div><div><i></i></div><div><i></i></div><span>無雙</span></div></div>
-    <div class="h-ko"><div class="num"><b class="dig" data-t="0"><span>0</span></b><u>0</u></div><small><em>擊破</em>K.O. COUNT</small></div>`;
+      <div class="mu"><div><i></i></div><div><i></i></div><div><i></i></div><span>无双</span></div></div>
+    <div class="h-ko"><div class="num"><b class="dig" data-t="0"><span>0</span></b><u>0</u></div><small><em>击破</em>K.O. COUNT</small></div>`;
   const $ = (s) => root.querySelector(s), $$ = (s) => [...root.querySelectorAll(s)];
   const intro = $('.h-intro'), player = $('.h-player'), hpI = $('.hp i'), hpE = $('.hp em'), muSeg = $$('.mu i'), mu = $('.mu');
   const ko = $('.h-ko'), koB = $('.h-ko b'), koG = $('.h-ko u'), chain = $('.h-chain'), chainB = $('.h-chain b');
@@ -110,7 +110,7 @@ export function createHud(root, game, camera) {
   const defI = $('.h-def .bar i'), defE = $('.h-def .bar em');
   const moraleI = $('.morale i'), [moraleA, moraleF] = $$('.morale span'), mapEl = $('.h-map');
   const mapCv = $('.h-map canvas'), map = mapCv.getContext('2d');
-  const offName = (i) => game.crowd.offName[i - game.crowd.grunts] || { zh: '敵將', en: 'OFFICER' };
+  const offName = (i) => game.crowd.offName[i - game.crowd.grunts] || { zh: '敌将', en: 'OFFICER' };
   const cap = (en) => en.replace(/\b(\w)(\w*)/g, (m, a, b) => a + b.toLowerCase());
   const boss = $('.h-boss'), bossB = $('.h-boss b'), bossSeal = $('.h-boss .seal'), bossS = $('.h-boss span');
   const bossI = $('.h-boss .bhp i'), bossE = $('.h-boss .bhp em'), bossP = $('.h-boss .bpo i');
@@ -132,10 +132,10 @@ export function createHud(root, game, camera) {
     text($('.h-intro .zh'), ch.name.zh); text($('.h-intro .seal'), ch.seal); text($('.h-intro .en'), ch.name.en.toUpperCase());
     text($('.h-intro .sub'), ch.motto); text($('.h-player .name'), ch.name.zh);
     $('.h-copy').innerHTML = ch.lines.copy.join('<br>');
-    // keys row from the kit: an aim mode (kit.moves.aim, 黃忠) puts hold-K aim first, before the charge
-    $('.h-intro .keys').innerHTML = `<kbd>WASD</kbd> 移動 move · <kbd>J</kbd> 攻擊 attack · ${ch.kit.moves.aim
-      ? '<kbd>K</kbd> 長按瞄準 hold to aim · 連擊中 蓄力 mid-combo charge' : '<kbd>K</kbd> 蓄力 charge'}<br>
-      <kbd>Space</kbd> 跳躍 jump · <kbd>L</kbd> 閃避 dodge · <kbd>I</kbd> 無雙 musou · <kbd>R</kbd> 鎖定 recenter · <kbd>H</kbd> 說明`;
+    // keys row from the kit: an aim mode (kit.moves.aim, 黄忠) puts hold-K aim first, before the charge
+    $('.h-intro .keys').innerHTML = `<kbd>WASD</kbd> 移动 move · <kbd>J</kbd> 攻击 attack · ${ch.kit.moves.aim
+      ? '<kbd>K</kbd> 长按瞄准 hold to aim · 连击中 蓄力 mid-combo charge' : '<kbd>K</kbd> 蓄力 charge'}<br>
+      <kbd>Space</kbd> 跳跃 jump · <kbd>L</kbd> 闪避 dodge · <kbd>I</kbd> 无双 musou · <kbd>R</kbd> 锁定 recenter · <kbd>H</kbd> 说明`;
     paintPortrait($('.h-player canvas'), ch);
     for (const g of chainG) g.f = -99;
     for (const o of offs) o.lag = 1;
@@ -149,7 +149,7 @@ export function createHud(root, game, camera) {
   // big: the DW8 officer-slain / commander banners (larger gold brush type in the same band)
   // pri: 0 officer KO / wave, 1 story, 2 big story. The queue stays sorted by pri (FIFO within one); when full the lowest
   // (newest of the lowest) is dropped, never a higher one. A big story banner flushes queued pri-0 chatter and cuts a
-  // pri-0 band in play, so the chapter payoff (敵總大將 討取！) shows at once, inside the victory slow-mo.
+  // pri-0 band in play, so the chapter payoff (敌总大将 讨取！) shows at once, inside the victory slow-mo.
   const banner = (html, en, dur = 150, big = false, pri = 0) => {
     const q = S.bandQ;
     if (pri >= 2) { for (let k = q.length - 1; k >= 0; k--) if (!q[k].pri) q.splice(k, 1); if (S.band && !S.band.pri) S.band = null; }
@@ -172,11 +172,11 @@ export function createHud(root, game, camera) {
   on('story:banner', (e) => banner(e.html, e.en, e.dur ?? 150, !!e.big, e.big ? 2 : 1));
   on('story:objective', (e) => { S.obj = e.zh ? { zh: e.zh, en: e.en || '', f: game.frame } : null; if (S.obj) { text(objB, e.zh); text(objS, e.en || ''); } });
   on('crowd:wave', (e) => {
-    if (game.frame - S.waveF > 600) { S.waveF = game.frame; const a = game.army.foe; banner(`<em>${a.name.zh}</em>援兵 抵達`, `${a.name.en} reinforcements have arrived!`, 130); }
+    if (game.frame - S.waveF > 600) { S.waveF = game.frame; const a = game.army.foe; banner(`<em>${a.name.zh}</em>援兵 抵达`, `${a.name.en} reinforcements have arrived!`, 130); }
     S.waves.push({ x: e.x, z: e.z, f: game.frame });
   });
   on('crowd:allies', (e) => {
-    if (game.frame - S.allyF > 900) { S.allyF = game.frame; const a = game.army.ally; banner(`<em>${a.name.zh}</em>援兵 趕到`, `${a.name.en} reinforcements have joined the fight`, 120); }
+    if (game.frame - S.allyF > 900) { S.allyF = game.frame; const a = game.army.ally; banner(`<em>${a.name.zh}</em>援兵 赶到`, `${a.name.en} reinforcements have joined the fight`, 120); }
     S.waves.push({ x: e.x, z: e.z, f: game.frame, ally: true });
   });
   on('hit', (e) => { S.actF = game.frame; if (e.officer) { S.tgt = e.i; S.tgtF = game.frame; } });
@@ -184,7 +184,7 @@ export function createHud(root, game, camera) {
   on('ko', (e) => {
     if (!e.officer || game.crowd.boss[e.i]) return;                   // the story announces the commander itself (big banner)
     const { zh, en } = offName(e.i);
-    banner(`敵將 <em>${zh}</em> 擊破！`, `Enemy officer ${cap(en)} defeated!`, 150);
+    banner(`敌将 <em>${zh}</em> 击破！`, `Enemy officer ${cap(en)} defeated!`, 150);
     S.tgt = e.i; S.tgtKoF = game.frame;
   });
   on('musou:start', () => { S.musouF = S.actF = game.frame; S.band = null; S.dlg = null; });
@@ -195,16 +195,16 @@ export function createHud(root, game, camera) {
     const { zh, en } = e.name;
     if (e.role === 'boss') {
       S.boss = game.actors.get(e.key); S.bossLag = 1;
-      if (game.mode !== 'story') banner(e.intro ? e.intro.zh : `<em>${zh}</em> 出陣`, e.intro ? e.intro.en : `${cap(en)} takes the field!`, 200, true, 2);
+      if (game.mode !== 'story') banner(e.intro ? e.intro.zh : `<em>${zh}</em> 出阵`, e.intro ? e.intro.en : `${cap(en)} takes the field!`, 200, true, 2);
     }
-    else if (e.role === 'ally') banner(`<em>${zh}</em> 參戰`, `${cap(en)} joins the battle`, 150, false, 1);
+    else if (e.role === 'ally') banner(`<em>${zh}</em> 参战`, `${cap(en)} joins the battle`, 150, false, 1);
   });
   on('actor:hit', (e) => { S.boss = game.actors.get(e.key); S.bossF = S.actF = game.frame; });
   on('actor:retreat', (e) => {
     const a = game.actors.get(e.key);
-    if (a && a.isFoe && game.mode !== 'story') banner(e.beaten ? `<em>${a.name.zh}</em> 敗走！` : `<em>${a.name.zh}</em> 撤退`, `${cap(a.name.en)} ${e.beaten ? 'is routed!' : 'withdraws'}`, e.beaten ? 220 : 150, e.beaten, e.beaten ? 2 : 1);
+    if (a && a.isFoe && game.mode !== 'story') banner(e.beaten ? `<em>${a.name.zh}</em> 败走！` : `<em>${a.name.zh}</em> 撤退`, `${cap(a.name.en)} ${e.beaten ? 'is routed!' : 'withdraws'}`, e.beaten ? 220 : 150, e.beaten, e.beaten ? 2 : 1);
   });
-  on('actor:down', (e) => { const a = game.actors.get(e.key); if (a && game.mode !== 'story') banner(`敵將 <em>${a.name.zh}</em> 擊破！`, `${cap(a.name.en)} defeated!`, 220, true, 2); });
+  on('actor:down', (e) => { const a = game.actors.get(e.key); if (a && game.mode !== 'story') banner(`敌将 <em>${a.name.zh}</em> 击破！`, `${cap(a.name.en)} defeated!`, 220, true, 2); });
   addEventListener('keydown', (e) => { if (e.code === 'KeyH') showKeys = !(showKeys ?? true); });
 
   const set = (el, prop, v) => { if (el.style[prop] !== v) el.style[prop] = v; };
@@ -303,7 +303,7 @@ export function createHud(root, game, camera) {
       set(ko, 'opacity', S.shownKo === 0 ? '0' : Math.min(calm, f - S.koF > 300 ? 0.7 : 1).toFixed(2));   // hidden until the first KO
 
       // KO milestone (upper third, right of centre: off the fighting space), DW8 timing (~0.3 s): slams in solid at 1.7× → 1 over 3 f with a white-hot flash, holds to
-      // f 11, then slides left and fades out by f 18. The red 擊破 seal stamps down at f 2.
+      // f 11, then slides left and fades out by f 18. The red 击破 seal stamps down at f 2.
       const mt = f - S.mileF;
       if (mt < 19) {
         const k = clamp01(1 - mt / 3), fl = clamp01(1 - mt / 5);
@@ -526,10 +526,10 @@ export function createHud(root, game, camera) {
         map.fillStyle = '#d0a040'; map.beginPath(); map.moveTo(0, -7); map.lineTo(-5, 1); map.lineTo(5, 1); map.fill();
         map.restore();
         map.fillStyle = 'rgba(236,214,172,0.9)';
-        map.fillText('本陣', Math.max(18, Math.min(182, px - dx * 0.16)), Math.max(18, Math.min(186, py - dy * 0.16 + 5)));
+        map.fillText('本阵', Math.max(18, Math.min(182, px - dx * 0.16)), Math.max(18, Math.min(186, py - dy * 0.16 + 5)));
       } else {
         map.fillStyle = '#d0a040'; map.fillRect(hqX - 4, hqY - 4, 8, 8);
-        map.fillStyle = 'rgba(236,214,172,0.9)'; map.fillText('本陣', hqX, hqY - 8);
+        map.fillStyle = 'rgba(236,214,172,0.9)'; map.fillText('本阵', hqX, hqY - 8);
       }
       if (dp) {                                                      // the defend point: a pulsing teal ring
         map.strokeStyle = `rgba(110,224,200,${(0.6 + 0.4 * Math.sin(f * 0.1)).toFixed(2)})`; map.lineWidth = 2.5;

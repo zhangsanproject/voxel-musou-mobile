@@ -1,12 +1,12 @@
-// 劉備's own effects (render-only; part of his Musou view: kit.js), drawn over the def-kit ones (chars/kitview.js). Reads
+// 刘备's own effects (render-only; part of his Musou view: kit.js), drawn over the def-kit ones (chars/kitview.js). Reads
 // sim state, never writes it.
-//  · 昭烈・雙龍斬's twin dragons, one gold and one jade: serpents of glowing blocks (a tapering body, a horned head with an
+//  · 昭烈・双龙斩's twin dragons, one gold and one jade: serpents of glowing blocks (a tapering body, a horned head with an
 //    open jaw, dorsal fins; an additive glow shell over all of it) born from his blades at CONTACT (musou 130-132). They
 //    run a double helix 18 m out along the contact line, crossing and re-crossing (the rush hits there, moves.js), rear up
 //    (160-170), then dive crossing into the finisher just ahead of him (176) and burst into shards. The heads follow keyed
 //    points in the Musou's contact frame (mu.toWorld; the dive's end tracks his live position), Catmull-Rom in time; each
 //    body block trails along the head's own past path.
-//  · 仁德 (C6): a gold 義 gathers over him while the swords go up and bursts outward on the shock frame.
+//  · 仁德 (C6): a gold 义 gathers over him while the swords go up and bursts outward on the shock frame.
 //  · the left sword's ribbon (vfx.js draws the weapon joint's): a fading additive strip over the last TN rendered blade
 //    positions (LEFT.blade = its mesh, set by the kit's view hook), lit only where the tip moved fast, while he attacks.
 import * as THREE from 'three';
@@ -57,12 +57,12 @@ export function createTwinView(parent, game) {
     shell.setColorAt(d * N + i, _c.setRGB(COL[d][0] * 0.6, COL[d][1] * 0.6, COL[d][2] * 0.6));
   }
 
-  // 義: a calligraphy sprite
+  // 义: a calligraphy sprite
   const cv = document.createElement('canvas'); cv.width = cv.height = 256;
   const g = cv.getContext('2d');
   g.font = '200px "Xingkai SC", "STXingkai", "Libian SC", "Kaiti SC", "STKaiti", serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.shadowColor = 'rgba(255, 200, 80, 0.9)'; g.shadowBlur = 24; g.fillStyle = '#ffe9a8'; g.fillText('義', 128, 136);
-  g.shadowBlur = 0; g.fillStyle = '#fff8e0'; g.fillText('義', 128, 136);
+  g.shadowColor = 'rgba(255, 200, 80, 0.9)'; g.shadowBlur = 24; g.fillStyle = '#ffe9a8'; g.fillText('义', 128, 136);
+  g.shadowBlur = 0; g.fillStyle = '#fff8e0'; g.fillText('义', 128, 136);
   const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace;
   const yi = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: new THREE.Color(1.6, 1.3, 0.6), blending: THREE.AdditiveBlending,
     transparent: true, depthWrite: false, fog: false }));

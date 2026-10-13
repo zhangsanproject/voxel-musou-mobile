@@ -42,7 +42,7 @@ if (process.argv.includes('--defense') || process.argv.includes('--altar')) {
         game.musou = game.hero.kit.createMusou(game); game.musou.reset();
         game.story = createStory(game); game.story.reset({ mode: 'story', char, ch: C.CH.id });
         on('story:end', (e) => { end = e; });
-        on('story:objective', (e) => { if (e.zh.includes('接應趙雲')) passed = true; });
+        on('story:objective', (e) => { if (e.zh.includes('接应赵云')) passed = true; });
         on('story:set', (e) => { if (altar && e.id === 'wind') passed = true; });
         return game.actors;
       });
@@ -157,10 +157,10 @@ for (const C of CHAPTERS) for (const char of C.CH.heroes) {
   const s = run(C.CH.id, char);
   if (C.CH.id === 'hulao') {
     assert.equal(s.actors.filter((a) => a.role === 'ally').length, 2, `the other two brothers must join ${char}`);
-    if (char === 'guanyu') assert(s.banners.some((b) => b.includes('溫酒斬華雄')), 'warm-wine branch must fire');
+    if (char === 'guanyu') assert(s.banners.some((b) => b.includes('温酒斩华雄')), 'warm-wine branch must fire');
   }
   if (C.CH.id === 'changban') {
-    assert(s.objectives.some((o) => o.zh.includes(char === 'zhaoyun' ? '懷抱阿斗' : '護送趙雲')));
+    assert(s.objectives.some((o) => o.zh.includes(char === 'zhaoyun' ? '怀抱阿斗' : '护送赵云')));
     if (char === 'zhangfei') assert(s.sets.includes('bridge'), 'bridge must break after victory');
   }
   if (C.CH.id === 'chibi') assert.deepEqual(s.sets, ['wind', 'ignite', 'forest']);
@@ -168,8 +168,8 @@ for (const C of CHAPTERS) for (const char of C.CH.heroes) {
   console.log(`PASS ${C.CH.id}/${char} win and branch events`);
 }
 const cold = run('hulao', 'guanyu', { coldWine: true });
-assert(!cold.banners.some((b) => b.includes('溫酒斬華雄')));
-assert(cold.lines.some((l) => l.includes('酒已涼了')));
+assert(!cold.banners.some((b) => b.includes('温酒斩华雄')));
+assert(cold.lines.some((l) => l.includes('酒已凉了')));
 console.log('PASS guanyu cold wine remains winnable');
 
 // Changing to and from the spy objective must keep the original 120-second altar countdown.

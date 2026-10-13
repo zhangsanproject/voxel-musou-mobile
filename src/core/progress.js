@@ -3,7 +3,7 @@
 // A stage = a story chapter or a trial (story/chapters.js chapter(id)). A win (main.js, story:end → record()) keeps each
 // best on its own: the best rank, the fastest clear (s), the most KOs. Nothing else is stored — every unlock is derived
 // from the records (UNLOCKS: open(rec)), so no flag can fall out of step with them. Story chapters open in order
-// (chapters.js chapterOpen, same records). Readers: the title (chapter / trial / difficulty panels, the 戰績 wall),
+// (chapters.js chapterOpen, same records). Readers: the title (chapter / trial / difficulty panels, the 战绩 wall),
 // select (rank chips, locked officers), result (new records, unlock lines).
 const KEY = 'voxel-musou.save', ORDER = 'SABC';
 const load = () => {
@@ -32,10 +32,10 @@ export const cleared = (stage) => best(stage)?.rank;
 // open. zh / en: the result screen's line when it opens; rule: [zh, en] shown on the locked thing.
 const onHard = (R) => Object.values(R).some((s) => Object.values(s).some((c) => c.hard || c.chaos));
 export const UNLOCKS = [
-  { id: 'chaos', zh: '修羅難度', en: 'Chaos difficulty', rule: ['以上級攻克任一戰場後解鎖', 'Clear any battle on Hard to unlock'], open: onHard },
-  { id: 'lubu', zh: '武將「呂布」', en: 'Officer Lü Bu', rule: ['攻克第一章「虎牢關」後解鎖', 'Clear Chapter I · Hulao Gate to unlock'], open: (R) => !!R.hulao },
-  { id: 'hold', zh: '試煉「死守」', en: 'Trial · Hold the Bridge', rule: ['攻克第二章「長坂坡」後解鎖', 'Clear Chapter II · Changban to unlock'], open: (R) => !!R.changban },
-  { id: 'gauntlet', zh: '試煉「過關斬將」', en: 'Trial · The Gauntlet', rule: ['攻克第四章「定軍山」後解鎖', 'Clear Chapter IV · Mount Dingjun to unlock'], open: (R) => !!R.dingjun },
+  { id: 'chaos', zh: '修罗难度', en: 'Chaos difficulty', rule: ['以上级攻克任一战场后解锁', 'Clear any battle on Hard to unlock'], open: onHard },
+  { id: 'lubu', zh: '武将「吕布」', en: 'Officer Lü Bu', rule: ['攻克第一章「虎牢关」后解锁', 'Clear Chapter I · Hulao Gate to unlock'], open: (R) => !!R.hulao },
+  { id: 'hold', zh: '试炼「死守」', en: 'Trial · Hold the Bridge', rule: ['攻克第二章「长坂坡」后解锁', 'Clear Chapter II · Changban to unlock'], open: (R) => !!R.changban },
+  { id: 'gauntlet', zh: '试炼「过关斩将」', en: 'Trial · The Gauntlet', rule: ['攻克第四章「定军山」后解锁', 'Clear Chapter IV · Mount Dingjun to unlock'], open: (R) => !!R.dingjun },
 ];
 /** The UNLOCKS entry still keeping `id` shut (its rule is what to show), or null when it is open. */
 export function locked(id) {

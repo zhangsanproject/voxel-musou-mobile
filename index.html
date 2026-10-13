@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hans">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <link rel="icon" href="data:,">
-<title>趙雲 — Voxel Musou</title>
+<title>赵云 — Voxel Musou</title>
 <script type="importmap">
 { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
 </script>
@@ -117,7 +117,7 @@
       0 0 1.2rem rgba(90,200,255,.9); }
   #hud .h-chain small { color: #bfeeff; margin: -.3rem 0 0 .3rem; }
 
-  /* KO milestone: centre, heavy gold brush number (digits ~13 % H like DW8) + red 擊破 seal stamp */
+  /* KO milestone: centre, heavy gold brush number (digits ~13 % H like DW8) + red 击破 seal stamp */
   #hud .h-mile { right: calc(2.4% + 24rem); top: 3.4rem; text-align: right; opacity: 0; transform-origin: 70% 50%; }
   #hud .h-mile b { display: inline-block; font: 700 11rem/1 var(--brush); --rw: 1rem; --ew: .3rem; --hi: #fffdf0; --mid: #ffdc6a;
     vertical-align: middle; }
@@ -146,7 +146,7 @@
   #hud .h-dlg.wei b, #hud .h-dlg.wei b span { color: #ffb09a; }
   #hud .h-dlg.wei .dseal { background: var(--seal); box-shadow: inset 0 0 0 .22rem var(--seal), inset 0 0 0 .38rem rgba(248,230,210,.8),
     0 0 0 .15rem #d9d2c6, 0 .3rem .6rem rgba(0,0,0,.5); }
-  /* big band: commander intro / 討取 banner, DW8's slain-officer weight */
+  /* big band: commander intro / 讨取 banner, DW8's slain-officer weight */
   #hud .h-band.lo { left: 26%; right: 26%; top: 27%; padding: .4rem 0 .5rem;
     background: linear-gradient(90deg, rgba(10,6,4,0), rgba(10,6,4,.78) 18%, rgba(10,6,4,.78) 82%, rgba(10,6,4,0)); }
   #hud .h-band.lo p { font-size: 2.2rem; }
@@ -267,7 +267,7 @@
   #menu td:first-child small { font: 500 1.3rem/1 var(--sans); letter-spacing: .15em; color: #cdbb9c; margin-left: .8rem; }
   #menu td.pad { color: #c9b995; }
   #menu td:nth-child(2) { white-space: normal; max-width: 34rem; line-height: 1.45; }   /* the pad column must not push the table over the name */
-  /* 繼續 / 撤退 (#go / #quit): brush items; the focused one (main.js pause nav, .on) gets the title menu's red diamond + a
+  /* 继续 / 撤退 (#go / #quit): brush items; the focused one (main.js pause nav, .on) gets the title menu's red diamond + a
      gold swash, nudged right */
   #menu button { position: relative; align-self: flex-start; margin: 1rem 0 0 .2rem; padding: .6rem 0 1rem 3rem; cursor: pointer; border: 0;
     border-radius: 0; background: none; font: 700 4rem/1 var(--brush); letter-spacing: .4rem; color: rgba(244,234,216,.6);
@@ -338,7 +338,7 @@
   .ink-wait p { width: 40rem; text-align: center; font: 700 3rem/1.4 var(--kai); color: #f4ead8; }
   .ink-wait p small { display: block; font-size: 1.3rem; color: #cfc1a2; }
   .ink-wait i, .t-seal { --sz: 3.4rem; --lh: 1.02; --pad: .7rem .5rem; --rad: .4rem; --r1: .24rem; --r2: .42rem; --ra: .85;
-    --drop: 0 .4rem 1.2rem rgba(0,0,0,.6); transform: rotate(-5deg); }   /* the title logo's 三國 seal too */
+    --drop: 0 .4rem 1.2rem rgba(0,0,0,.6); transform: rotate(-5deg); }   /* the title logo's 三国 seal too */
   @keyframes inkTurn { to { transform: rotate(1turn); } }
   /* under a holding ink the entered screen's intros wait, then play as it is revealed (menu.js hold) */
   .inkhold :is(.scr, #hud) *, .inkhold .scr::before { animation-play-state: paused !important; }
@@ -469,8 +469,8 @@
   .t-rec li small { display: block; font: 600 max(11px, 1.1rem)/1.3 var(--sans); letter-spacing: .06em; color: #a99a7c; }
 
   /* difficulty panel (title.js setDif): in place of the menu once a mode is picked — the four tiers (the menu's diamond +
-     swash focus, a size down) and beside them a card with the focused tier's line and 敵勢 / 敵將 / 傷害 pips (select's
-     .s-stats bars). A locked 修羅: dimmed with a 鎖 tag, the card shows its unlock rule. */
+     swash focus, a size down) and beside them a card with the focused tier's line and 敌势 / 敌将 / 伤害 pips (select's
+     .s-stats bars). A locked 修罗: dimmed with a 锁 tag, the card shows its unlock rule. */
   #title:not(.dif) .t-dpanel, #title.dif .t-main { display: none; }
   :is(.t-dpanel, .t-cpanel) { display: flex; align-items: flex-start; gap: 3rem; margin-top: 4rem; }
   :is(.t-dpanel, .t-cpanel) .t-menu { margin-top: 0; min-width: 20rem; }
@@ -489,8 +489,8 @@
   :is(.t-dcard, .t-ccard) h3 { margin: 0 0 1.1rem; font: 700 1.7rem/1 var(--kai); letter-spacing: .3rem; color: #f2c14e; }
   :is(.t-dcard, .t-ccard) h3 small { margin-left: .8rem; font: 600 max(12px, 1.2rem)/1 var(--sans); letter-spacing: .14em; color: #c9b995; }
 
-  /* chapter / battlefield panel (title.js setCh): in place of the menu once 劇情模式 / 自由演武 is picked, the difficulty
-     panel in its place after a pick. The chapters in the tiers' look (a small 第X章 before each title; 鎖 on a locked one,
+  /* chapter / battlefield panel (title.js setCh): in place of the menu once 剧情模式 / 自由演武 is picked, the difficulty
+     panel in its place after a pick. The chapters in the tiers' look (a small 第X章 before each title; 锁 on a locked one,
      the best rank as a ringed brush letter after a cleared one) and beside them the era card: number, brush title + red
      seal, era, the prologue's opening lines (a locked chapter: what to clear first), the chapter's officers, best rank. */
   #title:not(.chp) .t-cpanel, #title.chp .t-main, #title.dif .t-cpanel { display: none; }
@@ -604,7 +604,7 @@
   #select .s-card.pick { animation: cardPick .45s cubic-bezier(.2,0,.2,1); }
   #select .s-card.pick canvas { animation: portPop .4s cubic-bezier(.3,1.6,.5,1); }
   /* records (select.js): the officer's best rank on this chapter / trial + tier left of his seal; a locked officer
-     (progress.js UNLOCKS) is dimmed with 鎖 there */
+     (progress.js UNLOCKS) is dimmed with 锁 there */
   .s-card .t-rk { position: absolute; right: 3.4rem; top: 50%; translate: 0 -50%; margin: 0; }
   .s-card.lock :is(canvas, b, small) { filter: grayscale(1) brightness(.6); }
   .s-card.lock .t-rk { --rc: #7a6a5a; font-family: var(--kai); font-size: 1.4rem; color: #cdbb9c; }
@@ -702,7 +702,7 @@
   @keyframes lineIn { from { transform: translateY(-1.6rem); } }
   @keyframes segIn { from { transform: skewX(-24deg) scaleX(0); } }
 
-  /* ---- loading card (#loading, loading.js): after 出陣, while main.js builds + compiles the chosen officer's battle */
+  /* ---- loading card (#loading, loading.js): after 出阵, while main.js builds + compiles the chosen officer's battle */
   #loading { overflow: hidden; background: #0c0806; }   /* --acc: the officer's, set by loading.js */
   /* key art (main.js snapArt still of the select stage): full-bleed, slow push-in toward the officer */
   .l-art { position: absolute; inset: 0; background: center / cover no-repeat; transform-origin: 74% 42%;
@@ -842,7 +842,7 @@
   #prologue .pl-stamp em { font: 600 1.6rem/1 var(--sans); font-style: normal; letter-spacing: .9em; margin-right: -.9em; color: #4a3020; opacity: 0; }
   #prologue.stamped .pl-stamp em { opacity: .85; transition: opacity .8s 1.4s; }
 
-  /* result: ink wash over the frozen field; brush 勝利 / 敗北, counted tallies, the rank stamp, the epilogue */
+  /* result: ink wash over the frozen field; brush 胜利 / 败北, counted tallies, the rank stamp, the epilogue */
   #result:not([hidden]) { display: flex; }
   #result { align-items: center; justify-content: flex-start; padding-bottom: 7rem; box-sizing: border-box;
     background: linear-gradient(90deg, rgba(10,6,4,.95) 0, rgba(10,6,4,.88) 52%, rgba(10,6,4,.5) 80%, rgba(10,6,4,.35)); }
@@ -873,7 +873,7 @@
   #result .rs-stats th small { font: 600 1.05rem/1 var(--sans); letter-spacing: .25em; color: #cdbb9c; margin-left: 1rem; }
   #result .rs-stats td { padding: .6rem 2rem; min-width: 12rem; text-align: right; font: 700 3.2rem/1 var(--brush); color: #f7f1e8;
     font-variant-numeric: tabular-nums; text-shadow: .2rem .3rem 0 rgba(0,0,0,.55); }
-  /* records (result.js): a tally that beat the officer's best — a gold 新紀錄 tag over the old value, struck through */
+  /* records (result.js): a tally that beat the officer's best — a gold 新纪录 tag over the old value, struck through */
   #result .rs-stats td.rs-new { min-width: 9rem; padding-left: 0; text-align: left; font: 600 1.2rem/1 var(--sans); text-shadow: none; }
   #result .rs-new b { display: inline-block; padding: .3rem .6rem; font: 700 1.5rem/1 var(--kai); color: #1a120d; border-radius: .2rem; transform: rotate(-4deg);
     background: linear-gradient(#ffe7a3, #f2c14e 55%, #c98a22); animation: rsStamp .4s cubic-bezier(.3,1.5,.5,1) both 2.2s; }
@@ -891,7 +891,7 @@
   #result .rs-rank.rA b { --rc: #b3261e; }
   #result .rs-rank.rB b { --rc: #2f8a84; --rg: rgba(63,184,176,.35); }
   #result .rs-rank.rC b { --rc: #7a6a5a; --rg: rgba(0,0,0,.3); color: #cdbb9c; }
-  /* the battle's difficulty: a small vermilion-edged tag after VICTORY / DEFEAT; the 修羅 unlock line stamps in after the rank */
+  /* the battle's difficulty: a small vermilion-edged tag after VICTORY / DEFEAT; the 修罗 unlock line stamps in after the rank */
   #result .rs-dif { display: inline-block; margin-left: 2rem; padding: .35rem .8rem; vertical-align: .2rem; font: 700 1.8rem/1 var(--kai); color: #efe3cf;
     border: .14rem solid #b3261e; border-radius: .3rem; background: rgba(179,38,30,.18); }
   #result .rs-dif small { margin-left: .6rem; font: 600 1.05rem/1 var(--sans); letter-spacing: .25em; text-transform: uppercase; color: #cdbb9c; }
@@ -991,12 +991,12 @@
 <button id="pause-btn" aria-label="Pause">⏸</button>
 <div id="hud" hidden></div>
 <div id="menu" hidden>
-  <div class="t">趙雲<i>常山</i></div>
+  <div class="t">赵云<i>常山</i></div>
   <div class="en" style="--d:.04s">VOXEL MUSOU</div>
-  <div class="sub" style="--d:.08s">戰局暫停<small>Battle paused</small></div>
-  <button id="go" style="--d:.14s">繼續<small>Resume</small></button>
+  <div class="sub" style="--d:.08s">战局暂停<small>Battle paused</small></div>
+  <button id="go" style="--d:.14s">继续<small>Resume</small></button>
   <button id="quit" style="--d:.18s">撤退<small>Quit to title</small></button>
-  <div class="hint" style="--d:.22s"><kbd>↑</kbd><kbd>↓</kbd> 選擇 Select · <kbd>Enter</kbd><kbd class="pad">A</kbd> 決定 Confirm · <kbd>Esc</kbd><kbd class="pad">B</kbd> 繼續 Resume</div>
+  <div class="hint" style="--d:.22s"><kbd>↑</kbd><kbd>↓</kbd> 选择 Select · <kbd>Enter</kbd><kbd class="pad">A</kbd> 决定 Confirm · <kbd>Esc</kbd><kbd class="pad">B</kbd> 继续 Resume</div>
 </div>
 <!-- flow screens (main.js). ui lane: #title #select · story lane: #prologue #result -->
 <div id="title" class="scr" hidden></div>
@@ -1008,17 +1008,17 @@
 <div id="portrait-overlay">
   <div class="portrait-icon">
     <svg viewBox="0 0 64 64" width="64" height="64"><rect x="16" y="6" width="32" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="50" r="3" fill="currentColor"/><line x1="24" y1="12" x2="40" y2="12" stroke="currentColor" stroke-width="2"/></svg>
-    <p>旋轉手機<small>Rotate to landscape</small></p>
+    <p>旋转手机<small>Rotate to landscape</small></p>
   </div>
 </div>
 <div id="ink" class="boot"><div class="ink-wait"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" stroke-width="2.6" stroke-dasharray="120 163"/>
-  <circle cx="50" cy="50" r="41" stroke-width="1.2" stroke-dasharray="36 222" stroke-dashoffset="-150" opacity=".6"/></svg><i>無雙</i></div></div>
+  <circle cx="50" cy="50" r="41" stroke-width="1.2" stroke-dasharray="36 222" stroke-dashoffset="-150" opacity=".6"/></svg><i>无双</i></div></div>
 <script>
   // boot failure (a module that 404s or won't link, e.g. a stale cached copy next to fresh ones): the page opens under the
   // ink and only main.js lifts it, so say what happened instead of turning the seal forever
   addEventListener('error', () => {
     const w = document.querySelector('#ink.boot .ink-wait');
-    if (w) w.innerHTML = '<p>載入失敗<small>Failed to load · force-reload (Ctrl/Cmd+Shift+R)</small></p>';
+    if (w) w.innerHTML = '<p>载入失败<small>Failed to load · force-reload (Ctrl/Cmd+Shift+R)</small></p>';
   }, true);
 </script>
 <script type="module" src="./src/main.js"></script>

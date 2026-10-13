@@ -1,12 +1,12 @@
-// 劉備 玄德 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig. The lord of
-// the peach-garden oath: hair gathered in a topknot (束髮) under a small gold crown with a jade gem and a gold pin, two
-// green crown ribbons trailing; 雙耳垂肩 — long earlobes hanging to the jaw; a kind but resolute face: level brows,
+// 刘备 玄德 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig. The lord of
+// the peach-garden oath: hair gathered in a topknot (束发) under a small gold crown with a jade gem and a gold pin, two
+// green crown ribbons trailing; 双耳垂肩 — long earlobes hanging to the jaw; a kind but resolute face: level brows,
 // gentle eyes, a thin moustache drooping at the ends and a short chin tuft. A green robe patterned with lighter weave,
-// its crossed collar (交領) edged in gold over a white inner collar, under light silver-steel lamellar with gold lips:
-// cuirass, belly plates, round shoulder guards, thigh tassets and greaves; a gold 護心鏡 with a jade pearl on the chest;
+// its crossed collar (交领) edged in gold over a white inner collar, under light silver-steel lamellar with gold lips:
+// cuirass, belly plates, round shoulder guards, thigh tassets and greaves; a gold 护心镜 with a jade pearl on the chest;
 // a gold-brocade waist sash, leather belt with a jade buckle and a jade pendant (玉佩) swinging at the left hip; front and
 // back robe panels hanging to the knee (chains), a short green cape with a gold hem and roundel, black boots.
-// Weapon: the 雙股劍 — a pair of straight jian: green-wrapped grip, jade-set gold pommel ring and guard, a long steel
+// Weapon: the 双股剑 — a pair of straight jian: green-wrapped grip, jade-set gold pommel ring and guard, a long steel
 // blade with a dark fuller and bright edges, a tassel at each pommel (gold right, jade left). The right sword is the
 // weapon joint's; kit.js hangs the second on the left hand (swordGeo, shared geometry).
 import { vox, B, P, md, mirX, lamellar } from '../../hero/model.js';
@@ -131,7 +131,7 @@ function head() {
     B([-3, 15, -4], [4, 18, 3], (x, y) => (y === 17 ? C.goldL : C.gold)),
     B([-2, 15, 3], [3, 20, 4], (x, y) => (y === 19 ? C.goldL : C.gold)), P([0, 16, 3], [1, 18, 4], C.jade),
     B([-6, 18, -1], [7, 19, 0], C.goldL), B([-7, 18, -2], [-6, 20, 1], C.gold), B([6, 18, -2], [7, 20, 1], C.gold),
-    // 雙耳垂肩: long ears whose lobes hang down to the jaw, dark in the bowl
+    // 双耳垂肩: long ears whose lobes hang down to the jaw, dark in the bowl
     ...symH(7, 8, 3, 11, -1, 2, C.skin, false), ...symH(7, 9, -1, 4, -1, 2, C.skin, false), ...symH(7, 8, 5, 10, 0, 1, C.skinD),
     // level brows, gentle eyes (white, a dark iris toward the nose, the upper lid), the brow ridge shade
     ...symH(1, 6, 10, 11, 5, 7, C.hair, false), ...symH(5, 6, 11, 12, 5, 7, C.hair, false),
@@ -148,7 +148,7 @@ function head() {
   ];
 }
 
-// ---------------------------------------------------------------- 雙股劍: one jian (shaft +Z, origin = the grip centre)
+// ---------------------------------------------------------------- 双股剑: one jian (shaft +Z, origin = the grip centre)
 const SV = 0.01;
 /** [{geo, mat}] of one sword: grip (body), gold fittings (metal), the blade (blade). The blade runs z 0.1 … 0.88 m. */
 export function swordGeo() {

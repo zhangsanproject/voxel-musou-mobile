@@ -1,7 +1,7 @@
 // Voxel Huang Zhong on the shared rig, same build / scale / armour cut as Zhao Yun (src/hero/model.js bodyParts, recoloured):
 // red lamellar with gold plates and a bronze-gold scale mantle over a dark underlayer, dark crimson sash and trim; the
 // veteran's head — grey topknot with a red band and gold pin, red headband, long drooping white brows, white moustache
-// and full beard (the long end hangs as a chain); a big lacquered recurve 勁弓 whose back carries a steel blade edge
+// and full beard (the long end hangs as a chain); a big lacquered recurve 劲弓 whose back carries a steel blade edge
 // (the melee "sword" of the DW bow moveset) with gold dragon-tip finials; a red quiver of white-fletched arrows on the
 // right hip. Secondary (render-only): dark red cape, crimson apron, beard, topknot tails, pauldrons, plus the bowstring
 // (drawn through the right hand when it holds the nock) and the nocked arrow (flaming for fire shots). The bow-blade slash

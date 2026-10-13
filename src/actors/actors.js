@@ -1,5 +1,5 @@
 // Hero-model actors (sim): named officers who take the field with a whole kit (a CHARS id: model, chains, clips and move
-// table) on their own rig instead of a crowd slot (render: src/actors/view.js) — the boss (呂布 at 虎牢關) and allied
+// table) on their own rig instead of a crowd slot (render: src/actors/view.js) — the boss (吕布 at 虎牢关) and allied
 // officers fighting beside the hero. Deterministic (sim rng only), stepped once per sim step after the crowd (main.js);
 // everyone holds still through the Musou freeze, a foe also through hitstop (he never swings into a frozen hero).
 //
@@ -75,7 +75,7 @@ export const ACTOR = {
 };
 const NPC_KEY = 1.5e9;                                     // combat keys of actor blows (hero windows / arrows stay below)
 
-// Default boss attacks: a spear kit's moves (趙雲's table). sweep = the C4 360° spin, thrust = the C3 stepping flurry
+// Default boss attacks: a spear kit's moves (赵云's table). sweep = the C4 360° spin, thrust = the C3 stepping flurry
 // (window 1:1), leap = C6's leap → plunge (move frames 72 → 82).
 export const SPEAR = [
   { id: 'sweep', clip: 'c4', windup: 34, active: 28, recover: 30, every: 9, dmg: 34, shape: 'circle', r: 4.2, range: [0, 4.2], weight: 5 },
@@ -142,7 +142,7 @@ export function createActors(game) {
     const hp = Math.round((d.hp ?? (foe ? ACTOR.hp : ACTOR.allyHp)) * (foe ? game.diff.officerHp : 1)), poise = d.poise ?? kit.bossPoise ?? ACTOR.poise;   // (kit.bossPoise: the kit's boss profile)
     const a = {
       id: ++ids, key, role, isFoe: foe, kit, char: ch, intro: d.intro || null,
-      name: d.name || (ch ? ch.name : { zh: '敵將', en: 'OFFICER' }), seal: d.seal ?? (ch ? ch.seal : '將'),
+      name: d.name || (ch ? ch.name : { zh: '敌将', en: 'OFFICER' }), seal: d.seal ?? (ch ? ch.seal : '将'),
       scale: d.scale ?? (foe ? 1.15 : 1), x, z, y: 0, yaw: d.yaw ?? Math.atan2(h.x - x, h.z - z),
       hp, hpMax: hp, poise, poiseMax: poise, retreatAt: d.retreatAt || 0, invuln: d.invuln ?? !foe, dead: false,
       state: 'idle', stT: 0, mode: foe ? 'join' : 'follow', hx: x, hz: z, rx: x, rz: z, far: false,

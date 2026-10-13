@@ -1,10 +1,10 @@
-// Huang Zhong's per-battle sim: 真・無雙「百步穿楊」, plus the kit's arrows (src/combat/projectiles.js) and aim mode
+// Huang Zhong's per-battle sim: 真・无双「百步穿杨」, plus the kit's arrows (src/combat/projectiles.js) and aim mode
 // (aim.js), which live here because this is the kit object main.js builds, resets and steps every frame (game.musou).
 // Same interface and events as Zhao Yun's (src/musou/musou.js): active, t, reset, start, stepHero, shot, ready, step;
 // musou:ready/start/hit/burst/end. Extras: stepSpecial(inp) (hero.js: aim / strafe), aimShot() (aim camera, aim.js),
 // proj (the arrow pool, read by the render side), aim (aim state, read by the aim preview).
 // Timeline (musou frames t; hitstop pauses it):
-//   0   activation — world freezes, an aura shove clears the stage, the bow thrust overhead (「老當益壯」)
+//   0   activation — world freezes, an aura shove clears the stage, the bow thrust overhead (「老当益壮」)
 //   30  close-up cut-in: he nocks, half draw toward the lens        76 feet planted wide, wide shot
 //   84  VOLLEY (first volley = 'contact'): three flaming arrows every 3 sf while his aim sweeps ≈ 130° left → right across
 //       the army (66 arrows in 1.1 s), each pierces 2 and bursts small where it lands

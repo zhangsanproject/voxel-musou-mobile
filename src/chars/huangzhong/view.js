@@ -2,8 +2,8 @@
 //  · the fx primitives (fx.js) and the arrows (src/vfx/arrows.js); the camera thump is applied here, after the rig
 //  · aim mode: a dotted flight path of the next arrow (same integrator as the sim: speed, gravity, ground) that turns
 //    gold where it would take a standing officer in the head, plus a ring where it lands
-//  · 真・無雙「百步穿楊」 presentation: ember-night vignette through the activation and close-up (display-space multiply,
-//    centred on him, leaving him lit), cut-frame flash, calligraphy cut-in (無雙 + 老將 seal), a warm screen wash on the release and on
+//  · 真・无双「百步穿杨」 presentation: ember-night vignette through the activation and close-up (display-space multiply,
+//    centred on him, leaving him lit), cut-frame flash, calligraphy cut-in (无双 + 老将 seal), a warm screen wash on the release and on
 //    the explosion; layered gold energy: activation = 2-frame hot core + shock ring + stacked gold rings + motes spiralling
 //    up round him; close-up = light pooling on the nocked arrow; volley = a turning ground sigil; giant draw = streaks of
 //    light and ground dust pulled into a growing sun on the arrowhead (capped in screen pixels), contracting rings on the aim line; release =
@@ -126,7 +126,7 @@ export function createMusouView(parent, game, camera) {
   }
 
   // ---- Musou grade (DOM layers above the canvas, below the HUD) + cut-in
-  const ov = createOverlay({ sub: '老將 黃漢升', seal: '老將', css: {
+  const ov = createOverlay({ sub: '老将 黄汉升', seal: '老将', css: {
     big: 'color: #fbf1e2; -webkit-text-stroke: .5vh #1a0905; paint-order: stroke fill; text-shadow: 0 0 .3vh #1a0c06, .6vh .8vh 0 rgba(20,6,2,.75), 0 0 3vh rgba(255,150,60,.55);',
     sub: 'color: #ffe2b8; text-shadow: 0 0 10px rgba(255,140,40,.75), 2px 2px 0 rgba(0,0,0,.6);' } });
   const { dim: dimEl, wash: washEl, setStyle, show } = ov;

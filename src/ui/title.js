@@ -1,26 +1,26 @@
 // Title screen (#title, ui lane). DW-style key art over the live battlefield: Zhao Yun in front (spear planted, free fist
 // thrown up) and Huang Zhong half a metre behind and to the right, drawing toward the lens-right and looking into it, on
 // their real voxel models (kit.model on their own rigs, cloth/hair chains), backlit by the low sun up the pass with the
-// burning Wei camp, smoke over the right cliff, their 趙 / 黃 standards and rising embers behind them in deep bokeh, low
+// burning Wei camp, smoke over the right cliff, their 赵 / 黄 standards and rising embers behind them in deep bokeh, low
 // sunlit haze over the ground under the menu; a slow push-in on enter (from farther back), then a breathing drift
 // (+ a little mouse parallax). The lens is fitted every frame to the pair's posed bounds, so both stay whole in the
 // column right of the logo/menu band at any window shape (16:9, ultrawide, 4:3).
 // Render-only: view(scene, camera, focus, dt) runs after the gameplay camera rig while this screen is up (main.js header).
-// 2D: ink scrim band on the left carrying the logo (三國 seal + gold-leaf 無雙 + VOXEL MUSOU) and the menu, brush name
+// 2D: ink scrim band on the left carrying the logo (三国 seal + gold-leaf 无双 + VOXEL MUSOU) and the menu, brush name
 // tags projected beside each officer's head (hidden at ≤ 4:3), key/pad prompts along the bottom. First boot shows a
 // "press any key" card (also unlocks audio); returns go straight to the menu.
-// Menu: 劇情模式 → the chapter panel in place of the menu (the four chapters in campaign order, story/chapters.js: a
-// locked one shows 鎖, a cleared one its best rank; beside them a card: number, title + seal, era, the prologue's
-// opening lines or the unlock rule, the chapter's officers each with his own best rank). 演武試煉 → the same panel as the
+// Menu: 剧情模式 → the chapter panel in place of the menu (the four chapters in campaign order, story/chapters.js: a
+// locked one shows 锁, a cleared one its best rank; beside them a card: number, title + seal, era, the prologue's
+// opening lines or the unlock rule, the chapter's officers each with his own best rank). 演武试炼 → the same panel as the
 // trial list (story/trials.js TRIALS: the card shows the rule, the field and the best record; a trial the records have
-// not opened yet shows 鎖 + its rule, core/progress.js) with 自由演武 as its last entry → the panel again as the
-// battlefield list (every chapter's field, all open, no records). A pick → the difficulty panel (初級 普通 上級 修羅,
-// each with the best rank won on it for that pick, + a card: the tier's line and 敵勢 / 敵將 / 傷害 pips; 修羅 shows its
+// not opened yet shows 锁 + its rule, core/progress.js) with 自由演武 as its last entry → the panel again as the
+// battlefield list (every chapter's field, all open, no records). A pick → the difficulty panel (初级 普通 上级 修罗,
+// each with the best rank won on it for that pick, + a card: the tier's line and 敌势 / 敌将 / 伤害 pips; 修罗 shows its
 // unlock rule while locked), confirm → select {mode, ch, map}. Esc steps back one panel at a time.
-// 戰績 → the records wall (every chapter and trial × every officer: best rank and a pip per tier cleared, the count
-// cleared, what is still locked and how to open it) · 操作說明 → controls panel (both: Esc back).
+// 战绩 → the records wall (every chapter and trial × every officer: best rank and a pip per tier cleared, the count
+// cleared, what is still locked and how to open it) · 操作说明 → controls panel (both: Esc back).
 // Mouse: hover highlights an item, click activates it.
-// Screen contract: createTitle(el, flow) → { enter(ctx), exit(), view } (src/main.js header). ctx.ch (result 繼續 after
+// Screen contract: createTitle(el, flow) → { enter(ctx), exit(), view } (src/main.js header). ctx.ch (result 继续 after
 // a win, with ctx.mode): open straight on that mode's panel, focused on that chapter / trial.
 import * as THREE from 'three';
 import { CHARS, CHAR_ORDER, paintPortrait } from '../chars/index.js';
@@ -39,31 +39,31 @@ export const SWASH = `<svg class="swash" viewBox="0 0 400 26" preserveAspectRati
   S352 11 397 5L395 9C368 15 330 17 280 18C226 19 170 17 128 19C84 21 38 22 3 15ZM300 20C330 19 360 17 384 14L382 16C356 20 326 22 300 20Z"/></svg>`;
 
 const ITEMS = [
-  { go: 'story', zh: '劇情模式', en: 'Story · the Shu campaign' },
-  { go: 'trial', zh: '演武試煉', en: 'Trials · free battle' },
-  { go: 'rec', zh: '戰績', en: 'Records' },
-  { go: 'ctl', zh: '操作說明', en: 'Controls' },
+  { go: 'story', zh: '剧情模式', en: 'Story · the Shu campaign' },
+  { go: 'trial', zh: '演武试炼', en: 'Trials · free battle' },
+  { go: 'rec', zh: '战绩', en: 'Records' },
+  { go: 'ctl', zh: '操作说明', en: 'Controls' },
 ];
 // the trial panel's last entry: not a trial (no records, no map of its own) — picking it opens the battlefield list
-const FREE = { CH: { id: 'free', num: { zh: '無盡', en: 'ENDLESS' }, title: { zh: '自由演武', en: 'Free Battle' }, seal: '無盡',
-  rule: { zh: '任選武將與戰場，無盡鏖戰，不計戰績', en: 'Any officer, any field, endless waves. No records kept.' } } };
+const FREE = { CH: { id: 'free', num: { zh: '无尽', en: 'ENDLESS' }, title: { zh: '自由演武', en: 'Free Battle' }, seal: '无尽',
+  rule: { zh: '任选武将与战场，无尽鏖战，不计战绩', en: 'Any officer, any field, endless waves. No records kept.' } } };
 const LISTS = { story: CHAPTERS, trial: [...TRIALS, FREE], free: CHAPTERS };   // what the chapter panel lists per mode
 const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 const rk = (r) => (r ? `<i class="t-rk r${r}">${r}</i>` : '');                    // a rank as a ringed brush letter
 export const CONTROLS = [   // also the pause menu's table (main.js)
-  ['移動', 'Move', '<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / arrows', 'left stick'],
-  ['攻擊', 'Attack', '<kbd>J</kbd> / left click — tap for the full combo', '<kbd>X</kbd> □'],
+  ['移动', 'Move', '<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / arrows', 'left stick'],
+  ['攻击', 'Attack', '<kbd>J</kbd> / left click — tap for the full combo', '<kbd>X</kbd> □'],
   ['蓄力', 'Charge', '<kbd>K</kbd> / right click — mid-combo for charge attacks', '<kbd>Y</kbd> △'],
-  ['跳躍', 'Jump', '<kbd>Space</kbd>', '<kbd>A</kbd> ×'],
-  ['閃避', 'Dodge', '<kbd>L</kbd> / <kbd>Shift</kbd>', '<kbd>R1</kbd> <kbd>R2</kbd>'],
-  ['無雙', 'Musou', '<kbd>I</kbd> — when the gold gauge is full', '<kbd>B</kbd> ○'],
-  ['視角', 'Camera', 'mouse (click the field to lock it) / <kbd>Q</kbd><kbd>E</kbd>', 'right stick'],
-  ['鎖定', 'Recenter', '<kbd>R</kbd> — behind you, or onto the nearest officer', '<kbd>L1</kbd> <kbd>L2</kbd>'],
-  ['瞄準', 'Aim (黃忠)', 'hold <kbd>K</kbd> / right click (standing or running) — mouse or stick aims, release to loose', 'hold <kbd>Y</kbd> △'],
-  ['暫停', 'Pause', '<kbd>Esc</kbd> (also frees the mouse)', ''],
+  ['跳跃', 'Jump', '<kbd>Space</kbd>', '<kbd>A</kbd> ×'],
+  ['闪避', 'Dodge', '<kbd>L</kbd> / <kbd>Shift</kbd>', '<kbd>R1</kbd> <kbd>R2</kbd>'],
+  ['无双', 'Musou', '<kbd>I</kbd> — when the gold gauge is full', '<kbd>B</kbd> ○'],
+  ['视角', 'Camera', 'mouse (click the field to lock it) / <kbd>Q</kbd><kbd>E</kbd>', 'right stick'],
+  ['锁定', 'Recenter', '<kbd>R</kbd> — behind you, or onto the nearest officer', '<kbd>L1</kbd> <kbd>L2</kbd>'],
+  ['瞄准', 'Aim (黄忠)', 'hold <kbd>K</kbd> / right click (standing or running) — mouse or stick aims, release to loose', 'hold <kbd>Y</kbd> △'],
+  ['暂停', 'Pause', '<kbd>Esc</kbd> (also frees the mouse)', ''],
 ];
 
-// ---- key-art stage. Frame: origin at the HOME map's def.stage.title point (定軍山: up its pass road, north of the idle
+// ---- key-art stage. Frame: origin at the HOME map's def.stage.title point (定军山: up its pass road, north of the idle
 // gameplay hero), camera looks +Z (up the valley, into the low sun → rim light).
 // Cast offsets in metres (x + = world +X = screen-left), face = yaw (0 = facing +Z, π = facing the camera), pose = a held
 // frame of one of the kit's own clips. banner = the officer's surname standard planted behind him.
@@ -103,20 +103,20 @@ export function createTitle(el, flow) {
     <div class="t-veil"></div>
     ${STAGE.cast.map(({ id }) => { const c = CHARS[id]; return `<div class="t-tag" data-id="${id}"><i>${c.seal}</i><b>${c.name.zh}</b><small>${c.name.en}</small></div>`; }).join('')}
     <div class="t-band">
-      <div class="t-logo"><i class="t-seal">三國</i><h1 data-t="無雙"><span>無雙</span></h1>
+      <div class="t-logo"><i class="t-seal">三国</i><h1 data-t="无双"><span>无双</span></h1>
         <p class="t-en"><span>VOXEL MUSOU</span></p></div>
-      <div class="t-press"><b>按任意鍵開始</b><small><kbd>Enter</kbd> Press any key</small></div>
+      <div class="t-press"><b>按任意键开始</b><small><kbd>Enter</kbd> Press any key</small></div>
       <nav class="t-menu t-main">${ITEMS.map((it, i) => `<button data-i="${i}" style="--i:${i}"><b>${it.zh}</b><small>${it.en}</small>${SWASH}</button>`).join('')}</nav>
       <div class="t-cpanel"><nav class="t-menu t-chs"></nav>
         <div class="t-ccard"><h3></h3><p class="t-cname"><b></b><i></i></p><p class="t-cera"></p><p class="t-cline"><b></b><small></small></p>
           <p class="t-cfoot"></p></div></div>
-      <div class="t-dpanel"><nav class="t-menu t-dif">${DIFFS.map((d, i) => `<button data-d="${i}" style="--i:${i}"><b>${d.zh}<i class="t-lk">鎖</i><i class="t-rk"></i></b><small>${d.en}</small>${SWASH}</button>`).join('')}</nav>
-        <div class="t-dcard"><h3>難度<small>Difficulty</small></h3><p class="t-dline"><b></b><small></small></p>
-          <ul class="s-stats t-dbars">${[['敵勢', 'Pressure'], ['敵將', 'Officers'], ['傷害', 'Damage']].map(([zh, en]) => `<li><b>${zh}</b><small>${en}</small><span>${'<i></i>'.repeat(5)}</span></li>`).join('')}</ul></div></div>
+      <div class="t-dpanel"><nav class="t-menu t-dif">${DIFFS.map((d, i) => `<button data-d="${i}" style="--i:${i}"><b>${d.zh}<i class="t-lk">锁</i><i class="t-rk"></i></b><small>${d.en}</small>${SWASH}</button>`).join('')}</nav>
+        <div class="t-dcard"><h3>难度<small>Difficulty</small></h3><p class="t-dline"><b></b><small></small></p>
+          <ul class="s-stats t-dbars">${[['敌势', 'Pressure'], ['敌将', 'Officers'], ['伤害', 'Damage']].map(([zh, en]) => `<li><b>${zh}</b><small>${en}</small><span>${'<i></i>'.repeat(5)}</span></li>`).join('')}</ul></div></div>
     </div>
-    <section class="t-ctl"><h2>操作說明<small>Controls</small></h2>
+    <section class="t-ctl"><h2>操作说明<small>Controls</small></h2>
       <table>${CONTROLS.map(([zh, en, kb, pad]) => `<tr><th>${zh}<small>${en}</small></th><td>${kb}</td><td class="pad">${pad}</td></tr>`).join('')}</table>
-      <p>Tap attack for the combo, press charge mid-combo for a finisher. Fill the gold gauge and unleash 無雙.</p></section>
+      <p>Tap attack for the combo, press charge mid-combo for a finisher. Fill the gold gauge and unleash 无双.</p></section>
     <section class="t-rec"></section>
     <footer class="ui-foot"></footer>`;
   const $ = (s) => el.querySelector(s), btns = [...el.querySelectorAll('.t-main button')], dbtns = [...el.querySelectorAll('.t-dif button')];
@@ -131,16 +131,16 @@ export function createTitle(el, flow) {
     if (!quiet) sfx('move');
   };
   const foot = () => {
-    const what = dmode ? '難度' : cmode === 'story' ? '章節' : cmode === 'trial' ? '試煉' : cmode ? '戰場' : '';
+    const what = dmode ? '难度' : cmode === 'story' ? '章节' : cmode === 'trial' ? '试炼' : cmode ? '战场' : '';
     $('.ui-foot').innerHTML = panel ? `<span><kbd>Esc</kbd><kbd class="pad">B</kbd>返回<small>Back</small></span>`
-      : `<span><kbd>↑</kbd><kbd>↓</kbd>選擇${what}<small>Select</small></span><span><kbd>Enter</kbd><kbd class="pad">A</kbd>決定<small>Confirm</small></span>`
+      : `<span><kbd>↑</kbd><kbd>↓</kbd>选择${what}<small>Select</small></span><span><kbd>Enter</kbd><kbd class="pad">A</kbd>决定<small>Confirm</small></span>`
         + (what ? `<span><kbd>Esc</kbd><kbd class="pad">B</kbd>返回<small>Back</small></span>` : '');
   };
   /** Why entry i of the panel's list can't be picked yet ([zh, en]), or null: a story chapter waits on the one before
    *  it, a trial on the records (progress.js UNLOCKS); battlefields are all open. */
   const lockOf = (i) => {
     const prev = CHAPTERS[i - 1]?.CH;
-    if (cmode === 'story') return chapterOpen(i) ? null : [`攻克${prev.num.zh}「${prev.title.zh}」後開啟`, `Clear ${prev.title.en} to unlock`];
+    if (cmode === 'story') return chapterOpen(i) ? null : [`攻克${prev.num.zh}「${prev.title.zh}」后开启`, `Clear ${prev.title.en} to unlock`];
     return cmode === 'trial' ? locked(list[i].CH.id)?.rule ?? null : null;
   };
   // chapter panel: the card shows the focused chapter (story: era, the prologue's opening, its officers each with his
@@ -151,16 +151,16 @@ export function createTitle(el, flow) {
     ccur = i; cbtns.forEach((b, k) => b.classList.toggle('on', k === i));
     const { CH, PROLOGUE } = list[i], story = cmode === 'story', trial = cmode === 'trial', lock = lockOf(i);
     const p = PROLOGUE?.find((q) => q.cols), field = CHAPTERS.find((m) => m.CH.map === CH.map)?.CH.title;
-    const [zh, en] = lock || (story ? [p.cols.join('，'), p.en] : trial ? [CH.rule.zh, CH.rule.en] : ['任選武將，於此鏖戰', 'Any officer, endless waves on this field']);
+    const [zh, en] = lock || (story ? [p.cols.join('，'), p.en] : trial ? [CH.rule.zh, CH.rule.en] : ['任选武将，于此鏖战', 'Any officer, endless waves on this field']);
     $('.t-ccard').classList.toggle('lock', !!lock);
-    $('.t-ccard h3').innerHTML = cmode === 'free' ? '戰場<small>Battlefield</small>' : `${CH.num.zh}<small>${CH.num.en}</small>`;
+    $('.t-ccard h3').innerHTML = cmode === 'free' ? '战场<small>Battlefield</small>' : `${CH.num.zh}<small>${CH.num.en}</small>`;
     $('.t-cname b').textContent = CH.title.zh; $('.t-cname i').textContent = CH.seal;
-    $('.t-cera').innerHTML = !trial ? `${CH.era.zh}<small>${CH.era.en}</small>` : field ? `戰場・${field.zh}<small>${field.en}</small>` : '';
+    $('.t-cera').innerHTML = !trial ? `${CH.era.zh}<small>${CH.era.en}</small>` : field ? `战场・${field.zh}<small>${field.en}</small>` : '';
     $('.t-cline b').textContent = zh; $('.t-cline small').textContent = en;
     // foot: a chapter's officers, each with his own best rank; a trial's best record (the stat it is ranked on first)
     const who = story ? CH.heroes.filter((id) => CHARS[id]) : [], b = trial && best(CH.id);
-    $('.t-cfoot').innerHTML = who.length ? `<span>出陣<small>Officers</small></span>${who.map((id) => `<em><canvas width="20" height="20"></canvas>${CHARS[id].name.zh}${rk(best(CH.id, id)?.rank)}</em>`).join('')}`
-      : b ? `<span>最佳<small>Best</small></span>${(CH.best === 'kos' ? [`${b.kos} 擊破`, mmss(b.time)] : [mmss(b.time), `${b.kos} 擊破`]).map((t) => `<em>${t}</em>`).join('')}<strong class="r${b.rank}"><b>${b.rank}</b></strong>` : '';
+    $('.t-cfoot').innerHTML = who.length ? `<span>出阵<small>Officers</small></span>${who.map((id) => `<em><canvas width="20" height="20"></canvas>${CHARS[id].name.zh}${rk(best(CH.id, id)?.rank)}</em>`).join('')}`
+      : b ? `<span>最佳<small>Best</small></span>${(CH.best === 'kos' ? [`${b.kos} 击破`, mmss(b.time)] : [mmss(b.time), `${b.kos} 击破`]).map((t) => `<em>${t}</em>`).join('')}<strong class="r${b.rank}"><b>${b.rank}</b></strong>` : '';
     el.querySelectorAll('.t-cfoot canvas').forEach((cv, k) => paintPortrait(cv, CHARS[who[k]]));
     if (!quiet) sfx('move');
   };
@@ -171,7 +171,7 @@ export function createTitle(el, flow) {
     if (mode) {
       const story = mode === 'story';
       list = LISTS[mode];
-      $('.t-chs').innerHTML = list.map(({ CH }, i) => `<button data-c="${i}" class="${lockOf(i) ? 'lock' : ''}" style="--i:${i}"><b>${story ? `<em>${CH.num.zh}</em>` : ''}${CH.title.zh}<i class="t-lk">鎖</i>${
+      $('.t-chs').innerHTML = list.map(({ CH }, i) => `<button data-c="${i}" class="${lockOf(i) ? 'lock' : ''}" style="--i:${i}"><b>${story ? `<em>${CH.num.zh}</em>` : ''}${CH.title.zh}<i class="t-lk">锁</i>${
         mode === 'free' ? '' : rk(best(CH.id)?.rank)}</b><small>${story ? `${CH.num.en} · ` : ''}${CH.title.en}</small>${SWASH}</button>`).join('');
       cbtns = [...el.querySelectorAll('.t-chs button')];
       let k = list.findIndex((m) => m.CH.id === id);
@@ -181,7 +181,7 @@ export function createTitle(el, flow) {
     measure();                                          // the band changed width: the key art glides
   };
   /** The records wall: a row per chapter and trial, a column per officer — his best rank there over a pip per tier
-   *  cleared (a chapter he is not in: blank) — then the count cleared and every unlock with its rule or 已解鎖. */
+   *  cleared (a chapter he is not in: blank) — then the count cleared and every unlock with its rule or 已解锁. */
   function wall() {
     const R = records(), who = CHAR_ORDER;
     let done = 0, all = 0;
@@ -192,10 +192,10 @@ export function createTitle(el, flow) {
       return `<td>${r ? rk(r) : '<i class="t-rk"></i>'}<span>${DIFFS.map((d) => `<u class="${cell?.[d.id] ? 'f' : ''}"></u>`).join('')}</span></td>`;
     }).join('')}</tr>`;
     const rows = [...CHAPTERS, ...TRIALS].map(row).join('');
-    $('.t-rec').innerHTML = `<h2>戰績<small>Records</small><em><b>${done}</b> / ${all}<small>cleared</small></em></h2>
+    $('.t-rec').innerHTML = `<h2>战绩<small>Records</small><em><b>${done}</b> / ${all}<small>cleared</small></em></h2>
       <div class="t-rbody"><div><table><tr><th></th>${who.map((id) => `<td class="${locked(id) ? 'lock' : ''}"><canvas width="20" height="20"></canvas><b>${CHARS[id].name.zh}</b></td>`).join('')}</tr>${rows}</table>
       <p class="t-rleg"><span>${'<u class="f"></u>'.repeat(DIFFS.length)}</span>${DIFFS.map((d) => d.zh).join(' · ')}<small>one pip per difficulty cleared</small></p></div>
-      <ul>${UNLOCKS.map((u) => { const lk = locked(u.id); return `<li class="${lk ? '' : 'open'}"><i>${lk ? '鎖' : '開'}</i><b>${u.zh}</b><span>${lk ? u.rule[0] : '已解鎖'}<small>${lk ? u.rule[1] : `${u.en} · unlocked`}</small></span></li>`; }).join('')}</ul></div>`;
+      <ul>${UNLOCKS.map((u) => { const lk = locked(u.id); return `<li class="${lk ? '' : 'open'}"><i>${lk ? '锁' : '开'}</i><b>${u.zh}</b><span>${lk ? u.rule[0] : '已解锁'}<small>${lk ? u.rule[1] : `${u.en} · unlocked`}</small></span></li>`; }).join('')}</ul></div>`;
     el.querySelectorAll('.t-rec canvas').forEach((cv, k) => paintPortrait(cv, CHARS[who[k]]));
   }
   /** The overlay beside the menu: 'ctl' controls, 'rec' the records wall, null = none. */
@@ -203,7 +203,7 @@ export function createTitle(el, flow) {
     panel = v; el.classList.toggle('ctl', v === 'ctl'); el.classList.toggle('rec', v === 'rec'); foot();
     if (v === 'rec') wall();
   };
-  // difficulty panel: the card shows the focused tier (a locked 修羅: its unlock rule instead of the line)
+  // difficulty panel: the card shows the focused tier (a locked 修罗: its unlock rule instead of the line)
   const dfocus = (i, quiet) => {
     i = (i + dbtns.length) % dbtns.length;
     if (i === dcur && dbtns[i].classList.contains('on')) return;
@@ -234,7 +234,7 @@ export function createTitle(el, flow) {
       const d = DIFFS[dcur], mode = dmode, { CH } = list[cpick];
       if (!unlocked(d)) return sfx('back');
       setDifficulty(d); busy = true;
-      stamp(dbtns[dcur], '決');
+      stamp(dbtns[dcur], '决');
       return setTimeout(() => inkWipe(() => flow.go('select', { mode, ch: CH.id, map: CH.map })), 380);
     }
     if (cmode) {

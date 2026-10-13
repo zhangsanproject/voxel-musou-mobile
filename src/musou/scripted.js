@@ -1,4 +1,4 @@
-// Scripted Musou (sim) for the def-kit officers (src/chars/defkit.js): the shared 真・無雙 beats of Zhao Yun's Musou
+// Scripted Musou (sim) for the def-kit officers (src/chars/defkit.js): the shared 真・无双 beats of Zhao Yun's Musou
 // (src/musou/musou.js: MUSOU timeline, aura shove, gauge, end; the presentation is src/musou/view.js in the kit's look)
 // with the action between them written as data by the officer (his moveset's `musou`):
 //   0   activation: the world freezes, the aura shoves the nearest soldiers back, `act` pose (shot 1)

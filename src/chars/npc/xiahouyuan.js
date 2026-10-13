@@ -1,5 +1,5 @@
-// 夏侯淵 妙才 (NPC kit model def: ./kit.js, format as src/chars/defkit.js), fine voxels (chars/parts.js FV) on the shared
-// rig, a size up (scale 1.12): 定軍山's commander, the veteran raider of 關右, in 夏侯 colours — Wei crimson under
+// 夏侯渊 妙才 (NPC kit model def: ./kit.js, format as src/chars/defkit.js), fine voxels (chars/parts.js FV) on the shared
+// rig, a size up (scale 1.12): 定军山's commander, the veteran raider of 关右, in 夏侯 colours — Wei crimson under
 // black iron, gold trim. A weathered, lean face under a heavy iron helm: ribbed bowl, a gold crescent crest (前立), a
 // jutting visor peak, gold-edged lamellar cheek guards, neck flaps, a tall crimson plume springing from the finial;
 // narrowed eyes under heavy slanted brows, a hooked nose, a drooping moustache and a full dark beard streaked with grey

@@ -1,13 +1,13 @@
 // Musou screen overlay shared by the kits' Musou views (src/musou/view.js, src/chars/huangzhong/view.js): the grade's
 // DOM layers (display space, above the canvas, below the HUD — a multiply dim and a screen-blended wash; each view paints
-// its own gradients) and the frame-driven calligraphy cut-in (無雙 + the officer's line + a red seal).
+// its own gradients) and the frame-driven calligraphy cut-in (无双 + the officer's line + a red seal).
 import * as THREE from 'three';
 
 const { clamp, inverseLerp } = THREE.MathUtils;
 /** 0 before a, 1 after b, linear between. */
 export const ramp = (t, a, b) => clamp(inverseLerp(a, b, t), 0, 1);
 
-/** sub: the officer's line, seal: the seal text, css: { big, sub } = the kit's colour / glow of the 無雙 and the line. */
+/** sub: the officer's line, seal: the seal text, css: { big, sub } = the kit's colour / glow of the 无双 and the line. */
 export function createOverlay({ sub, seal, css }) {
   const layer = (blend) => { const d = document.createElement('div'); d.style.cssText = `position:fixed;inset:0;pointer-events:none;opacity:0;display:none;mix-blend-mode:${blend}`; return d; };
   const dim = layer('multiply'), wash = layer('screen');
@@ -24,14 +24,14 @@ export function createOverlay({ sub, seal, css }) {
   document.head.appendChild(style);
   const cutEl = document.createElement('div');
   cutEl.className = 'mu-cut';
-  cutEl.innerHTML = `<div class="sub">${sub}</div><div class="big">無雙</div><div class="seal">${seal}</div>`;
+  cutEl.innerHTML = `<div class="sub">${sub}</div><div class="big">无双</div><div class="seal">${seal}</div>`;
   document.body.appendChild(cutEl);
   const [cutSub, cutBig, cutSeal] = cutEl.children;
   const setStyle = (el, k, v) => { if (el.style[k] !== v) el.style[k] = v; };
   const show = (el, v) => { setStyle(el, 'display', v > 0 ? 'block' : 'none'); setStyle(el, 'opacity', v.toFixed(3)); };   // unused layers leave the compositor
   return {
     dim, wash, setStyle, show,
-    /** Cut-in at musou frame t (t0 = its first frame): k = opacity, st = the 無雙 slam-in 0..1; the seal stamps at
+    /** Cut-in at musou frame t (t0 = its first frame): k = opacity, st = the 无双 slam-in 0..1; the seal stamps at
      *  t0 + 8..12, the line fades in over t0 + 10..20. */
     cut(t, t0, k, st) {
       show(cutEl, k);

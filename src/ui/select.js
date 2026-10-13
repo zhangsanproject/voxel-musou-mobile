@@ -10,9 +10,9 @@
 // trial at the picked difficulty, and the line between the header and info his record there (rank, fastest clear, most
 // KOs), leaving the officer's body clear. The info column scrolls below that line (a new focus returns to its top);
 // at ≤ 4:3 it and the roster tighten to keep the model visible. An officer the records have not opened yet (UNLOCKS)
-// can be looked at but not deployed: 鎖 on his card, his rule on that line.
+// can be looked at but not deployed: 锁 on his card, his rule on that line.
 // Input: hover only highlights a card; a click (tap) on a card focuses that officer (spin-in, info panel swaps), ↑/↓ /
-// d-pad too. Deploy = 出陣 button, Enter / A, or a double-click on the card that was already focused.
+// d-pad too. Deploy = 出阵 button, Enter / A, or a double-click on the card that was already focused.
 // ctx in: { mode, ch, map? }. Deploy → ink wipe → flow.go('loading', { ...ctx, char }) (loading.js); back → title.
 // 3D is render-only: view(scene, camera, focus, dt) runs after the gameplay camera rig while this screen is up; an
 // officer's model is built the first time he is focused (kept for the session).
@@ -39,7 +39,7 @@ const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 export function createSelect(el, flow) {
   el.innerHTML = `
     <div class="s-veil"></div>
-    <header class="s-head"><h2>選擇武將</h2><small>Choose your officer</small><span class="s-mode"><b></b><small></small></span></header>
+    <header class="s-head"><h2>选择武将</h2><small>Choose your officer</small><span class="s-mode"><b></b><small></small></span></header>
     <aside class="s-roster"><div class="s-fac"><i></i><small></small></div>
       ${ALL.map((id) => { const c = CHARS[id]; return `<button class="s-card" data-id="${id}" style="--acc:${c.accent}" title="${c.name.en} — double-click to deploy">
         <canvas width="20" height="20"></canvas><b>${c.name.zh}</b><small>${c.name.en}</small><i>${c.seal}</i><em class="t-rk"></em></button>`; }).join('')}
@@ -51,14 +51,14 @@ export function createSelect(el, flow) {
       <p class="s-wpn"><span>武器</span><b></b><small></small></p>
       <p class="s-bio"></p>
       <ul class="s-stats">${STATS.map(([k, zh, en]) => `<li data-k="${k}"><b>${zh}</b><small>${en}</small><span>${[0, 1, 2, 3, 4].map((j) => `<i style="--i:${j}"></i>`).join('')}</span></li>`).join('')}</ul>
-      <div class="s-musou"><span>無雙亂舞</span><b></b><small></small>${SWASH}</div>
+      <div class="s-musou"><span>无双乱舞</span><b></b><small></small>${SWASH}</div>
     </article>
     <div class="s-line"><p></p><small></small></div>
-    <p class="s-rec"><span>戰績</span><b></b><small></small></p>
-    <div class="s-act"><button class="s-back"><b>返回</b><small>Back</small></button><button class="s-go"><b>出陣</b><small>To battle</small></button></div>
-    <footer class="ui-foot"><span><kbd>↑</kbd><kbd>↓</kbd>切換武將<small>Officer</small></span><span><kbd>Click</kbd>選擇<small>Select</small></span>
-      <span><kbd>Enter</kbd><kbd class="pad">A</kbd>出陣<small>Deploy</small></span><span><kbd>Esc</kbd><kbd class="pad">B</kbd>返回<small>Back</small></span>
-      <span><kbd>Drag</kbd>旋轉<small>Turn</small></span></footer>`;
+    <p class="s-rec"><span>战绩</span><b></b><small></small></p>
+    <div class="s-act"><button class="s-back"><b>返回</b><small>Back</small></button><button class="s-go"><b>出阵</b><small>To battle</small></button></div>
+    <footer class="ui-foot"><span><kbd>↑</kbd><kbd>↓</kbd>切换武将<small>Officer</small></span><span><kbd>Click</kbd>选择<small>Select</small></span>
+      <span><kbd>Enter</kbd><kbd class="pad">A</kbd>出阵<small>Deploy</small></span><span><kbd>Esc</kbd><kbd class="pad">B</kbd>返回<small>Back</small></span>
+      <span><kbd>Drag</kbd>旋转<small>Turn</small></span></footer>`;
   const $ = (s) => el.querySelector(s), cards = {};
   for (const b of el.querySelectorAll('.s-card')) { cards[b.dataset.id] = b; paintPortrait(b.querySelector('canvas'), CHARS[b.dataset.id]); }
   let ctx = {}, ids = ALL, cur = ALL[0], busy = false, spinT = 0;   // ids: this visit's roster; cur: the focused id
@@ -89,10 +89,10 @@ export function createSelect(el, flow) {
     $('.s-line p').textContent = c.lines.intro.zh; $('.s-line small').textContent = c.lines.intro.en;
     // the line above the info: his unlock rule while locked, else his record here at this difficulty
     const lk = locked(id), d = difficulty(), r = ctx.mode !== 'free' && best(ctx.ch, id, d.id);
-    const [zh, en] = lk ? lk.rule : r ? [`評價 ${r.rank}・${mmss(r.time)}・${r.kos} 擊破`, `Best on ${d.en}`] : ['尚無戰績', `No record on ${d.en} yet`];
+    const [zh, en] = lk ? lk.rule : r ? [`评价 ${r.rank}・${mmss(r.time)}・${r.kos} 击破`, `Best on ${d.en}`] : ['尚无战绩', `No record on ${d.en} yet`];
     $('.s-rec').hidden = !lk && ctx.mode === 'free';
     $('.s-rec').classList.toggle('lock', !!lk); $('.s-go').classList.toggle('lock', !!lk);
-    $('.s-rec span').textContent = lk ? '未解鎖' : '戰績'; $('.s-rec b').textContent = zh; $('.s-rec small').textContent = en;
+    $('.s-rec span').textContent = lk ? '未解锁' : '战绩'; $('.s-rec b').textContent = zh; $('.s-rec small').textContent = en;
     $('.s-info').scrollTop = 0;
     replay(el, 'swap');                                    // name ink-in, stat bars refill, voice line brush reveal
     spinT = 0;
@@ -104,7 +104,7 @@ export function createSelect(el, flow) {
     if (wiping()) return afterWipe(go);             // pressed while this screen is still being uncovered: queued
     if (locked(cur)) return sfx('back');
     busy = true;
-    stamp($('.s-act'), '出陣');
+    stamp($('.s-act'), '出阵');
     const id = cur;
     setTimeout(() => inkWipe(() => flow.go('loading', { mode: ctx.mode, ch: ctx.ch, map: ctx.map, char: id })), 520);
   };
@@ -158,7 +158,7 @@ export function createSelect(el, flow) {
     if (!group) build(scene);
     group.visible = true;
     dt = Math.min(dt || 1 / 60, 0.1); t += dt; spinT += dt;
-    const S = STAGE, p = stagePoint(P, 'select'), id = cur;   // def.stage.select (定軍山: the foot of the pass road, looking up it)
+    const S = STAGE, p = stagePoint(P, 'select'), id = cur;   // def.stage.select (定军山: the foot of the pass road, looking up it)
     for (const k in models) models[k].root.visible = k === id;
     const M = model(id);
     if (key) key.position.set(p.x + 1.6, p.y + 2.3, p.z - 2.4);
@@ -201,10 +201,10 @@ export function createSelect(el, flow) {
       const want = (c.mode !== 'free' && chapter(c.ch).CH.heroes) || ALL;
       ids = ALL.filter((id) => want.includes(id));
       if (!ids.length) ids = ALL;                           // a chapter none of whose heroes exist yet (phase A): anyone
-      for (const id in cards) {                             // 鎖 on a locked officer, else his best rank here on this tier
+      for (const id in cards) {                             // 锁 on a locked officer, else his best rank here on this tier
         const lk = !!locked(id), r = (!lk && c.mode !== 'free' && best(c.ch, id, d.id)?.rank) || '', chip = cards[id].querySelector('.t-rk');
         cards[id].hidden = !ids.includes(id); cards[id].classList.toggle('lock', lk);
-        chip.textContent = lk ? '鎖' : r; chip.className = `t-rk r${r}`;
+        chip.textContent = lk ? '锁' : r; chip.className = `t-rk r${r}`;
       }
       if (!ids.includes(cur)) { cards[cur].classList.remove('on'); cur = ids[0]; }
       show(ids.indexOf(cur), true); replay(el, 'in');       // header, roster and actions slide in as the ink uncovers

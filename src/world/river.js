@@ -1,4 +1,4 @@
-// Water of the loaded map (render-only; map.js WATER: 定軍山's Han River, a river the lane crosses, or a long bank
+// Water of the loaded map (render-only; map.js WATER: 定军山's Han River, a river the lane crosses, or a long bank
 // beside the lane): a flowing, bed-aware water strip along the centre line (the whole grid along its axis, hw + 3.3 m
 // either side), the stepping stones, and the water's answer to whoever wades it. Reads sim state (hero / crowd
 // positions), never writes it.

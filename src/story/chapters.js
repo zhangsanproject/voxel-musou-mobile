@@ -1,5 +1,5 @@
 // Story chapters: the registry (campaign order) and THE chapter format. One module per chapter, src/story/<id>.js, named
-// by id (the campaign runs in historical order, so 定軍山 is chapter IV). Everything a chapter needs is data in its own
+// by id (the campaign runs in historical order, so 定军山 is chapter IV). Everything a chapter needs is data in its own
 // module: the director (index.js), prologue (prologue.js), result (result.js), title / select / loading screens read it.
 // Progress (core/progress.js: records per stage × officer × difficulty): chapter i is open once chapter i-1 is cleared
 // (the first always is); what else the records open is that module's UNLOCKS.
@@ -8,8 +8,8 @@
 //
 // ---- export const CH (metadata)
 //   id        'hulao'                              module / progress key; ctx.ch everywhere (flow, scenario event, ?ch=)
-//   num       { zh: '第一章', en: 'CHAPTER I' }     title  { zh: '虎牢關', en: 'Hulao Gate' }
-//   seal      '討董之戰'                            red seal on the prologue stamp / title card (2-4 glyphs)
+//   num       { zh: '第一章', en: 'CHAPTER I' }     title  { zh: '虎牢关', en: 'Hulao Gate' }
+//   seal      '讨董之战'                            red seal on the prologue stamp / title card (2-4 glyphs)
 //   era       { zh: '初平元年', en: '190 AD' }      title chapter card, prologue context
 //   map       'dingjun'                            world map id (src/world/maps, C1); the battle loads it
 //   heroes    ['liubei', 'guanyu', 'zhangfei']     story roster: select offers only these (ids not in CHARS yet are
@@ -18,12 +18,12 @@
 //   army      { foe: 'dong', ally: 'liu' }         crowd army ids (src/crowd/armies.js, C3): flags, colours, morale glyphs
 //   van       [{ x, z, n, cols, hold }]            allied blocks at the start (crowd.spawnAllies args, world metres)
 //   start?    { x, z, yaw, tilt }                  hero start; omitted = the map's story spawn (spawnPoint('story'))
-//   hq        [x, z]                               minimap enemy 本陣 marker
+//   hq        [x, z]                               minimap enemy 本阵 marker
 //   rank      { kos: [a, b, c], time: [a, b, c] }  rank points: kos ≥ a/b/c → 1/2/3, clear time (s) ≤ c/b/a → 1/2/3
 //                                                  (+ damage taken 0-3, + game.diff.rankBonus; S ≥ 8, A ≥ 6, B ≥ 4)
 //             s? { time?, kos?, dmg }              extra S gate: time ≤ seconds, kos ≥ count, dmg ≤ max HP × fraction
 //
-// ---- export const SPK = { key: { name: { zh, en }, seal: '劉', side: 'shu' | 'wei', char?: CHARS id } }
+// ---- export const SPK = { key: { name: { zh, en }, seal: '刘', side: 'shu' | 'wei', char?: CHARS id } }
 //   non-player speakers: a seal portrait, or the pixel portrait when `char` (or the key itself) is a CHARS id. side
 //   'wei' = the foe's colours in the dialogue panel (any enemy army), 'shu' = ours.
 // ---- export const OFF = { key: { name: { zh, en }, hp, boss?, look? } }
@@ -67,7 +67,7 @@
 //            (1 hp per soldier-second × game.diff.dmg; HUD bar under the minimap); hp: [key, f] / below read it
 //   set    'name'   a map set-piece change (emits story:set {id}; the map's build().sets[name]() runs, C1)
 //   buff   { atk?, def?, dur?, zh?, en? }   hero multipliers: damage dealt × atk, damage taken ÷ def, for dur seconds
-//            (omitted = the rest of the battle); zh/en = its banner (e.g. 青釭劍)
+//            (omitted = the rest of the battle); zh/en = its banner (e.g. 青釭剑)
 //   say    [line, ...]   dialogue, queued one at a time (~3-4.5 s each)
 // Position P = [zoneId, fx, fz] (fractions of the zone's half width / depth, or radius, from its centre),
 // [anchorId, dx, dz] (metres from a map anchor, C1 map.anchors) or ['hero', dx, dz] (metres from where the hero stands

@@ -1,4 +1,4 @@
-// 瞄準 aim mode (sim), after the DW5 bow: hold △ from neutral — C1 still held on moves.AIM_AT becomes the aim (a tap is
+// 瞄准 aim mode (sim), after the DW5 bow: hold △ from neutral — C1 still held on moves.AIM_AT becomes the aim (a tap is
 // the knockback shot). He plants his feet; the stick (and a mouse drag) turns the aim, stick up/down raises / lowers it;
 // the draw builds while △ is held (full in AIM.drawFull frames) and each release looses one precise, un-assisted arrow
 // (no soft lock): dmg and pierce grow with the draw, a full draw is a heavy blow-away shot, and an arrow that reaches a

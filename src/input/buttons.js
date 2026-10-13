@@ -12,8 +12,8 @@ const BTNS = [
   { action: 'charge',  label: '蓄', size: 56, cls: 'btn-charge', menu: false },
   { action: 'jump',    label: '跳', size: 56, cls: 'btn-jump',   menu: false },
   { action: 'dodge',   label: '避', size: 52, cls: 'btn-dodge',  menu: true },
-  { action: 'musou',   label: '無', size: 52, cls: 'btn-musou',  menu: false },
-  { action: 'target',  label: '鎖', size: 42, cls: 'btn-target', menu: false },
+  { action: 'musou',   label: '无', size: 52, cls: 'btn-musou',  menu: false },
+  { action: 'target',  label: '锁', size: 42, cls: 'btn-target', menu: false },
 ];
 
 const CHARGE_HOLD = 300;   // ms to hold before charge fires
@@ -86,9 +86,9 @@ export function createTouchButtons(container) {
     for (const { action, menu } of BTNS) {
       btns[action].style.display = menuMode ? (menu ? '' : 'none') : '';
     }
-    // In menu mode, relabel attack→決定, dodge→返回
+    // In menu mode, relabel attack→决定, dodge→返回
     if (menuMode) {
-      btns.attack.textContent = '決';
+      btns.attack.textContent = '决';
       btns.dodge.textContent = '戻';
     } else {
       btns.attack.textContent = '攻';

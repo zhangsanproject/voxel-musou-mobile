@@ -1,9 +1,9 @@
-// 張飛 翼德 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, a size up
-// (kit scale 1.13). 豹頭環眼, 燕頷虎鬚: a broad dark-bronze face under a black-iron helm (gold brow band with a beast
+// 张飞 翼德 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, a size up
+// (kit scale 1.13). 豹头环眼, 燕颔虎须: a broad dark-bronze face under a black-iron helm (gold brow band with a beast
 // emblem, lamellar neck flaps, a gold finial with a bursting red tassel), round glaring eyes ringed in white under brows
 // crushed down to the nose, a flat broad nose, a snarl, an upswept moustache and a bristling black beard whose spikes
 // and cheek whiskers spring with every blow. Black-iron lamellar with gold lips over a green robe; a round bronze
-// chest mirror with a red 張; the right shoulder in a huge beast-head pauldron (吞肩獸, the arm issuing from its jaws),
+// chest mirror with a red 张; the right shoulder in a huge beast-head pauldron (吞肩兽, the arm issuing from its jaws),
 // the left arm bare and muscled with a gold armlet; iron belt with a bronze beast-face buckle over a tiger-skin
 // skirt (its tail hangs behind); green trousers, iron tassets and greaves, black boots with upturned toes. Weapon: the
 // 丈八蛇矛 — lacquered red shaft banded in gold, a bronze serpent head whose open jaws issue a long wavy serpent blade,
@@ -32,7 +32,7 @@ const tigerP = (hem) => (x, y, z) => {
   if (md(Math.floor(a * 2), 5) === 0) return C.stripe;
   return y <= hem ? C.tigerW : hash01(x, y, z) < 0.18 ? C.tigerL : C.tiger;
 };
-// 張 as a 7 × 9 relief (弓 on the left, 長 on the right), row 0 = top
+// 张 as a 7 × 9 relief (弓 on the left, 长 on the right), row 0 = top
 const ZHANG = ['XX.XXXX', '.X.X...', 'XX.XXXX', 'X..X...', 'XX.XXXX', '.X.XX..', '.X.X.X.', 'XX.X..X', '...X...'];
 
 // ---------------------------------------------------------------- body (FV, centred on the joints)
@@ -58,7 +58,7 @@ function torso() {
     ...lamellar([-11, -4, -9], [11, 10, 9], { base: C.iron, rowH: 2, pw: 3 }),
     B([-12, 10, -10], [12, 14, 10], (x, y) => (y === 10 ? C.redD : md(x, 5) === 0 ? C.redL : C.red)),
   ];
-  // chest: black-iron cuirass, gold-lipped plate rows, the bronze mirror with a red 張, gold shoulder straps, a raised
+  // chest: black-iron cuirass, gold-lipped plate rows, the bronze mirror with a red 张, gold shoulder straps, a raised
   // iron gorget, red cord lacing crossed on the back
   const disc = [];
   for (let y = 0; y < 13; y++) for (let x = -6; x < 7; x++) {
@@ -135,12 +135,12 @@ function head() {
   const helm = (x, y, z) => (md(Math.round(Math.atan2(x - 0.5, z) * 4), 3) === 0 ? C.ironL : y === 12 ? C.ironD : C.iron);
   const flap = (x, y, z) => (md(y, 3) === 0 ? C.ironD : md(x + z + (Math.floor(y / 3) & 1) * 2, 4) === 0 ? C.ironD : C.iron);
   return [
-    // skull and the broad swallow jaw (燕頷), cheekbones, ears
+    // skull and the broad swallow jaw (燕颔), cheekbones, ears
     B([-7, 2, -6], [8, 13, 6], C.skin),
     B([-8, 0, -5], [9, 6, 5], C.skin),
     B([-8, 6, -2], [9, 9, 1], C.skinD),
     ...symH(4, 7, 5, 7, 5, 6, C.skinH),                                            // cheekbones catch the light
-    // 環眼: round eyes ringed in white, a small dark iris, heavy lids; brows crushed down to the nose, flaring up outside
+    // 环眼: round eyes ringed in white, a small dark iris, heavy lids; brows crushed down to the nose, flaring up outside
     ...symH(1, 5, 7, 10, 5, 6, C.scl), ...symH(2, 4, 8, 10, 5, 6, C.iris), ...symH(2, 3, 8, 9, 5, 6, C.eye),
     ...symH(1, 5, 10, 11, 5, 6, C.skinD), ...symH(1, 5, 6, 7, 5, 6, C.skinD),
     ...symH(1, 3, 10, 12, 5, 8, C.beard, false), ...symH(3, 5, 11, 13, 5, 8, C.beard, false), ...symH(5, 8, 12, 14, 5, 7, C.beard, false),
@@ -226,13 +226,13 @@ export const ZHANGFEI_DEF = {
   build: () => ({ parts: limbs(torso()), head: head(), bv: FV, hv: HV, pauldron, weapon: weaponGeo() }),
   chains() {
     const out = [];
-    // red helm tassel (紅纓): strands bursting from the finial, falling round the helm
+    // red helm tassel (红缨): strands bursting from the finial, falling round the helm
     for (let k = 0; k < 6; k++) {
       const a = k * 1.047 + 0.3, ox = Math.cos(a), oz = Math.sin(a);
       out.push({ joint: 'head', anchor: [ox * 0.8 * HV, 25 * HV, oz * 0.8 * HV], rest: [ox * 0.9, -0.15, oz * 0.9 - 0.3], n: 3, len: 0.058,
         stiff: 0.05, drag: 0.1, wind: 1.3, cone: 120, sway: 0.3, face: [1, 0, 0], seg: strand(C.red, C.redL, C.redD, 0.012), hit: ['head'] });
     }
-    // 虎鬚: bristling beard spikes under the jaw and whiskers off the cheeks — stiff and heavy, they spring on impacts
+    // 虎须: bristling beard spikes under the jaw and whiskers off the cheeks — stiff and heavy, they spring on impacts
     for (const [x, y, z, rx, rz] of [[-5, -4, 3, -0.45, 0.25], [-2.5, -6, 4, -0.2, 0.35], [0, -6, 5, 0, 0.45], [2.5, -6, 4, 0.2, 0.35], [5, -4, 3, 0.45, 0.25],
       [-8.5, 3, 4, -1, 0.3], [9, 3, 4, 1, 0.3]]) {
       const cheek = Math.abs(x) > 8;

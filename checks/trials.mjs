@@ -158,7 +158,7 @@ for (const timely of [true, false]) {
     else {
       first(f); step(f, deadline - f.game.frame - 1); f.game.hero.kos = 1000; step(f);
       assert.equal(f.game.story.timer, 1, 'failure presentation keeps the prior HUD until results');
-      step(f, 120); assert.equal(f.seen.ends[0]?.win, false); assert.match(f.seen.ends[0]?.reason?.zh, /時限/);
+      step(f, 120); assert.equal(f.seen.ends[0]?.win, false); assert.match(f.seen.ends[0]?.reason?.zh, /时限/);
     }
   } finally { f.off(); }
 }

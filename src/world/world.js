@@ -17,7 +17,7 @@ import { GATES, ground, smooth, loadMap } from './map.js';
 import { MAPS, HOME } from './maps/index.js';
 import { on } from '../core/events.js';
 
-// the default light rig (定軍山's golden hour): key light from behind-left of the up-valley view, higher than the visible
+// the default light rig (定军山's golden hour): key light from behind-left of the up-valley view, higher than the visible
 // sun so the ground reads (hard shadows fall toward the camera, soldiers get a warm rim)
 const LIGHT = { hemi: [0x9cafd4, 0x9a7a5c, 2.2], sun: [0xffcf9a, 4.0], rim: [0xffa060, 1.6], dir: [0.5, 0.58, 0.64], fire: 0xff8a3a, key: null, fill: null };
 const LIGHT_DIR = new THREE.Vector3();

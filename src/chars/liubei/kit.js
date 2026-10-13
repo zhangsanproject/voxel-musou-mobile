@@ -1,4 +1,4 @@
-// 劉備's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus what
+// 刘备's kit: his model def (model.js) and moveset (moves.js) through the def-kit adapter (src/chars/defkit.js), plus what
 // a twin-sword lord needs on top of it:
 //  · the second sword: the weapon meshes again on the left hand. After the rig's pass (the left arm by FK: lfree 1) the
 //    left hand turns to the root-space blade keyed in the pose's armR channels [yaw, elev, roll, weight] — unused while
@@ -6,8 +6,8 @@
 //    the keyed blade (weight 90° = 1). Patched into rig.apply, so the hero, the select stage and actors all see it.
 //  · 仁德 (C6): on its shock frame his side within 20 m is restored and cheers, and he recovers 5 % of his health (sim,
 //    stepped with the kit's Musou sim).
-//  · the view (view.js): the twin dragons of the Musou, C6's 義 and the left sword's ribbon.
-// Look: gold and jade light in every effect, a warm voice, the 昭烈 cut-in (中山靖王之後 · 仁德).
+//  · the view (view.js): the twin dragons of the Musou, C6's 义 and the left sword's ribbon.
+// Look: gold and jade light in every effect, a warm voice, the 昭烈 cut-in (中山靖王之后 · 仁德).
 import * as THREE from 'three';
 import { defKit } from '../defkit.js';
 import { CH } from '../../hero/rig.js';
@@ -82,7 +82,7 @@ const kit = defKit({
     mu: { crack: [2.2, 1.8, 0.6], wall: [0.7, 1.0, 0.42], light: [1, 0.9, 0.5] },
   },
   look: {
-    cut: { sub: '中山靖王之後', seal: '仁德', css: {
+    cut: { sub: '中山靖王之后', seal: '仁德', css: {
       big: 'color: #fbf6e6; text-shadow: 0 0 2px #0c1a10, 6px 8px 0 rgba(6,16,8,.55), 0 0 28px rgba(230,200,90,.6);',
       sub: 'color: #eaf6dc; text-shadow: 0 0 10px rgba(90,210,140,.75), 2px 2px 0 rgba(0,0,0,.6);' } },
     pal: { rays: [1.3, 1.1, 0.4], ring: [1.5, 2.0, 0.8], bolt: null, burst: [1.8, 1.6, 0.6], ko: [0.9, 0.95, 0.4], glow: 0xffe6a0,

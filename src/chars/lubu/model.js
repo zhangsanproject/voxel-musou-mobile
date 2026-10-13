@@ -1,16 +1,16 @@
-// 呂布 奉先 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, the tallest
-// officer (kit scale 1.14). After the opera and the novel: 頭戴三叉束髮紫金冠 — a gold crown over his bound hair, purple
+// 吕布 奉先 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, the tallest
+// officer (kit scale 1.14). After the opera and the novel: 头戴三叉束发紫金冠 — a gold crown over his bound hair, purple
 // bowl and gems, a flame-shaped front plaque, gold scroll wings at the temples, red velvet pompoms, and the two long
-// 雉雞翎 pheasant feathers (rust barred black, pale tips) rising from its back and arcing over him (spring chains, light:
+// 雉鸡翎 pheasant feathers (rust barred black, pale tips) rising from its back and arcing over him (spring chains, light:
 // grav < 1). A lean hard face: long narrowed eyes ringed in opera rouge that sweeps up to the temples, brows slashing
-// down to the nose, a sneer; a black mane falling behind. 獸面吞頭連環鎧: black-iron mail (a ring pattern) under black
+// down to the nose, a sneer; a black mane falling behind. 兽面吞头连环铠: black-iron mail (a ring pattern) under black
 // lamellar lipped in gold, a great gold beast face (red eyes, fangs) on the chest, both shoulders in gold-faced beast
-// pauldrons (the arms issuing from their jaws), a purple 勒甲絛 cord round the waist, the 獅蠻帶 belt whose gold lion head
-// swallows its own strap; 西川紅錦百花袍: red brocade strewn with gold flowers — the sleeves, the trousers, the front
+// pauldrons (the arms issuing from their jaws), a purple 勒甲绦 cord round the waist, the 狮蛮带 belt whose gold lion head
+// swallows its own strap; 西川红锦百花袍: red brocade strewn with gold flowers — the sleeves, the trousers, the front
 // apron and the long cape; black-iron bracers, gold greaves and knee cops, black boots with gold upturned toes.
-// Weapon: the 方天畫戟 — black-red lacquered shaft wound with a gold spiral, a gold beast mouth (吞口) holding a long
+// Weapon: the 方天画戟 — black-red lacquered shaft wound with a gold spiral, a gold beast mouth (吞口) holding a long
 // leaf-shaped spear point, the crescent 月牙 blade on one side (its concave edge out, an engraved gold line through
-// it, pierced 畫 holes, spurs on its back), a small back spike opposite, a red tassel under the collar.
+// it, pierced 画 holes, spurs on its back), a small back spike opposite, a red tassel under the collar.
 import { vox, B, P, md, mirX, lamellar } from '../../hero/model.js';
 import { hash01 } from '../../core/rng.js';
 import { FV, glove, bracer, boot, symH } from '../parts.js';
@@ -29,14 +29,14 @@ export const C = {
   shaft: 0x2c1216, shaftH: 0x40181c, steel: 0xc8d0da, edge: 0xf6f9fc, steelD: 0x6c7684,
   fea: 0xc0501e, feaL: 0xec9a48, feaD: 0x24120a, feaW: 0xf2e8d2,
 };
-/** 西川紅錦: red brocade with small gold four-petal flowers on a staggered lattice (x + z wraps round a limb). */
+/** 西川红锦: red brocade with small gold four-petal flowers on a staggered lattice (x + z wraps round a limb). */
 const brocade = (x, y, z) => {
   const u = x + z, v = y + (md(Math.floor(u / 6), 2) ? 3 : 0), a = md(u, 6), b = md(v, 6);
   if (a === 3 && b === 3) return C.goldL;
   if ((a === 3 && (b === 2 || b === 4)) || (b === 3 && (a === 2 || a === 4))) return C.flower;
   return md(u * 2 + v, 11) === 0 ? C.redD : C.red;
 };
-/** 連環: black-iron rings (bright crowns, dark centres, rows staggered). */
+/** 连环: black-iron rings (bright crowns, dark centres, rows staggered). */
 const mail = (x, y, z) => {
   const u = x + z + (md(y >> 1, 2) ? 1 : 0);
   return md(y, 2) === 0 ? (md(u, 2) ? C.ironL : C.iron) : md(u, 2) ? C.ironD : C.iron;
@@ -62,7 +62,7 @@ function beastFace(w, y0, z, big) {
 function torso() {
   const T = {};
   // hips: purple-black base; a lamellar skirt round the sides and back (the front open: the apron hangs there); the
-  // 獅蠻帶 — gold plaques with purple gems, its gold lion head biting the strap
+  // 狮蛮带 — gold plaques with purple gems, its gold lion head biting the strap
   T.hips = [
     B([-12, -10, -8], [12, 6, 8], C.ironD),
     B([-15, -17, -11], [15, -1, 11], (x, y, z) => (z > 5 ? null : y === -17 && hash01(x, z, 4) < 0.3 ? null
@@ -172,7 +172,7 @@ function head() {
   ];
 }
 
-// ---------------------------------------------------------------- 方天畫戟 (weapon joint: shaft +Z, origin = rear grip)
+// ---------------------------------------------------------------- 方天画戟 (weapon joint: shaft +Z, origin = rear grip)
 function weaponGeo() {
   // shaft at 0.02 (z −0.84 … 1.44): black-red lacquer wound with a gold spiral, cord wraps at both grips, gold bands and
   // a gold butt spike (to −0.94)
@@ -206,7 +206,7 @@ function weaponGeo() {
     const o = Math.hypot(y - cy, dz), i = Math.hypot(y - cy - d, dz);
     if (o > R || i < r) continue;
     const mid = Math.abs((R - o) - (i - r)) < 0.8 && o < R - 1.5 && i > r + 1.5;              // the engraved gold line
-    const hole = Math.abs(dz) === 5 && Math.abs(o - (R + r - d) / 2 - 1) < 1.1;                  // pierced 畫 holes
+    const hole = Math.abs(dz) === 5 && Math.abs(o - (R + r - d) / 2 - 1) < 1.1;                  // pierced 画 holes
     if (hole) continue;
     boxes.push(B([-1, y, cz + dz], [1, y + 1, cz + dz + 1], i < r + 1.2 ? C.edge : o > R - 1 ? C.steelD : mid ? C.gold : C.steel));
   }
@@ -218,7 +218,7 @@ function weaponGeo() {
 }
 
 // ---------------------------------------------------------------- chain segments (local −Y along the chain)
-/** 雉雞翎: a long pheasant tail feather — a pale quill, rust vanes barred black every half segment, frayed edges, the
+/** 雉鸡翎: a long pheasant tail feather — a pale quill, rust vanes barred black every half segment, frayed edges, the
  *  last segments tapering to a cream tip. */
 const feather = (i, n) => {
   const w = i < 1 ? 3 : i > n - 3 ? 3 : 4, tip = i === n - 1;
@@ -292,7 +292,7 @@ export const LUBU_DEF = {
     for (const side of [-1, 0, 1]) out.push({ joint: 'head', anchor: [side * 0.027, 0.13, -0.096], rest: [side * 0.1, -1, -0.3],
       n: 5, len: 0.08, stiff: 0.12, drag: 0.16, wind: 0.9, face: [0, 0, -1], cone: 70, sway: 0.19,
       seg: (i, n) => mane(i, n, side), hit: ['head', ['chest', 0.03]] });
-    // 雉雞翎: two long feathers rising from the back of the crown, splaying out, arcing back over him — light (grav < 1),
+    // 雉鸡翎: two long feathers rising from the back of the crown, splaying out, arcing back over him — light (grav < 1),
     // springy, streaming in the wind
     for (const sx of [-1, 1]) {
       out.push({ joint: 'head', anchor: [sx * 4 * HV, 22 * HV, -4.5 * HV], rest: [sx * 0.42, 1, -0.45], n: 13, len: 0.092,

@@ -8,7 +8,7 @@
 // chapter on every enter. Render-side DOM only (wall-clock timers); nothing here touches the sim.
 import { chapter } from './chapters.js';
 
-const NUM = ['壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖', '拾'];
+const NUM = ['壹', '贰', '参', '肆', '伍', '陆', '柒', '捌', '玖', '拾'];
 const HOLD = 0.8;                                  // s held to skip (index.html: the ring's .on transition)
 
 // ---- the map frame (viewBox 1600×900): paper, blots, [chapter art], grain, troop arrows, [chapter labels], vignette.
@@ -49,9 +49,9 @@ export function createPrologue(el, flow) {
       <div class="pl-pips"></div>
     </div>
     <i class="pl-rod l"></i><i class="pl-rod r"></i>
-    <div class="pl-skip"><span><kbd>Enter</kbd><kbd>Click</kbd>下一頁<small>Next</small></span>
-      <span><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15"/><circle class="p" cx="18" cy="18" r="15" pathLength="1"/></svg>長按跳過<small>Hold to skip</small></span>
-      <span><kbd>Esc</kbd>跳過<small>Skip</small></span></div>`;
+    <div class="pl-skip"><span><kbd>Enter</kbd><kbd>Click</kbd>下一页<small>Next</small></span>
+      <span><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15"/><circle class="p" cx="18" cy="18" r="15" pathLength="1"/></svg>长按跳过<small>Hold to skip</small></span>
+      <span><kbd>Esc</kbd>跳过<small>Skip</small></span></div>`;
   const $ = (s) => el.querySelector(s);
   const card = $('.pl-card'), cols = $('.pl-cols'), en = $('.pl-en'), pips = $('.pl-pips'), ring = $('.pl-skip .p');
   let ctx = {}, k = -1, timer = 0, swapT = 0, holdTimer = 0, holdT0 = 0, phase = 'off', stampAt = 0;
@@ -74,9 +74,9 @@ export function createPrologue(el, flow) {
       const id = m.dataset.id, now = c.show.includes(id), before = PROLOGUE.slice(0, k).some((p) => p.show.includes(id));
       m.classList.toggle('on', now || before); m.classList.toggle('hot', now);
     }
-    // drift: bring the focus toward 38 % x (clear of the calligraphy card on the right, which covered 南鄭 when the focus
+    // drift: bring the focus toward 38 % x (clear of the calligraphy card on the right, which covered 南郑 when the focus
     // was centred), never past the paper edge; every lit place label stays readable on the paper left of that card (the
-    // card-4 zoom cropped 陽平關 at the left edge): the zoom backs off until their span fits, then the drift is clamped
+    // card-4 zoom cropped 阳平关 at the left edge): the zoom backs off until their span fits, then the drift is clamped
     let x0 = 1600, x1 = 0, y0 = 900, y1 = 0;
     for (const m of el.querySelectorAll('.pl-labels .pl-mark.on')) {
       const b = m.getBBox(); x0 = Math.min(x0, b.x); x1 = Math.max(x1, b.x + b.width); y0 = Math.min(y0, b.y); y1 = Math.max(y1, b.y + b.height);

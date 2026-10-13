@@ -13,7 +13,7 @@ import { SUN_DIR, NOISE_GLSL } from './sky.js';
 import { lensClear } from '../camera/occlusion.js';
 
 // the wind (unit, xz): smoke, embers, flag yaw and the flames' lean follow it. buildDressing resets it to the default
-// (up the valley, toward 定軍山's castle end); a map may set it in dress() before its flags go up, and a set piece may
+// (up the valley, toward 定军山's castle end); a map may set it in dress() before its flags go up, and a set piece may
 // swing it at run time (赤壁's east wind: flags are re-aimed by the map, smoke / embers / flames follow on their own)
 const WIND0 = new THREE.Vector3(0.75, 0, 0.55).normalize();
 export const WIND = WIND0.clone();
@@ -466,7 +466,7 @@ function barricade(scene, x, z, yaw, half) {
 
 // ---------------------------------------------------------------- faction cloth
 // k.army sides are { glyph, flag, banner? } (C3 armies): cloth palettes come from the army's own `banner` over ones
-// derived from its flag colour. No army given: 定軍山's 魏 / 蜀 (these banner palettes are its authored look).
+// derived from its flag colour. No army given: 定军山's 魏 / 蜀 (these banner palettes are its authored look).
 const DEFAULT_ARMY = {
   foe: { glyph: '魏', flag: '#b8301e', banner: { bg: '#7d2a1f', fg: '#1a0d0a', border: '#4a1712', pennant: ['#a3321f', '#6a1c12'], fallen: ['#a0583c', '#4a2418', '#7a3a26'], band: 0xa82a1c } },
   ally: { glyph: '蜀', flag: '#2f7a36', banner: { bg: '#c7a574', fg: '#2a120a', border: '#8e2a1c', flag: ['#b89668', '#9a2e1e'], band: 0x3c7a3a } },

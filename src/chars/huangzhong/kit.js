@@ -1,5 +1,5 @@
 // Huang Zhong's kit (contract: src/chars/index.js): the bow moveset (moves.js, anims.js), the voxel veteran on the shared
-// rig in bow mode (model.js), the per-battle sim with 百步穿楊, the arrow pool and aim mode (musou.js, aim.js), and its
+// rig in bow mode (model.js), the per-battle sim with 百步穿杨, the arrow pool and aim mode (musou.js, aim.js), and its
 // view (view.js: arrows, aim preview, Musou presentation). Locomotion physics, dodge ghosts and roll are shared (hero.js).
 import { MOVES, AIR_CHAIN_MAX } from './moves.js';
 import { HZ_CLIPS, runPose, rollPose } from './anims.js';

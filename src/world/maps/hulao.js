@@ -1,18 +1,18 @@
-// 虎牢關 (Hulao Gate, 190 AD) laid out along +Z, ≈ 330 m from the coalition camp to the gate — 汜水 country: a dry loess
+// 虎牢关 (Hulao Gate, 190 AD) laid out along +Z, ≈ 330 m from the coalition camp to the gate — 汜水 country: a dry loess
 // plain, then a gorge cut through banded loess and rock, then the killing ground under the pass fortress. Noon: a hard
 // white sun high behind the lens's left shoulder, so the gate's rammed-earth face and its twin towers stand sunlit
 // with black shadow under every eave, and dust hangs pale over the plain.
-//   聯軍本陣  coalition camp     z -176 … -126  h 0    袁紹's pavilion, the five lords' standards (袁 曹 孫 公孫 劉), the
+//   联军本阵  coalition camp     z -176 … -126  h 0    袁绍's pavilion, the five lords' standards (袁 曹 孙 公孙 刘), the
 //                                                    wine table by its brazier (anchor 'wine'); story start
-//   汜水關前  the plain           z -128 …  -34  h 0    open loess field (free-mode arena, spawn.free); 華雄's forward
+//   汜水关前  the plain           z -128 …  -34  h 0    open loess field (free-mode arena, spawn.free); 华雄's forward
 //                                                    outworks across its far end: palisades, towers, stakes
-//   峽谷      the gorge           z  -44 …   78  h 0→5 walls of banded loess that climb to 30-40 m and narrow to 15 m;
+//   峡谷      the gorge           z  -44 …   78  h 0→5 walls of banded loess that climb to 30-40 m and narrow to 15 m;
 //                                                    barricade gate 'gorge' at z ≈ 60
-//   關前      the forecourt       z   72 …  134  h 5    60 m of killing ground under the wall: braziers, siege wrecks
-//   虎牢關    the gatehouse       z  136 …  146        custom set piece (build): rammed-earth curtain wall, two 闕
+//   关前      the forecourt       z   72 …  134  h 5    60 m of killing ground under the wall: braziers, siege wrecks
+//   虎牢关    the gatehouse       z  136 …  146        custom set piece (build): rammed-earth curtain wall, two 阙
 //                                                    towers, the three-storey gate tower, the double doors (gate
-//                                                    'hulao', anchor 'hulao' = the gate's face) that 呂布 rides out of
-//   (inner)   the gate yard       z  146 …  170  h 5    behind the doors: where 呂布 waits and withdraws to
+//                                                    'hulao', anchor 'hulao' = the gate's face) that 吕布 rides out of
+//   (inner)   the gate yard       z  146 …  170  h 5    behind the doors: where 吕布 waits and withdraws to
 // Format: ./index.js.
 import * as THREE from 'three';
 import { boxesGeometry, shade } from '../../core/voxel.js';
@@ -23,11 +23,11 @@ import { GATES } from '../map.js';
 
 const WALL_Z = 136, WALL_T = 10, FORE_H = 5;   // wall face (faces -Z), thickness, forecourt / gate-yard plateau height
 const WALL_H = 13, GATE_W = 7.6, GATE_H = 7.2;  // wall height above the forecourt, gate passage width / height
-const TOWER_X = 14, TOWER_W = 9.4, TOWER_D = 11, TOWER_H = 20;   // the two 闕: centre x (±), footprint, earth height
+const TOWER_X = 14, TOWER_W = 9.4, TOWER_D = 11, TOWER_H = 20;   // the two 阙: centre x (±), footprint, earth height
 
 export default {
   id: 'hulao',
-  name: { zh: '虎牢關', en: 'Hulao Gate' },
+  name: { zh: '虎牢关', en: 'Hulao Gate' },
   grid: [-120, -206, 120, 232],
   pieces: [
     { id: 'camp', rect: [-32, -176, 32, -126], h: 0, rise: 6 },
@@ -37,25 +37,25 @@ export default {
     { id: 'gateway', rect: [-GATE_W / 2, 128, GATE_W / 2, 148], h: FORE_H, rise: 3 },
     { id: 'yard', rect: [-16, 146, 16, 170], h: FORE_H, edge: 1.5, rise: 16 },
   ],
-  // the camp's front palisade either side of its gate; 華雄's outworks (two palisade arms leaving a 24 m gap on the road)
+  // the camp's front palisade either side of its gate; 华雄's outworks (two palisade arms leaving a 24 m gap on the road)
   carve: [[-33, -129.5, -9, -125.5], [9, -129.5, 33, -125.5], [-56, -47.5, -12, -44.5], [12, -47.5, 56, -44.5]],
   // the gatehouse (curtain wall either side of the passage, the two towers, the horse-face bastions) and the outworks'
-  // two watchtowers, 袁紹's pavilion terrace
+  // two watchtowers, 袁绍's pavilion terrace
   props: [[-76, WALL_Z, -GATE_W / 2 - 0.3, WALL_Z + WALL_T + 0.5], [GATE_W / 2 + 0.3, WALL_Z, 76, WALL_Z + WALL_T + 0.5],
     [-TOWER_X - TOWER_W / 2, WALL_Z - 6.4, -TOWER_X + TOWER_W / 2, WALL_Z], [TOWER_X - TOWER_W / 2, WALL_Z - 6.4, TOWER_X + TOWER_W / 2, WALL_Z],
     [-32.6, WALL_Z - 3, -27.4, WALL_Z], [27.4, WALL_Z - 3, 32.6, WALL_Z],
     [-18.5, -44, -13.5, -39.5], [13.5, -44, 18.5, -39.5], [-8, -172, 8, -161]],
   zones: [
-    { id: 'camp', name: { zh: '聯軍本陣', en: 'Coalition Camp' }, x: 0, z: -151, w: 64, d: 50 },
-    { id: 'plain', name: { zh: '汜水關前', en: 'Before Sishui' }, x: 0, z: -81, w: 112, d: 94 },
-    { id: 'gorge', name: { zh: '峽谷', en: 'The Gorge' }, x: 0, z: 22, w: 56, d: 112 },
-    { id: 'fore', name: { zh: '關前', en: 'Gate Forecourt' }, x: 0, z: 106, w: 68, d: 56 },
-    { id: 'yard', name: { zh: '虎牢關', en: 'Hulao Gate' }, x: 0, z: 158, w: 32, d: 24 },
+    { id: 'camp', name: { zh: '联军本阵', en: 'Coalition Camp' }, x: 0, z: -151, w: 64, d: 50 },
+    { id: 'plain', name: { zh: '汜水关前', en: 'Before Sishui' }, x: 0, z: -81, w: 112, d: 94 },
+    { id: 'gorge', name: { zh: '峡谷', en: 'The Gorge' }, x: 0, z: 22, w: 56, d: 112 },
+    { id: 'fore', name: { zh: '关前', en: 'Gate Forecourt' }, x: 0, z: 106, w: 68, d: 56 },
+    { id: 'yard', name: { zh: '虎牢关', en: 'Hulao Gate' }, x: 0, z: 158, w: 32, d: 24 },
   ],
   route: [[0, -168], [0, -126], [0, -90], [0, -46], [-5, -18], [4, 8], [1, 32], [3, 50], [2, 62], [0, 80], [0, 110], [0, WALL_Z], [0, 160]],
   gates: {
-    gorge: { rect: [-12, 58.5, 16, 61.5], name: { zh: '峽谷柵', en: 'Gorge Barricade' }, kind: 'barricade', at: [2, 60, 0, 9.5] },
-    hulao: { rect: [-7, WALL_Z - 2, 7, WALL_Z + 2], name: { zh: '虎牢關門', en: 'Hulao Gate' }, kind: 'doors' },
+    gorge: { rect: [-12, 58.5, 16, 61.5], name: { zh: '峡谷栅', en: 'Gorge Barricade' }, kind: 'barricade', at: [2, 60, 0, 9.5] },
+    hulao: { rect: [-7, WALL_Z - 2, 7, WALL_Z + 2], name: { zh: '虎牢关门', en: 'Hulao Gate' }, kind: 'doors' },
   },
   anchors: { hulao: [0, WALL_Z], wine: [-10, -148], outworks: [0, -46] },
   // story: at the head of the coalition van inside the camp gate, the plain and the far gorge through it; free: the plain
@@ -96,10 +96,10 @@ export default {
     const { r, mats, props, poles, shade: sh } = k;
     const lord = (g, bg, fg, border, seed) => k.banner(g, { bg, fg, border, w: 128, h: 256, seed });
     const LORDS = [lord('袁', '#c49a34', '#2a1608', '#6a3a14', 21), lord('曹', '#26324e', '#e8d8b0', '#b89048', 22),
-      lord('孫', '#9a2a1c', '#f0dcb0', '#3a120c', 23), lord('公孫', '#e4e0d4', '#2a2420', '#5a5048', 24), lord('劉', '#2a6a4a', '#f0e6c8', '#c8a050', 25)];
-    const hua = k.banner('華', { bg: '#3a1a4a', fg: '#e8c878', border: '#1a0c20', w: 128, h: 256, seed: 26 });
+      lord('孙', '#9a2a1c', '#f0dcb0', '#3a120c', 23), lord('公孙', '#e4e0d4', '#2a2420', '#5a5048', 24), lord('刘', '#2a6a4a', '#f0e6c8', '#c8a050', 25)];
+    const hua = k.banner('华', { bg: '#3a1a4a', fg: '#e8c878', border: '#1a0c20', w: 128, h: 256, seed: 26 });
 
-    // ---- 聯軍本陣: palisade on three sides and either side of the gate, gate towers, tents of the lords' contingents
+    // ---- 联军本阵: palisade on three sides and either side of the gate, gate towers, tents of the lords' contingents
     k.palisade([[-33.5, -126], [-33.5, -177.5], [33.5, -177.5], [33.5, -126]]);
     k.palisade([[-33, -127.5], [-10.5, -127.5]]);
     k.palisade([[10.5, -127.5], [33, -127.5]]);
@@ -107,7 +107,7 @@ export default {
     const TENT = [0x6e5e44, 0x5e5038, 0x4e5238, 0x7a6848, 0x5a4a36];   // (the noon sun bleaches them: kept dark)
     for (let z = -170; z <= -135; z += 7) for (const sx of [-1, 1]) k.tent(sx * (26 + r.range(-1, 1)), z + r.range(-1, 1), Math.PI / 2 + r.range(-0.1, 0.1), TENT[r.int(0, 4)], 4.6, 5.6);
     for (const sx of [-1, 1]) for (let z = -172; z <= -156; z += 8) k.tent(sx * 16 + r.range(-1, 1), z, r.range(-0.15, 0.15), TENT[r.int(0, 4)], 4.2, 5);
-    // 盟主 袁紹's pavilion on a stone terrace at the back of the camp, the lords' standards in an arc before it
+    // 盟主 袁绍's pavilion on a stone terrace at the back of the camp, the lords' standards in an arc before it
     { const gy = k.ground(0, -166.5);
       props.push({ s: [16, 1.1, 11], p: [0, gy + 0.55, -166.5], c: 0x8a7866 }, { s: [16.2, 0.1, 0.18], p: [0, gy + 1.1, -161.1], c: 0xb8a890 });
       for (let q = 0; q < 3; q++) props.push({ s: [6 - q * 0.3, 0.37 * (q + 1), 1.3 - q * 0.4], p: [0, gy + 0.185 * (q + 1), -160.4 - (1.3 - q * 0.4) / 2 + 0.65], c: sh(0x7a6a5a, 1 + q * 0.05) });
@@ -130,7 +130,7 @@ export default {
     k.drum(12, -146, -Math.PI / 2 - 0.3); k.drum(-17, -134, Math.PI / 2 + 0.2);
     for (const [x, z, yaw] of [[-40, -120, 0.4], [-36, -114, 0.1], [42, -118, -0.3], [38, -123, -0.6]]) k.cart(x, z, yaw);
 
-    // ---- 汜水關前: the plain; 華雄's outworks across its far end — palisade arms, towers at the gap, stakes, his standard
+    // ---- 汜水关前: the plain; 华雄's outworks across its far end — palisade arms, towers at the gap, stakes, his standard
     k.palisade([[-55.5, -46], [-12.5, -46]]);
     k.palisade([[12.5, -46], [55.5, -46]]);
     k.tower(-16, -41.8, 6.5, 1.35); k.tower(16, -41.8, 6.5, 1.35);
@@ -146,7 +146,7 @@ export default {
     for (const [x, z, yaw] of [[-34, -104, 2.2], [36, -76, 0.8]]) k.cart(x, z, yaw, true);
     for (const [x, z, yaw] of [[-40, -40, 0.3], [40, -41, -0.2]]) k.supplies(x, z, yaw, 6);
 
-    // ---- 峽谷: standards up the gorge floor's edges, archers along both rims, the barricade, rocks tumbled on the floor
+    // ---- 峡谷: standards up the gorge floor's edges, archers along both rims, the barricade, rocks tumbled on the floor
     for (const [x, z] of [[-20, -24], [18, -12], [-12, 18], [16, 26], [-9, 44], [12, 48], [-8, 70], [10, 72]]) k.standard(x, z, 1.05, mats.foe, 7.6);
     k.barricade('gorge');
     k.burn(-2, 60.5, 1.1, 'gorge'); k.burn(6, 60, 1.0, 'gorge');
@@ -168,7 +168,7 @@ export default {
       rims[side < 0 ? 0 : 1].push({ x, y: k.topAt(x, z), z, yaw: -side * Math.PI / 2 + r.range(-0.3, 0.3), ph: r.range(0, 6.28) });
     }
 
-    // ---- 關前: braziers along the gate apron, siege wrecks (a burnt ram, broken ladders), the coalition's dead
+    // ---- 关前: braziers along the gate apron, siege wrecks (a burnt ram, broken ladders), the coalition's dead
     for (const [x, z] of [[-7.5, WALL_Z - 5], [7.5, WALL_Z - 5], [-24, WALL_Z - 8], [24, WALL_Z - 8], [-14, 100], [14, 100]]) k.lamp(x, z, 0.8);
     { const x = -14, z = 120, L = k.local(x, k.ground(x, z), z, 0.35);          // burnt battering ram on its wheels
       L(0, 1.3, 0, [2.4, 0.2, 5.5], 0x241610, [0.1, 0, 0.12]); L(0, 2.2, 0.5, [0.7, 0.7, 6.4], 0x2e1c12, [0.05, 0, 0]);
@@ -189,7 +189,7 @@ export default {
     k.debris([-50, -124, 50, 132]);
     k.torchPosts(-30, 70);
 
-    // ---- reserve armies off the walkable ground: the coalition behind its camp and on the plain's flanks, 董卓軍 on the
+    // ---- reserve armies off the walkable ground: the coalition behind its camp and on the plain's flanks, 董卓军 on the
     // heights over the gorge mouth and behind the pass
     for (const [x, z, f] of [[-34, -192, 0], [0, -194, 0], [34, -192, 0], [-66, -150, 0.9], [66, -146, -0.9], [-70, -104, 1.2], [70, -98, -1.2]]) k.formation('ally', x, z, f, r.int(10, 16), r.int(5, 8));
     for (const [x, z, f] of [[-60, -30, Math.PI - 0.8], [62, -26, Math.PI + 0.8], [-44, 98, Math.PI / 2 + 0.6], [46, 104, -Math.PI / 2 - 0.6], [-30, 186, Math.PI], [28, 188, Math.PI]]) k.formation('foe', x, z, f, r.int(9, 13), r.int(4, 6));
@@ -201,10 +201,10 @@ export default {
     for (let x = -60; x <= 60; x += 9) if (Math.abs(x) > 21) k.flag(x + r.range(-1.5, 1.5), FORE_H + WALL_H + 0.3, WALL_Z + WALL_H * 0.07 + 1.2, 3.2, r.chance(0.5) ? mats.foe : mats.pennant);
   },
 
-  // 虎牢關: the gatehouse. Rammed earth (夯土) laid in 0.45 m lifts with a batter, timber lacing every sixth lift and rows
-  // of putlog holes, a brick parapet with crenels; two 闕 towers stand forward of the wall either side of the passage,
+  // 虎牢关: the gatehouse. Rammed earth (夯土) laid in 0.45 m lifts with a batter, timber lacing every sixth lift and rows
+  // of putlog holes, a brick parapet with crenels; two 阙 towers stand forward of the wall either side of the passage,
   // each crowned with a pavilion; the three-storey gate tower spans the passage between them. The doors (gate 'hulao')
-  // swing inward when the story opens it; 董卓's yellow parasol (華蓋) stands on the wall walk.
+  // swing inward when the story opens it; 董卓's yellow parasol (华盖) stands on the wall walk.
   build(root, k) {
     const r = makeRng(190), b = [], y0 = FORE_H - 2, top = FORE_H + WALL_H;
     const EARTH = [0xbc9a6c, 0xc6a676, 0xb08e62, 0xa88658], LACE = 0x5a3e2a, HOLE = 0x2e2018, BRICK = 0x8c7058;
@@ -247,14 +247,14 @@ export default {
       b.push({ s: [a1 - a0, 1.0, 0.5], p: [(a0 + a1) / 2, top + 0.8, WALL_Z + WALL_T - 0.25], c: BRICK });   // rear parapet
       face('x', WALL_Z + 0.5, WALL_Z + WALL_T, y0, top, sx < 0 ? -gx : gx, -sx, 0);   // the passage's side walls
     }
-    // ---- horse-face bastions (馬面) at ±30
+    // ---- horse-face bastions (马面) at ±30
     for (const bx of [-30, 30]) {
       b.push({ s: [5, top - y0, 3], p: [bx, (top + y0) / 2, WALL_Z - 1.5 + 0.8], c: 0x9c7c56 });
       face('z', bx - 2.6, bx + 2.6, y0, top, WALL_Z - 3, -1, 0.05);
       for (const s of [-1, 1]) face('x', WALL_Z - 3, WALL_Z, y0, top, bx + s * 2.6, s, 0.05);
       crenels('z', bx - 2.6, bx + 2.6, top + 0.3, WALL_Z - 3 + 0.65, -1);
     }
-    // ---- the two 闕: earth towers forward of the wall, a timber gallery and a pavilion on each
+    // ---- the two 阙: earth towers forward of the wall, a timber gallery and a pavilion on each
     const tz0 = WALL_Z - 6.4, tz1 = tz0 + TOWER_D, TH = FORE_H + TOWER_H, tbat = 0.045, tin = TOWER_H * tbat;
     for (const sx of [-1, 1]) {
       const cx = sx * TOWER_X, x0 = cx - TOWER_W / 2, x1 = cx + TOWER_W / 2;
@@ -273,7 +273,7 @@ export default {
       pagoda(b, cx, TH + 0.4, (pz0 + tz1) / 2 + 0.6, 8.2, 7.6, 2, 0.95);
     }
     // ---- the gate: timber-framed flat passage (Han gates are post-and-lintel) through the wall, earth above it, the
-    // lintel and the name board, the three-storey gate tower on the wall walk between the 闕
+    // lintel and the name board, the three-storey gate tower on the wall walk between the 阙
     const gTop = FORE_H + GATE_H + 1.2, fAt = (y) => WALL_Z + (y - y0) * bat;   // the curtain face at height y
     b.push({ s: [GATE_W + 0.2, top - gTop, WALL_T - 1], p: [0, (top + gTop) / 2, WALL_Z + 1 + (WALL_T - 1) / 2], c: 0x9c7c56 });
     face('z', -gx, gx, gTop, top, fAt(gTop), -1, bat);
@@ -287,7 +287,7 @@ export default {
     const tIn = TOWER_X - TOWER_W / 2;                                            // the towers' inner faces
     b.push({ s: [tIn * 2 - 0.4, 0.5, WALL_T - topIn], p: [0, top + 0.25, WALL_Z + topIn + (WALL_T - topIn) / 2], c: 0x6a5240 });
     pagoda(b, 0, top + 0.5, WALL_Z + topIn + 4.4, 12.4, 8, 3, 1.02);
-    // ---- 董卓's parasol (華蓋) on the wall walk left of the gate tower: a tiered yellow canopy, purple fringe, tassels
+    // ---- 董卓's parasol (华盖) on the wall walk left of the gate tower: a tiered yellow canopy, purple fringe, tassels
     { const x = -24, z = WALL_Z + 4, y = top + 0.3, P = 7;
       b.push({ s: [0.28, P, 0.28], p: [x, y + P / 2, z], c: 0x5a2a14 });
       for (const [w, dy, c] of [[4.6, 0, 0x5a2a7a], [4.2, 0.25, 0xd0a838], [3.2, 0.55, 0xc49a30], [2.0, 0.85, 0xb88a28], [0.5, 1.2, 0xe0c060]]) for (const a of [0, Math.PI / 4]) b.push({ s: [w, 0.3, w], p: [x, y + P + dy, z], r: [0, a, 0], c });
@@ -305,12 +305,12 @@ export default {
     for (let x = -64; x < 64; x += r.range(1.8, 3.8)) if (Math.abs(x) > 19.5) guard.push({ x, y: top + 0.3, z: WALL_Z + topIn + r.range(0.9, 1.8), yaw: Math.PI + r.range(-0.3, 0.3), ph: r.range(0, 6.28) });
     for (const sx of [-1, 1]) for (let q = 0; q < 4; q++) guard.push({ x: sx * TOWER_X + r.range(-3.5, 3.5), y: TH + 0.25, z: tz0 + tin - 0.6, yaw: Math.PI + r.range(-0.3, 0.3), ph: r.range(0, 6.28) });
     k.troops('foe', guard);
-    // the name board over the gate: 虎牢關 in gold on black lacquer
+    // the name board over the gate: 虎牢关 in gold on black lacquer
     { const c = document.createElement('canvas'); c.width = 512; c.height = 176;
       const g = c.getContext('2d');
       g.fillStyle = '#1a1210'; g.fillRect(0, 0, 512, 176); g.strokeStyle = '#b08a40'; g.lineWidth = 14; g.strokeRect(10, 10, 492, 156);
       g.fillStyle = '#e0bc68'; g.font = 'bold 118px "Kaiti SC","STKaiti","KaiTi","Songti SC",serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-      g.fillText('虎牢關', 256, 94);
+      g.fillText('虎牢关', 256, 94);
       const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
       const m = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 1.8), new THREE.MeshStandardMaterial({ map: tex, emissiveMap: tex, emissive: 0xffffff, emissiveIntensity: 0.15, roughness: 0.7 }));
       m.position.set(0, FORE_H + GATE_H + 2.6, fAt(FORE_H + GATE_H + 2.6) - 0.12); m.rotation.y = Math.PI;

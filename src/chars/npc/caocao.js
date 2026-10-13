@@ -8,7 +8,7 @@
 // sleeves to the elbow with black cuffs, gold bracers; pauldrons of gold plate over black lacquer with a red-gemmed boss;
 // the robe closed over the belly under a black belt with gold plaques and a jade buckle; black trousers under crimson
 // skirt panels, gold greaves, black boots with gold trim. Chains: a long black cape lined crimson with a gold hem, the robe's front and side panels, the goatee point, the
-// cap ribbons and the red tassel of the sword. Weapon: 倚天劍 — a long straight jian, the blade bright steel with a
+// cap ribbons and the red tassel of the sword. Weapon: 倚天剑 — a long straight jian, the blade bright steel with a
 // raised ridge and a gilt inscription near the root, a gold cloud guard, a crimson cord grip, a gold pommel.
 import { vox, B, P, md, mirX, lamellar } from '../../hero/model.js';
 import { hash01 } from '../../core/rng.js';
@@ -151,7 +151,7 @@ function head() {
   ];
 }
 
-// ---------------------------------------------------------------- 倚天劍 (weapon joint: blade +Z, origin = the grip)
+// ---------------------------------------------------------------- 倚天剑 (weapon joint: blade +Z, origin = the grip)
 function weaponGeo() {
   // hilt at 0.01: gold pommel (z −0.13 … −0.09), crimson cord grip (… 0.08), gold cloud guard (0.08 … 0.12)
   const hilt = vox([

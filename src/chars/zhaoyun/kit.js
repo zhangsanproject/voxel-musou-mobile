@@ -1,5 +1,5 @@
 // Zhao Yun's kit: everything the generic hero / combat / musou / vfx / audio code needs from a character, wired from the
-// spear modules that still live in src/hero (moves, anims, model, secondary) and src/musou (真・無雙 + its view).
+// spear modules that still live in src/hero (moves, anims, model, secondary) and src/musou (真・无双 + its view).
 // The kit contract (every field) is documented in src/chars/index.js.
 import { MOVES, AIR_CHAIN_MAX } from '../../hero/moves.js';
 import { ATTACK_CLIPS, MOVE_FEET } from '../../hero/anims/attacks.js';

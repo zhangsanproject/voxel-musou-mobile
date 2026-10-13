@@ -194,7 +194,7 @@ const ATTACK = {
     [44, { hips: [0, 0.62, 0.05], hipsR: [26, -20, 0], ...WIDE }, 'out'],
     [56, {}],
   ]),
-  // 瞄準: draw 0 → full at 14, loose at 16, follow-through, back to the nocked pose at 30 (= frame 0: aim.js loops it)
+  // 瞄准: draw 0 → full at 14, loose at 16, follow-through, back to the nocked pose at 30 (= frame 0: aim.js loops it)
   aim: M('aim', [
     [0, draw(0.12, { low: 0.04 })],
     [14, draw(1, { low: 0.06 }), 'io'],
@@ -243,7 +243,7 @@ function rollPose(u, out) {
 // ---------------------------------------------------------------- Musou clips (src/chars/huangzhong/musou.js)
 const MU_WIDE = { footL: [0.34, 0.08, 0.36, 0, 25], footR: [-0.34, 0.08, -0.34, 0, -60] };
 const MUSOU_CLIPS = {
-  // activation: the bow thrust overhead, upright, the free hand clenched — 「老當益壯」
+  // activation: the bow thrust overhead, upright, the free hand clenched — 「老当益壮」
   hz_act: clip([[0, H()], [0.35, H({ hips: [0, 0.92, 0], hipsR: [-2, -10, 0], chest: [-8, -4, 0], head: [-10, -10, 0],
     spear: blade([0.2, 1.95, 0.12], [0, 1, 0], [0, 0, 1]), armR: [-20, 0, 50, 110] }), 'out'],
   [1, H({ hips: [0, 0.93, 0], hipsR: [-2, -10, 0], chest: [-9, -4, 0], head: [-12, -10, 0], spear: blade([0.2, 1.98, 0.12], [0, 1, 0.05], [0, 0, 1]), armR: [-24, 0, 52, 115] })]]),

@@ -1,8 +1,8 @@
-// 諸葛亮 孔明 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, light and
-// upright, no pauldrons (buildDef makes no helper joints: the def has no `pauldron`). 羽扇綸巾: a peaked 綸巾 of indigo silk
+// 诸葛亮 孔明 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig, light and
+// upright, no pauldrons (buildDef makes no helper joints: the def has no `pauldron`). 羽扇纶巾: a peaked 纶巾 of indigo silk
 // (a roof-ridged crown, a dark band with a jade bead, a knot at the back whose two ribbon tails stream in the wind), long
 // black hair falling down the back, a calm long face — level eyes under long upswept brows, a fine nose, a thin drooping
-// moustache and a pointed goatee. The 鶴氅: a white crane-feather cloak (shingled feather rows) draped over soft shoulders,
+// moustache and a pointed goatee. The 鹤氅: a white crane-feather cloak (shingled feather rows) draped over soft shoulders,
 // crossed at the chest 右衽 over a blue-grey under-robe, every edge bound in an indigo-black band printed with the eight
 // trigrams (先天 order, cycling), a jade-buckled black sash; wide 大袖 sleeves open at the cuff, the robe falling to the
 // ankles over black cloud shoes. Behind: the long cloak (a chain) with a great 八卦 emblem — taiji inside the trigram ring
@@ -23,13 +23,13 @@ export const C = {
   W: 0xd4d0c6, Wd: 0xada99e, Wl: 0xe4e1da, Wq: 0xbfbbb2,                     // crane white (kept under the bloom knee)
   K: 0x1a1b26, Kl: 0x2e3144, tri: 0xd2d6e2,                                  // indigo-black trim, its trigram bars
   I: 0x9aa8b8, Id: 0x76849a,                                                 // blue-grey under-robe
-  N: 0x2a2e58, Nd: 0x1a1d3c, Nl: 0x3e4478,                                   // 綸巾 indigo silk
+  N: 0x2a2e58, Nd: 0x1a1d3c, Nl: 0x3e4478,                                   // 纶巾 indigo silk
   A: 0xc0a052, Ad: 0x7c6632, Al: 0xe4c878, J: 0x5fb89a, Jd: 0x2f7a62, Jl: 0x9adcc4,
   shoe: 0x1a1a20, shoeD: 0x0e0e12, sole: 0xe8e4dc,
   lacq: 0x16121a, feather: 0xf2f0ea, featherD: 0xd6d3cc, quill: 0xa8a49a, tip: 0x2a2a34,
   wind: 0xd6ccff, windH: 0xffffff, windD: 0x8c7ce8,                           // the wind blade: violet-white
 };
-// 先天八卦 clockwise from 乾 (bit k = line k from the bottom, 1 = unbroken): 乾 巽 坎 艮 坤 震 離 兌
+// 先天八卦 clockwise from 干 (bit k = line k from the bottom, 1 = unbroken): 干 巽 坎 艮 坤 震 离 兑
 export const TRIGRAMS = [7, 6, 2, 4, 0, 1, 5, 3];
 
 /** Crane-feather white: shingled rows (a grey quill line every 4 rows, staggered), sparse lighter barbs. */
@@ -124,7 +124,7 @@ function limbs(T) {
 // ---------------------------------------------------------------- head (HV voxels, chin y 0, columns centred on 0)
 function head() {
   const hair = (x, y, z) => (hash01(x, y, z + 147) < 0.18 ? C.hairH : C.hair);
-  // 綸巾: silk crown with soft vertical folds, sloping to a ridge (a roof from the front), a dark band with a jade bead
+  // 纶巾: silk crown with soft vertical folds, sloping to a ridge (a roof from the front), a dark band with a jade bead
   const silk = (x, y, z) => (md(x + (z >> 2), 4) === 0 ? C.Nd : y > 19 && md(z, 3) === 0 ? C.Nl : C.N);
   return [
     // long calm face: skull, narrow jaw and chin, ears
@@ -189,7 +189,7 @@ function weaponGeo() {
 }
 
 // ---------------------------------------------------------------- chain segments (local −Y along the chain)
-/** The 鶴氅's back: feather rows, trigram-banded edges and hem, and the 八卦 emblem (taiji in the trigram ring) centred
+/** The 鹤氅's back: feather rows, trigram-banded edges and hem, and the 八卦 emblem (taiji in the trigram ring) centred
  *  across segments 0 … 2 (global row g = y − 12 i). */
 function cloakSeg(i, n) {
   const w = Math.round(16 + i * 0.8), last = i === n - 1;
@@ -274,7 +274,7 @@ export const ZHUGELIANG_DEF = {
   },
 };
 
-// ---------------------------------------------------------------- HUD portrait (20 × 20): the peaked indigo 綸巾 with its
+// ---------------------------------------------------------------- HUD portrait (20 × 20): the peaked indigo 纶巾 with its
 // jade bead, long black hair framing a calm face, level eyes, thin moustache and goatee, the white crane collar crossed
 // over the under-robe, its edges in the dark trigram band
 export const FACE = [

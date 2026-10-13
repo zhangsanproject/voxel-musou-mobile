@@ -1,19 +1,19 @@
-// 赤壁 (Red Cliffs, winter 208 AD) laid out along +Z, ≈ 380 m from 七星壇 to the mouth of 華容道: a night battle
+// 赤壁 (Red Cliffs, winter 208 AD) laid out along +Z, ≈ 380 m from 七星坛 to the mouth of 华容道: a night battle
 // between two walls — the 赤壁 red cliffs rise on the -X side, the Yangtze runs the whole length of the +X side, a
 // 150 m band of black water with 曹操's chained fleet moored along our shore. Format: ./index.js.
-//   七星壇    南屏山 altar mesa    z -188 … -144  h 7    Kongming's three-tier altar (28 mansion flags, 北斗 lamps); start
+//   七星坛    南屏山 altar mesa    z -188 … -144  h 7    Kongming's three-tier altar (28 mansion flags, 北斗 lamps); start
 //   (ramp)    down the NE flank     z -150 … -128  h 7→0
-//   江岸      the beach landing     z -130 …  -52  h 0    reeds, the allies' landing boats, 吳 / 劉 banners (free arena)
+//   江岸      the beach landing     z -130 …  -52  h 0    reeds, the allies' landing boats, 吴 / 刘 banners (free arena)
 //   (neck)    赤壁 buttress         z  -58 …  -30  h 0    the cliff juts out (the carved 赤壁), the lane narrows to the
 //                                                          water camp's palisade and barricade gate 'shuizhai' (z -42)
-//   曹軍水寨  Cao's water camp      z  -34 …   58  h 0    tents, piers into the river; the 連環船 moored beyond them
-//   烏林      the woods camp        z   56 …  148  h 0→4  a clearing ringed by dark woods, 曹操's command tent
-//   華容道    the road north        z  140 …  200  h 3→5  a narrow muddy track into the woods (張遼 at its mouth)
+//   曹军水寨  Cao's water camp      z  -34 …   58  h 0    tents, piers into the river; the 连环船 moored beyond them
+//   乌林      the woods camp        z   56 …  148  h 0→4  a clearing ringed by dark woods, 曹操's command tent
+//   华容道    the road north        z  140 …  200  h 3→5  a narrow muddy track into the woods (张辽 at its mouth)
 // Night (the sky / light / post below): a low moon over the river to the NE lays a silver path on the water; everything
 // warm comes from fire. build() owns the set pieces the story drives (story:set): 'wind' swings the wind from the winter
-// north-wester round to the south-easterly (every flag turns, smoke and flames lean the other way), 'ignite' sends 黃蓋's
+// north-wester round to the south-easterly (every flag turns, smoke and flames lean the other way), 'ignite' sends 黄盖's
 // fire boats across the river into the fleet and the fire runs down the chained lines ship by ship (sails burn away,
-// hulls char, the river glows red), 'forest' sets 烏林's woods alight. Firelight uses the world's light sites only: the
+// hulls char, the river glows red), 'forest' sets 乌林's woods alight. Firelight uses the world's light sites only: the
 // fleet / forest sites stay parked far off until their fire is lit. A new battle (frame back to 0) resets the set; free
 // mode stands in the burning night from the start.
 import * as THREE from 'three';
@@ -28,7 +28,7 @@ const shore = (z) => RIVER(z) - HW;                                             
 const WY = -0.2;                                                                 // water surface
 const ALTAR = [-6, -160], ALTAR_H = 7;                                           // altar centre, its mesa height
 const GATE = [22, -42], TENT = [-12, 130];
-const WINTER = [0.6, -0.8], EAST = [-0.46, 0.89];                               // wind toward: SE (north-wester) → NW (東南風)
+const WINTER = [0.6, -0.8], EAST = [-0.46, 0.89];                               // wind toward: SE (north-wester) → NW (东南风)
 const boat = (z) => [shore(z) - 1.5, z];                                        // a landing boat's centre on the bank
 
 export default {
@@ -51,16 +51,16 @@ export default {
   props: [[-15, -169, 3, -151], [-44, -53, 5, -44], [-8.6, -171.6, -3.4, -148.4], [-10.5, 25.5, 2.5, 34.5], [-20.5, 124.5, -3.5, 135.5],
     ...[-112, -96, -80].map((z) => [boat(z)[0] - 5.5, z - 1.8, boat(z)[0] + 4, z + 1.8])],
   zones: [
-    { id: 'nanping', name: { zh: '七星壇', en: 'Altar of the Seven Stars' }, x: -6, z: -166, r: 28 },
+    { id: 'nanping', name: { zh: '七星坛', en: 'Altar of the Seven Stars' }, x: -6, z: -166, r: 28 },
     { id: 'beach', name: { zh: '江岸', en: 'Riverbank Landing' }, x: 12, z: -91, w: 100, d: 78 },
-    { id: 'shuizhai', name: { zh: '曹軍水寨', en: 'Cao Water Camp' }, x: 20, z: 8, w: 92, d: 100 },
-    { id: 'wulin', name: { zh: '烏林', en: 'Wulin' }, x: -6, z: 102, w: 80, d: 88 },
-    { id: 'huarong', name: { zh: '華容道', en: 'Huarong Road' }, x: -30, z: 174, w: 44, d: 52 },
+    { id: 'shuizhai', name: { zh: '曹军水寨', en: 'Cao Water Camp' }, x: 20, z: 8, w: 92, d: 100 },
+    { id: 'wulin', name: { zh: '乌林', en: 'Wulin' }, x: -6, z: 102, w: 80, d: 88 },
+    { id: 'huarong', name: { zh: '华容道', en: 'Huarong Road' }, x: -30, z: 174, w: 44, d: 52 },
   ],
   route: [[4, -182], [13, -166], [13, -150], [21, -139], [26, -128], [24, -104], [20, -76], [22, -54], [22, -42], [18, -14],
     [10, 22], [2, 58], [-6, 92], [-10, 116], [-14, 140], [-24, 160], [-34, 180], [-44, 200]],
   gates: {
-    shuizhai: { rect: [13, -43.5, 31, -40.5], name: { zh: '水寨門', en: 'Water Camp Gate' }, kind: 'barricade', at: [22, -42, 0, 8] },
+    shuizhai: { rect: [13, -43.5, 31, -40.5], name: { zh: '水寨门', en: 'Water Camp Gate' }, kind: 'barricade', at: [22, -42, 0, 8] },
   },
   anchors: { altar: ALTAR, gate: GATE, boat: boat(-96), tent: TENT, mouth: [-24, 160], road: [-44, 200] },
   // story: on the mesa south of the altar, looking up the river past it; free: the beach
@@ -102,13 +102,13 @@ export default {
     const { r, mats, props, poles, shade } = k;
     WIND.set(WINTER[0], 0, WINTER[1]);                          // the winter north-wester: flags stream south-east
     const ban = (g, bg, fg, border, seed, w = 128, h = 256) => k.banner(g, { bg, fg, border, w, h, seed });
-    const wu = ban('吳', '#8a2a1c', '#f2dcb0', '#3a120c', 21), zhou = ban('周', '#7a2418', '#f0d8a8', '#2c0e0a', 22);
-    const huang = ban('黃', '#a0781c', '#2a1408', '#4a2a0c', 23), shuai = ban('帥', '#1c2a58', '#f2e6c8', '#b8963c', 24, 160, 320);
+    const wu = ban('吴', '#8a2a1c', '#f2dcb0', '#3a120c', 21), zhou = ban('周', '#7a2418', '#f0d8a8', '#2c0e0a', 22);
+    const huang = ban('黄', '#a0781c', '#2a1408', '#4a2a0c', 23), shuai = ban('帅', '#1c2a58', '#f2e6c8', '#b8963c', 24, 160, 320);
     const bigCao = ban('曹', '#16264e', '#f2e6c8', '#c8a040', 25, 160, 320), mao = ban('毛', '#22418a', '#f2e6c8', '#0e1a3a', 26);
     const yu = ban('于', '#22418a', '#f2e6c8', '#0e1a3a', 27);
 
-    // ---- 南屏山 七星壇: three rammed-earth tiers faced with stone, a stair north and south; 28 mansion flags on the
-    // base tier (east 青, north 皂, west 白, south 紅, each with its mansion's name), yellow pennants on the middle one,
+    // ---- 南屏山 七星坛: three rammed-earth tiers faced with stone, a stair north and south; 28 mansion flags on the
+    // base tier (east 青, north 皂, west 白, south 红, each with its mansion's name), yellow pennants on the middle one,
     // the 北斗 lamps and the incense tripod on top (Kongming and his four attendants: build())
     {
       const [ax, az] = ALTAR, gy = k.ground(ax, az), T = [[18, 1.0], [12.6, 1.0], [8, 1.0]];
@@ -125,8 +125,8 @@ export default {
         props.push({ s: [4.6, top, d], p: [ax, gy + top / 2, az + sd * (9 + d / 2 - 0.02)], c: shade(0x6a6058, 1 + q * 0.03) });
       }
       const mansions = [
-        ['角亢氐房心尾箕', '#2e6a58', '#f0e6c0', [1, 0]], ['斗牛女虛危室壁', '#1a1a20', '#e8e0d0', [0, 1]],
-        ['奎婁胃昴畢觜參', '#d8d2c4', '#1a1410', [-1, 0]], ['井鬼柳星張翼軫', '#9a2a1c', '#f0d070', [0, -1]],
+        ['角亢氐房心尾箕', '#2e6a58', '#f0e6c0', [1, 0]], ['斗牛女虚危室壁', '#1a1a20', '#e8e0d0', [0, 1]],
+        ['奎娄胃昴毕觜参', '#d8d2c4', '#1a1410', [-1, 0]], ['井鬼柳星张翼轸', '#9a2a1c', '#f0d070', [0, -1]],
       ];
       mansions.forEach(([names, bg, fg, [nx, nz]], side) => {
         [...names].forEach((g, i) => {
@@ -164,7 +164,7 @@ export default {
       }
     }
 
-    // ---- 江岸: reeds, the allies' landing boats drawn up on the bank, 吳 / 劉 / 周 / 黃 standards, bonfires
+    // ---- 江岸: reeds, the allies' landing boats drawn up on the bank, 吴 / 刘 / 周 / 黄 standards, bonfires
     k.reeds();
     for (const z of [-126, -112, -96, -80, -64]) {
       const [x] = boat(z), L = k.local(x, WY, z, Math.PI / 2 + r.range(-0.12, 0.12));   // lz → +x: bow on the sand (−lz)
@@ -189,7 +189,7 @@ export default {
     k.lamp(13, -46, 0.8); k.lamp(31, -46, 0.8);
     k.standard(6, -46, 1.1, mao, 8, [22, -60]); k.standard(40, -46, 1.1, yu, 8, [22, -60]);
 
-    // ---- 曹軍水寨: a stockade along the shore (gaps where the piers leave), piers on posts out to the fleet, tents under
+    // ---- 曹军水寨: a stockade along the shore (gaps where the piers leave), piers on posts out to the fleet, tents under
     // the cliff, the admirals' pavilion, watchtowers, lanterns on poles
     const PIERS = [-28, 0, 28, 52];
     for (let z = -39; z < 56; z += 3) {
@@ -218,7 +218,7 @@ export default {
     k.tower(-19, -32, 7, 1.45); k.tower(38, 16, 7.5, 1.5); k.tower(-18, 54, 7, 1.45);
     for (const [x, z] of [[4, -30], [36, -24], [-8, 6], [34, 30], [8, 52]]) k.standard(x, z, 1.05, mats.foe, 8);
 
-    // ---- 烏林: tents in the clearing, 曹操's command pavilion on its platform with the 帥 and the great 曹 banner
+    // ---- 乌林: tents in the clearing, 曹操's command pavilion on its platform with the 帅 and the great 曹 banner
     for (let z = 70; z < 116; z += 9) for (const x of [-34, -24, 16, 26]) k.tent(x + r.range(-1.5, 1.5), z + r.range(-1.5, 1.5), Math.PI / 2 + r.range(-0.2, 0.2), r.chance(0.5) ? 0x5a6278 : 0x8a8680, 4.6, 5.6);
     { const [tx, tz] = TENT, gy = k.ground(tx, tz);
       props.push({ s: [17, 1.1, 11], p: [tx, gy + 0.55, tz], c: 0x4e4038 });
@@ -236,7 +236,7 @@ export default {
     for (const [x, z] of [[-38, 64], [28, 66], [-40, 100], [30, 104], [-30, 140], [20, 142]]) k.standard(x, z, 1.05, mats.foe, 8);
     for (const [x, z] of [[-30, 84], [22, 90]]) k.lamp(x, z, 0.7);
 
-    // ---- 華容道: the muddy road into the woods: a cart stuck in the ruts, dropped gear, a torch at the mouth
+    // ---- 华容道: the muddy road into the woods: a cart stuck in the ruts, dropped gear, a torch at the mouth
     k.cart(-30, 170, 2.6); k.cart(-20, 154, 0.4, true); k.lamp(-19, 152, 0.7);
     k.standard(-31, 157, 1.0, mats.foe, 7.5); k.standard(-17, 166, 1.0, mats.pennant, 7);
 
@@ -319,8 +319,8 @@ function buildSet(root, k) {
   const r = makeRng(208), sites = k.sites, P = [];               // P: fleet / fire-boat / forest light sites (parked until lit)
   const park = (x, y, z, i, d) => { const s = { x: 9e3, y, z: 9e3, i: 0, d, k: 0, at: [x, z], full: i }; sites.push(s); P.push(s); return s; };
 
-  // ---- 七星壇: Kongming at the top with his hair unbound and a sword raised, the four attendants (feather pole, the
-  // 七星號帶 streamer — the wind's telltale —, the sword bearer, the censer bearer)
+  // ---- 七星坛: Kongming at the top with his hair unbound and a sword raised, the four attendants (feather pole, the
+  // 七星号带 streamer — the wind's telltale —, the sword bearer, the censer bearer)
   const [ax, az] = ALTAR, top = k.ground(ax, az) + 3;
   const figure = (x, z, robe, trim, extra) => {
     const L = k.local(x, top, z, 0), b = [];                                                          // facing south (−Z)
@@ -345,7 +345,7 @@ function buildSet(root, k) {
   figMesh.castShadow = true; figMesh.name = 'kongming';
   root.add(figMesh);
   k.cloth(k.banner('', { bg: '#c8b060', fg: '#000', border: '#6a1a12', w: 64, h: 16, tatter: false, seed: 61 }), 3.4, 0.36, 'flag', ax + 3 + 0.36, top + 4.0, az - 2.6, Math.atan2(-WIND.z, WIND.x));
-  { const x = ax - 3 - 0.36, z = az - 2.6; for (let i = 0; i < 5; i++) k.props.push({ s: [0.34, 0.3, 0.1], p: [x, top + 3.95 + i * 0.08, z], r: [0, i * 0.7, 0.3], c: 0xe8e2d0 }); }   // 雞羽 tuft
+  { const x = ax - 3 - 0.36, z = az - 2.6; for (let i = 0; i < 5; i++) k.props.push({ s: [0.34, 0.3, 0.1], p: [x, top + 3.95 + i * 0.08, z], r: [0, i * 0.7, 0.3], c: 0xe8e2d0 }); }   // 鸡羽 tuft
 
   // ---- 赤壁: a sheer red-sandstone face on the buttress (its footprint is a map prop: no terrain rock there), the two
   // great characters painted on it facing the beach
@@ -358,7 +358,7 @@ function buildSet(root, k) {
   { const cv = glyphPlane('赤壁', 8, 16, '#c8341c');
     cv.position.set(-19, 11.5, -53.25); cv.rotation.y = Math.PI;
     root.add(cv); }
-  { const sg = glyphPlane('華容道', 0.9, 2.6, '#1a1008', 0.72);                                        // the road sign
+  { const sg = glyphPlane('华容道', 0.9, 2.6, '#1a1008', 0.72);                                        // the road sign
     const x = -18.6, z = 156, gy = k.ground(x, z);
     k.props.push({ s: [0.18, 3.6, 0.18], p: [x, gy + 1.8, z + 0.1], c: 0x3a2818 }, { s: [1.1, 2.9, 0.12], p: [x, gy + 2.2, z + 0.05], c: 0x8a7a5a });
     sg.position.set(x, gy + 2.2, z - 0.03); sg.rotation.y = Math.PI; root.add(sg); }
@@ -369,7 +369,7 @@ function buildSet(root, k) {
     k.props.push({ s: [w, h, w * r.range(0.6, 1.2)], p: [x, h / 2 - 1, z], r: [0, r.range(0, 3), 0], c: k.shade(0x4a2a22, r.range(0.6, 0.95)) });
   }
 
-  // ---- 連環船: three rows of six war junks along our shore, bows downstream (−Z), chained bow to stern and row to row
+  // ---- 连环船: three rows of six war junks along our shore, bows downstream (−Z), chained bow to stern and row to row
   const ships = [], box = [];
   const ROWS = 3, PER = 6;
   for (let row = 0; row < ROWS; row++) for (let j = 0; j < PER; j++) {
@@ -387,7 +387,7 @@ function buildSet(root, k) {
   for (const A of ships) {
     const B = ships.find((q) => q.row === A.row && q.j === A.j + 1), C = ships.find((q) => q.row === A.row + 1 && q.j === A.j);
     if (B) for (const sd of [-1, 1]) link([A.x + sd * 2.6, WY + 2.7 * A.s, A.z + 12.2 * A.s], [B.x + sd * 2.2, WY + 3.4 * B.s, B.z - 11.6 * B.s], A.i, 0.35);
-    if (C) {                                                                                            // 鋪闊板: a plank gangway + chains
+    if (C) {                                                                                            // 铺阔板: a plank gangway + chains
       const a = [A.x + 3.7 * A.s, WY + 2.45, A.z + 3.5], c = [C.x - 3.7 * C.s, WY + 2.45, C.z + 3.5], d = c[0] - a[0];
       for (let q = 0; q < 3; q++) box.push({ s: [d, 0.16, 0.6], p: [(a[0] + c[0]) / 2, a[1] + 0.1, a[2] + (c[2] - a[2]) / 2 - 0.7 + q * 0.7], r: [0, 0, 0], c: k.shade(0x5e4630, 0.85 + q * 0.08), b: A.i * 4 });
       for (const o of [-2.4, 2.4]) link([a[0], a[1] + 0.2, a[2] + o], [c[0], c[1] + 0.2, c[2] + o], A.i, 1.4);
@@ -398,7 +398,7 @@ function buildSet(root, k) {
   fleet.castShadow = true; fleet.receiveShadow = true; fleet.name = 'fleet';
   root.add(fleet);
 
-  // ---- 黃蓋's fire boats: eight reed-laden skiffs that sail in from across the river with the east wind and ram the
+  // ---- 黄盖's fire boats: eight reed-laden skiffs that sail in from across the river with the east wind and ram the
   // fleet's south-east corner; the fire runs on from ship to ship along the chains (≈ 20 m/s)
   const R2 = ships.filter((s) => s.row === 2), R0 = ships.filter((s) => s.row === 0);
   const hits = [...[0, 1, 2, 3].map((j) => [R2[j].x + 6.5, R2[j].z - 4 + (j % 2) * 6]),
@@ -411,7 +411,7 @@ function buildSet(root, k) {
   { const L = (lx, ly, lz, s, c, kind = 0) => boatBox.push({ s, p: [lx, ly, lz], c, b: kind });
     L(0, 0.15, 0, [2.6, 0.9, 9], 0x2e2216); L(0, 0.75, 0, [3, 0.4, 9.6], 0x4a3422); L(0, 1.2, -4.9, [2, 0.7, 1.4], 0x4a3422);
     for (let q = 0; q < 9; q++) L(r.range(-0.8, 0.8), 1.35 + (q % 3) * 0.45, -3 + q * 0.8, [1.1, 0.6, 1.4], k.shade(0x8a6a34, r.range(0.8, 1.1)), 1);   // reed bundles
-    L(0, 2.6, 2.2, [0.14, 4.2, 0.14], 0x2a1a10); L(0.8, 3.9, 2.2, [1.4, 1.4, 0.06], 0x2e5a4a, 1); }       // 青龍牙旗
+    L(0, 2.6, 2.2, [0.14, 4.2, 0.14], 0x2a1a10); L(0.8, 3.9, 2.2, [1.4, 1.4, 0.06], 0x2e5a4a, 1); }       // 青龙牙旗
   const boatGeo = burnGeometry(boatBox), uBoat = { value: new Array(fb.length).fill(0) }, boatMat = burnMaterial(uBoat, 'boat');
   const glowT = glowTex(), fireMat = new THREE.MeshBasicMaterial({ map: glowT, color: 0xff7a2a, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false, fog: false });
   const flameMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(2.4, 0.9, 0.25) });
@@ -443,7 +443,7 @@ function buildSet(root, k) {
   pm.frustumCulled = false; pm.renderOrder = 1; pm.name = 'fleet-glow';
   root.add(pm);
 
-  // ---- 烏林: dark winter woods ringing the clearing and lining 華容道 (voxel pines and broadleaves); 'forest' burns
+  // ---- 乌林: dark winter woods ringing the clearing and lining 华容道 (voxel pines and broadleaves); 'forest' burns
   // them in from the river side, groups of trees catching one after another
   const trees = [], tbox = [], FROM = [40, 70];
   for (let z = 48; z < 226; z += 4.2) for (let x = -76; x < 44; x += 4.2) {
@@ -537,7 +537,7 @@ function buildSet(root, k) {
   };
 }
 
-/** A war junk (樓船) centred at (x, z), bow toward −Z, scale s, burn index i: tarred planked hull with a red-lacquered
+/** A war junk (楼船) centred at (x, z), bow toward −Z, scale s, burn index i: tarred planked hull with a red-lacquered
  *  gunwale and blue shields along it, a rising bow with a fore castle, a two-storey stern castle with tiled roofs and a
  *  transom, a two-tier deck house, main + fore masts with battened junk sails, the 曹 flag astern, lanterns. */
 function junk(out, x, z, s, i, r, k) {

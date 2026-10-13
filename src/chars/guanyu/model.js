@@ -1,15 +1,15 @@
-// 關羽 雲長 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig. 面如重棗: a
-// deep jujube-red face — long and noble, 丹鳳眼 (long narrow phoenix eyes whose outer corners sweep up), 臥蠶眉 (thick
+// 关羽 云长 (def-kit model: src/chars/defkit.js header), fine voxels (chars/parts.js FV) on the shared rig. 面如重枣: a
+// deep jujube-red face — long and noble, 丹凤眼 (long narrow phoenix eyes whose outer corners sweep up), 卧蚕眉 (thick
 // silkworm brows rising at the ends), a long straight nose, a drooping black moustache and the 美髯: a black beard
 // massed round the jaw whose long strands (spring chains) fall over the chest to the belt and swing with every cut. No
-// helmet: a green 綠巾 head wrap (a jade-and-gold ornament on the brow band, the cloth over his topknot, a knot behind
-// whose two tails stream). A green 綠袍 worn off the right shoulder over gold-trimmed black-iron lamellar: the robe covers
+// helmet: a green 绿巾 head wrap (a jade-and-gold ornament on the brow band, the cloth over his topknot, a knot behind
+// whose two tails stream). A green 绿袍 worn off the right shoulder over gold-trimmed black-iron lamellar: the robe covers
 // the back and the left, its gold-hemmed edge running from the left of the neck down to the right hip, so the right
-// breast (a gold 護心鏡 with a jade boss) and flank show armour; a gold cloud roundel on the back. One gold dragon
+// breast (a gold 护心镜 with a jade boss) and flank show armour; a gold cloud roundel on the back. One gold dragon
 // pauldron on the left (leading) shoulder — tiers of gold scale, a dragon's head facing forward, jaws open, red eyes,
 // horns swept back; the right shoulder a small iron spaulder over a green sleeve. Leather belt with gold rows and jade
 // plaques, a gold-rimmed jade buckle; the robe skirt falls in panels (chains) front, back and sides to the shins; iron
-// tassets on both thighs, dark-green trousers, black boots with gold trim and upturned toes. Weapon: the 青龍偃月刀 —
+// tassets on both thighs, dark-green trousers, black boots with gold trim and upturned toes. Weapon: the 青龙偃月刀 —
 // green-lacquered shaft banded in gold, a gold dragon head swallowing a broad crescent blade (edge = local +Y, the point
 // sweeping back past the spine), a spur on the spine, a green dragon inlaid along the flat, a red tassel under the jaws.
 import { vox, B, P, md, mirX, lamellar } from '../../hero/model.js';
@@ -59,7 +59,7 @@ function torso() {
     ...lamellar([-12, -5, -10], [12, 16, 10], { base: C.iron, rowH: 2, pw: 3 }),
     B([-13, -6, -11], [13, 16, 11], drape(-9.6)),
   ];
-  // chest: gold-trimmed black-iron lamellar, the robe draped over it, a gold 護心鏡 on the right breast, a green standing
+  // chest: gold-trimmed black-iron lamellar, the robe draped over it, a gold 护心镜 on the right breast, a green standing
   // collar with a gold rim, a gold cloud roundel on the back of the robe
   const mirror = [], roundel = [];
   for (let y = 0; y < 9; y++) for (let x = 0; x < 9; x++) {
@@ -155,11 +155,11 @@ function head() {
     B([-8, 6, -2], [9, 10, 1], C.skinD),
     ...symH(3, 6, 5, 7, 5, 6, C.skinH),                                            // cheekbones
     ...symH(5, 8, 2, 5, 5, 6, C.skinD),                                            // hollow cheeks
-    // 丹鳳眼: long narrow slits, iris half hidden under a heavy lid, the outer corner sweeping up
+    // 丹凤眼: long narrow slits, iris half hidden under a heavy lid, the outer corner sweeping up
     ...symH(2, 7, 7, 8, 5, 6, C.skinD),                                            // under-eye shade (y 10: bare lid under the brow)
     ...symH(2, 6, 8, 9, 5, 6, C.scl), ...symH(3, 5, 8, 9, 5, 6, C.iris), ...symH(3, 4, 8, 9, 5, 6, C.eye),
     ...symH(2, 6, 9, 10, 5, 6, C.eye), ...symH(6, 7, 9, 11, 5, 6, C.eye),
-    // 臥蠶眉: thick, raised, the outer ends lifting
+    // 卧蚕眉: thick, raised, the outer ends lifting
     ...symH(2, 6, 11, 13, 5, 7, C.beard, false), ...symH(6, 8, 12, 14, 5, 7, C.beard, false),
     P([0, 11, 5], [1, 13, 6], C.skinD),                                            // frown line
     // long straight nose
@@ -172,7 +172,7 @@ function head() {
     B([-8, -5, -3], [9, 5, 7], (x, y, z) => (z > 3 && y >= 1 && Math.abs(x) < 5 ? null : hash01(x, y, z) < 0.1 && y < -3 ? null : beardP(x, y, z))),
     B([-5, -11, 0], [6, -5, 8], (x, y, z) => (Math.abs(x) > 5 + (y + 5) * 0.45 || z < 1 - (y + 5) * 0.6 ? null : beardP(x, y, z))),
     B([-8, 4, -4], [-7, 14, 2], beardP), B([8, 4, -4], [9, 14, 2], beardP),        // sideburns
-    // 綠巾: the brow band (gold hem, a jade ornament in gold), the crown, the cloth over the topknot, falling over the
+    // 绿巾: the brow band (gold hem, a jade ornament in gold), the crown, the cloth over the topknot, falling over the
     // nape, the knot behind (its tails are chains)
     B([-8, 14, -8], [9, 17, 7], (x, y, z) => (y === 14 && z > 0 ? C.gold : wrap(x, y, z))),
     B([-2, 14, 7], [3, 18, 8], C.gold), B([-1, 15, 7], [2, 17, 9], C.jade), P([0, 16, 8], [1, 17, 9], C.jadeL),
@@ -183,10 +183,10 @@ function head() {
   ];
 }
 
-// ---------------------------------------------------------------- 青龍偃月刀 (weapon joint: shaft +Z, origin = rear grip)
+// ---------------------------------------------------------------- 青龙偃月刀 (weapon joint: shaft +Z, origin = rear grip)
 function weaponGeo() {
   // shaft at 0.02 (z −0.9 … 1.4): green lacquer spiral-banded, gold rings, black cord wraps at both grips (0 and 0.62),
-  // a gold-capped iron butt spike (鐏)
+  // a gold-capped iron butt spike (𨱔)
   const cord = (z) => (z > -6 && z < 8) || (z > 25 && z < 38);
   const shaft = vox([
     B([-1, -1, -42], [1, 1, 70], (x, y, z) => (cord(z) ? (md(z + x + y, 2) ? C.bootD : C.leather) : md(z + (x + 2 * y), 5) === 0 ? C.shaftH : C.shaft)),

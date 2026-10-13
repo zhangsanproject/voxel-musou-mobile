@@ -235,7 +235,7 @@ export function createCombat(game) {
     const killed = c.hp[i] <= 0 && !c.kod[i];
     const s0 = c.st[i], air = s0 === ST.AIR, downed = s0 === ST.DOWN || s0 === ST.GETUP;
     if (officer && !hit.heavy && !killed) { if (kb === 'launch' || kb === 'blow' || kb === 'spin') kb = 'push'; force *= 0.4; }
-    // 修羅 (game.diff.armor): officers standing take a light kit hit without a reaction and keep swinging (heavies / Musou still stagger)
+    // 修罗 (game.diff.armor): officers standing take a light kit hit without a reaction and keep swinging (heavies / Musou still stagger)
     if (officer && game.diff.armor && !hit.heavy && !killed && heroMove(moveId) && s0 <= ST.ATTACK) kb = 'armor';
     let koThrow = false;
     if (killed) {

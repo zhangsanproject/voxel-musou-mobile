@@ -1,10 +1,10 @@
-// 劉備's moveset (def-kit moveset: src/chars/defkit.js header) — the 雙股劍, a jian in each hand: quick, balanced, the two
+// 刘备's moveset (def-kit moveset: src/chars/defkit.js header) — the 双股剑, a jian in each hand: quick, balanced, the two
 // blades trading cuts so one is always coming. Data like src/hero/moves.js (+ roar / proj windows); clips are frame-keyed
 // with the shared author (hero/anims/author.js), anchored to the hit windows.
 //   N1 right blade, a flat cut right → left · N2 left blade back left → right · N3 both blades cross-cut down (X)
 //   N4 spinning double cut, arms flung wide · N5 both blades rising · N6 leap, blades crossed overhead, the X cut down
 //   on landing
-//   C1 (neutral) 十字斬: blades crossed before the face flung apart — a crossed wind blade flies 9 m (proj 'wind' ×2)
+//   C1 (neutral) 十字斩: blades crossed before the face flung apart — a crossed wind blade flies 9 m (proj 'wind' ×2)
 //   C2 (N1→) twin scoop launcher · C3 (N2→) spinning drill: four turns carried 7 m through the crowd, a bursting last cut
 //   C4 (N3→) twin thrusts, alternating, then both together · C5 (N4→) leap, both blades driven down crossed: an X of four
 //   crescents runs out along the diagonals
@@ -12,7 +12,7 @@
 //        rallies his side (kit.js: allies within 20 m restored and cheering, 5 % of his own health)
 //   dash: running, both blades swept back like wings, into a spinning double cut · jump: right cut · left cut · falling X
 //   (3-hit air string) · jump charge: blades crossed overhead, the plunge, an X cut on landing (rocks)
-// Musou 昭烈・雙龍斬 (musou/scripted.js; the twin dragons are view.js): a crossed wind blade · the rush · CONTACT: the X
+// Musou 昭烈・双龙斩 (musou/scripted.js; the twin dragons are view.js): a crossed wind blade · the rush · CONTACT: the X
 // cut, the dragons leave the blades · the drill through the line · twin thrust · the leap — FINISHER: the X slam, the
 // dragons dive crossing into it, crescents along the diagonals.
 //
@@ -204,7 +204,7 @@ export function clips(A, M) {
       [s, { ...XLOW(LOW(0.6, 0.16)), ...wide('n6', s) }, 'snap'],
       [c, XLOW(LOW(0.66, 0.14)), 'io'], [F, G]]); }
 
-  // C1 十字斬: blades crossed before the face, the X flung open
+  // C1 十字斩: blades crossed before the face, the X flung open
   const XFACE = (b) => K(b, [0.3, 0.04, 0.3], [-34, 56, 90], [-0.3, -0.02, 0.32], [34, 56, -90]);
   const FLUNG = (b) => K(b, [-0.42, -0.24, 0.12], [-100, -24, 30]);
   { const [s, e] = hit('c1', 0), F = M.c1.frames, c = M.c1.cancel;
@@ -321,7 +321,7 @@ export function clips(A, M) {
   return out;
 }
 
-// ---------------------------------------------------------------- 真・無雙 昭烈・雙龍斬 (musou/scripted.js)
+// ---------------------------------------------------------------- 真・无双 昭烈・双龙斩 (musou/scripted.js)
 const MU = (dmg, kb, force, lift, extra) => ({ shape: 'circle', range: 5, dmg, kb, force, lift, hitstop: 0, yMax: 5, ...extra });
 const XWAVE = (dmg, r, speed) => ({ dmg, kb: 'blow', force: 11, lift: 4, hitstop: 0, heavy: true, proj: { count: 2, spread: 6, speed, life: 28, r, y: 1.1, kind: 'wind' } });
 export const musou = {
