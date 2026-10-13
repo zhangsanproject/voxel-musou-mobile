@@ -37,7 +37,13 @@ export function createInput() {
   const locked = () => document.pointerLockElement === canvas;
   const live = () => battle && menu && menu.hidden;                 // battle running, pause menu closed
   // requestPointerLock returns a promise in current browsers (rejects without a user gesture, e.g. the ?go= shortcut)
-  const lock = (click = false) => { clickLock = click; if (live() && !locked() && !noLock) { try { const p = canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch (e) { noLock = true; } } };
+  // On touch devices, skip pointer lock entirely — virtual joysticks handle camera.
+  const lock = (click = false) => { clickLock = click; if (touchActive || (live() && !locked() && !noLock)) { if (touchActive) return; try { const p = canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch (e) { noLock = true; } } };
+
+  // Touch input state: injected by the mobile touch controls (src/input/touch.js, src/input/buttons.js)
+  let touchMove = null;   // { x, y } from left joystick, or null
+  let touchLook = null;   // { x, y } from right joystick, or null
+  let touchActive = false; // whether touch controls are currently active
 
   on('flow', (e) => {
     battle = e.state === 'battle';
@@ -109,6 +115,15 @@ export function createInput() {
         wantYaw = -rx * k * LOOK.padYaw; wantPitch = ry * k * LOOK.padPitch;
       }
     }
+    // Touch joystick input: override movement and add camera look
+    if (touchActive && touchMove) {
+      mx = touchMove.x; my = -touchMove.y;     // touch Y is inverted (up = negative screen, positive game)
+    }
+    if (touchActive && touchLook) {
+      // Use same easing as gamepad stick
+      wantYaw = -touchLook.x * LOOK.padYaw;
+      wantPitch = touchLook.y * LOOK.padPitch;
+    }
     // eased toward the stick; snapped to 0 once released and settled, so a stale tail never counts as a manual look
     dev.padYaw += (wantYaw - dev.padYaw) * LOOK.padEase; dev.padPitch += (wantPitch - dev.padPitch) * LOOK.padEase;
     if (!wantYaw && Math.abs(dev.padYaw) < 0.02) dev.padYaw = 0;
@@ -117,7 +132,9 @@ export function createInput() {
     const q = dev.keys.has('KeyQ') - dev.keys.has('KeyE');
     dev.keyT = q ? dev.keyT + 1 : 0;
     orbit += q * (LOOK.keyRate[0] + (LOOK.keyRate[1] - LOOK.keyRate[0]) * Math.min(1, dev.keyT / LOOK.keyRamp)) / 60;
-    orbit -= dev.lookX * LOOK.mouseYaw; tilt += dev.lookY * LOOK.mousePitch; dev.lookX = dev.lookY = 0;
+    if (!touchActive) {                                               // skip mouse look on touch devices
+      orbit -= dev.lookX * LOOK.mouseYaw; tilt += dev.lookY * LOOK.mousePitch; dev.lookX = dev.lookY = 0;
+    }
     for (const a of ACTIONS) {
       out.pressed[a] = !!dev.latch[a];
       out.held[a] = !!dev.held[a];
@@ -129,5 +146,20 @@ export function createInput() {
     return out;
   }
 
-  return { sample };
+  /** Inject virtual joystick data from touch controls. Call before sample(). */
+  function injectTouch(move, look) {
+    touchMove = move;    // { x, y } normalized [-1, 1]
+    touchLook = look;    // { x, y } normalized [-1, 1]
+  }
+
+  /** Inject a button press from touch controls. */
+  function injectButton(action, pressed, heldState) {
+    if (pressed) dev.latch[action] = true;
+    if (heldState !== undefined) dev.held[action] = heldState;
+  }
+
+  /** Set whether touch controls are active (controls pointer lock bypass). */
+  function setTouchActive(v) { touchActive = v; }
+
+  return { sample, injectTouch, injectButton, setTouchActive, dev };
 }

@@ -51,14 +51,30 @@ import { createPrologue } from './story/prologue.js';
 import { createResult } from './story/result.js';
 import { difficulty } from './core/difficulty.js';
 import { record } from './core/progress.js';
+import { isMobile, touchSupported, classify, gpuTier, getEnemyCap, isLandscape, lockLandscape } from './core/device.js';
+import { createTouchJoysticks } from './input/touch.js';
+import { createTouchButtons } from './input/buttons.js';
+import { createHaptics } from './input/haptics.js';
+import { initQuality, tickQuality } from './core/quality.js';
 
 const params = new URLSearchParams(location.search);
-const ENEMIES = Math.max(0, Math.min(2000, params.get('enemies') ? Number(params.get('enemies')) | 0 : 300));
+// Mobile: scale enemy cap by GPU tier; URL param ?enemies=N overrides
+const defaultEnemies = isMobile ? getEnemyCap() : 300;
+const ENEMIES = Math.max(0, Math.min(2000, params.get('enemies') ? Number(params.get('enemies')) | 0 : defaultEnemies));
 
 const canvas = document.getElementById('c');
 let vw = innerWidth, vh = innerHeight;
 
 const post = createPost({ canvas, width: vw, height: vh });
+// Classify GPU tier now that we have a WebGL context; init quality manager
+if (isMobile) {
+  classify(post.renderer);
+  const tierStart = { high: 6, mid: 4, low: 2 };
+  initQuality({ hq: params.has('hq'), startLevel: tierStart[gpuTier()] ?? 4 });
+} else {
+  initQuality({ hq: params.has('hq'), startLevel: 7 });
+}
+
 const scene = new THREE.Scene();
 const world = createWorld(scene, post);          // loads HOME
 
@@ -75,6 +91,19 @@ game.pickups = createPickups(game);               // 肉包 heals dropped by off
 game.musou = game.hero.kit.createMusou(game);     // the character's Musou (rebuilt with the kit in startBattle)
 game.story = createStory(game);
 const input = createInput();
+
+// ---- mobile touch controls
+let touchCtrls = null, touchBtns = null, haptics = null;
+if (touchSupported) {
+  const touchRoot = document.getElementById('touch-controls') || (() => {
+    const el = document.createElement('div'); el.id = 'touch-controls'; document.body.appendChild(el); return el;
+  })();
+  touchCtrls = createTouchJoysticks(touchRoot);
+  touchBtns = createTouchButtons(touchRoot, input);
+  haptics = createHaptics();
+  input.setTouchActive(true);
+  lockLandscape();
+}
 
 // ---- render side
 let crowdView = createCrowdView(scene, game);          // rebuilt when the battle's army pair changes (startBattle)
@@ -95,6 +124,11 @@ const hud = createHud(document.getElementById('hud'), game, camRig.camera);
 createAudio(game);
 
 function step() {
+  // Inject touch input before sampling
+  if (touchCtrls) {
+    input.injectTouch(touchCtrls.move(), touchCtrls.look());
+    if (touchBtns) touchBtns.inject(input.dev);
+  }
   const inp = input.sample();
   game.cam.step(game, inp);
   game.hero.step(inp);
@@ -268,6 +302,10 @@ addEventListener('keydown', (e) => {
   if (state === 'battle' && !paused && e.code === 'Escape' && !e.defaultPrevented) setPaused(true);
 });
 addEventListener('blur', () => { if (state === 'battle') setPaused(true); });
+// Mobile pause button (no Esc key on touch devices)
+document.getElementById('pause-btn')?.addEventListener('click', () => {
+  if (state === 'battle' && !paused) setPaused(true);
+});
 
 // ---- loop
 let acc = 0, last = performance.now();
@@ -275,6 +313,8 @@ const frame = (now) => {
   requestAnimationFrame(frame);
   // clamp at 0 too: the first rAF timestamp can precede the performance.now() taken at module init
   const d = Math.min(0.1, Math.max(0, (now - last) / 1000));
+  // Mobile: feed quality manager
+  if (isMobile) tickQuality(d * 1000);
   acc += d * (game.timeScale ?? 1); last = now;                                  // story: victory slow-mo
   if (paused) { acc = 0; input.sample(); return; }
   if (state !== 'battle') { acc = 0; input.sample(); if (!hold) render(d); return; }     // screens: the field idles behind them

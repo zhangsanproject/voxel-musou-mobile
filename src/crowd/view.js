@@ -458,7 +458,9 @@ export function createCrowdView(scene, game) {
   };
   // LOD by distance from the camera, same pose and matrices: full voxel set inside MID_LOD m, the half-resolution set
   // (≈ 1.2k tris instead of ≈ 4.9k) to FAR_LOD, then the low-poly box set (one trunk + limbs)
-  const MID_LOD = 8, FAR_LOD = 28;
+  // Mobile: tighter LOD thresholds for weaker GPUs
+  const mobileLOD = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  const MID_LOD = mobileLOD ? 5 : 8, FAR_LOD = mobileLOD ? 16 : 28;
   const PM = parts('mid_', G), PF = farParts('far_', G);
   // allies: near / mid / far sets
   const PS = parts('s_', A), PSM = parts('smid_', A), PSF = farParts('sfar_', A);

@@ -22,6 +22,7 @@ import { on } from '../core/events.js';
 import { ST, wrap } from '../crowd/crowd.js';
 import { ground, smooth } from '../world/map.js';
 import { clearance } from './occlusion.js';
+import { isMobile } from '../core/device.js';
 
 const { clamp, damp, DEG2RAD: DEG } = THREE.MathUtils;
 const BLEND = 0.45;                                   // s, Musou → gameplay blend (bench: 0.3-0.6 s, no pop)
@@ -29,19 +30,20 @@ const CAM = {
   // Default rig: vFOV 48°, boom 5.8 m at 17° (≈5.55 m behind, 3.05 m above the feet), aim 1.35 m over the feet →
   // hero ≈ 33 % of frame height (1.85 m with helmet), feet ≈ 73 %, horizon ≈ 16 %: the flanks within ±4 m show at
   // mid-frame (the old 40°/5.06 m/14.6° rig held him at 45 %, flanks off-screen, fast angular pans).
-  dist: 5.8, height: 1.35, pitch: 17 * DEG, fov: 48, minDist: 3,   // minDist: closest the boom clearance pulls in (m)
+  // Mobile: pull back 20%, raise, widen FOV for better battlefield awareness on small screens.
+  dist: isMobile ? 7.0 : 5.8, height: isMobile ? 1.8 : 1.35, pitch: (isMobile ? 22 : 17) * DEG, fov: isMobile ? 52 : 48, minDist: 3,   // minDist: closest the boom clearance pulls in (m)
   tiltMin: -9 * DEG, tiltMax: 20 * DEG,     // player pitch offset range (+ = higher, looking down)
   // follow: critically damped spring (ω, 1/s; no overshoot: a 4.6 m dodge trails ≤ 1.6 m and settles ≈0.4 s after), dead-zone radius (m)
   // the hero wanders in before the spring sees him (attack steps, pivots), look-ahead (s of intended velocity: ≈ the
   // spring + dead-zone lag at a run, so he runs ≈0.2 m ahead of the aim) smoothed at leadRate (1/s)
-  follow: 11, followShot: 20, deadZone: 0.35, lookAhead: 0.2, leadRate: 2.5,
+  follow: isMobile ? 9 : 11, followShot: 20, deadZone: 0.35, lookAhead: 0.2, leadRate: 2.5,
   followUp: 4, followDown: 12, hop: 0.6,   // Y spring: slow rise, quick fall (feet stay in); heights under `hop` m ignored
   airLift: 0.6, airTilt: 0.02,              // above `hop`: aim rises airLift m per m, view tilts up airTilt rad per m
   leadYMax: 2, leadYRate: 20,               // falling: vertical lead (cap m, smoothing 1/s) so a plunge keeps his feet in
   yawLerp: 20, yawLerpShot: 12,             // render smoothing of the sim yaw (gameplay: near 1:1 mouse; Musou whips)
   // sim drift: rate (1/s) and cap (rad/s) of the realign behind the running hero, after driftAfter frames of running;
   // fades between driftFace[1] and driftFace[0] rad off his back (running across → toward the lens: none)
-  drift: 0.6, driftMax: 0.45, driftAfter: 24, driftFace: [1.9, 1.3],
+  drift: 0.6, driftMax: 0.45, driftAfter: isMobile ? 15 : 24, driftFace: [1.9, 1.3],
   lookHold: 150,                            // frames after a manual look / recenter with no automatic turn
   recenterF: 16, targetR: 15,               // recenter swing (frames, smoothstep) · officer target radius (m)
   lockTol: 0.35,                            // stick direction change (rad) that re-anchors the control frame to the view

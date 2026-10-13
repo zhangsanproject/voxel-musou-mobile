@@ -206,6 +206,10 @@ export function createPost({ canvas, width, height }) {
   const renderer = new THREE.WebGLRenderer({ canvas, powerPreference: 'high-performance' });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
+  // Mobile: cap pixel ratio to 1.5 for performance (retina screens can be 3×)
+  if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  }
 
   const sceneRT = new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType, samples: 4, depthTexture: new THREE.DepthTexture(4, 4) });
   // nearest: the half-res DoF must not average a hero-plane distance with the background behind it
@@ -282,6 +286,7 @@ export function createPost({ canvas, width, height }) {
   }
 
   return {
+    renderer,   // exposed for GPU tier classification (device.js)
     /** Warm-up (main.js, behind the loading card / ink wipe): compile the scene's programs for the pass that draws them,
      *  into sceneRT (linear working space). Compiled with the canvas bound they came out as the sRGB-output variant, which
      *  the scene never uses: every real program then compiled on its first drawn frame (a crowd pool first shown a
