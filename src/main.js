@@ -98,6 +98,7 @@ if (touchSupported) {
   const touchRoot = document.getElementById('touch-controls') || (() => {
     const el = document.createElement('div'); el.id = 'touch-controls'; document.body.appendChild(el); return el;
   })();
+  touchRoot.innerHTML = '';   // clear any stale DOM from cached pages
   touchCtrls = createTouchJoysticks(touchRoot);
   touchBtns = createTouchButtons(touchRoot);
   haptics = createHaptics();

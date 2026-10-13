@@ -42,7 +42,7 @@ export function createInput() {
 
   // Touch input state: injected by the mobile touch controls (src/input/touch.js, src/input/buttons.js)
   let touchMove = null;   // { x, y } from left joystick, or null
-  let touchLook = null;   // { x, y } from right joystick, or null
+  let touchLook = null;   // { x, y } from swipe-to-look, or null
   let touchActive = false; // whether touch controls are currently active
 
   on('flow', (e) => {
