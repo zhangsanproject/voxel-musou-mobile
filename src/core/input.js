@@ -119,10 +119,10 @@ export function createInput() {
     if (touchActive && touchMove && (Math.abs(touchMove.x) > 0.01 || Math.abs(touchMove.y) > 0.01)) {
       mx = touchMove.x; my = -touchMove.y;     // touch Y is inverted (up = negative screen, positive game)
     }
-    if (touchActive && touchLook && (Math.abs(touchLook.x) > 0.01 || Math.abs(touchLook.y) > 0.01)) {
-      // Use same easing as gamepad stick
-      wantYaw = -touchLook.x * LOOK.padYaw;
-      wantPitch = touchLook.y * LOOK.padPitch;
+    if (touchActive && touchLook && (Math.abs(touchLook.x) > 0.001 || Math.abs(touchLook.y) > 0.001)) {
+      // Swipe-to-look: direct delta injection (already scaled by LOOK_SENSITIVITY in touch.js)
+      orbit -= touchLook.x;
+      tilt += touchLook.y;
     }
     // eased toward the stick; snapped to 0 once released and settled, so a stale tail never counts as a manual look
     dev.padYaw += (wantYaw - dev.padYaw) * LOOK.padEase; dev.padPitch += (wantPitch - dev.padPitch) * LOOK.padEase;

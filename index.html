@@ -926,10 +926,9 @@
   @media (pointer: coarse), (hover: none) {
     #touch-controls { display: block; }
   }
-  /* Virtual joysticks */
+  /* Virtual joystick (left only — camera is swipe-to-look) */
   .touch-joy { position: absolute; pointer-events: auto; z-index: 101; }
   .touch-joy-left { left: calc(4% + env(safe-area-inset-left, 0px)); bottom: 12%; }
-  .touch-joy-right { right: calc(30% + env(safe-area-inset-right, 0px)); bottom: 6%; }
   .touch-joy-base { position: relative; border-radius: 50%; background: rgba(255,255,255,0.12);
     border: 2px solid rgba(255,255,255,0.25); box-shadow: 0 0 20px rgba(0,0,0,0.3);
     display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.15s; }
