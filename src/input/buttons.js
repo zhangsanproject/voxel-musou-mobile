@@ -2,17 +2,18 @@
 // Layout: arc pattern in the bottom-right, designed for right-thumb reach.
 // Buttons: attack, charge (long-press), jump, dodge, musou (glows when ready), target/recenter.
 // Each button fires touch events into the input system's latch/held state.
+// In menu mode: only attack (confirm) and dodge (back) are shown, others hidden.
 
 import { on } from '../core/events.js';
 
 // Button definitions: [action, label, size, cssClass]
 const BTNS = [
-  { action: 'attack',  label: '攻', size: 68, cls: 'btn-attack' },
-  { action: 'charge',  label: '蓄', size: 56, cls: 'btn-charge' },
-  { action: 'jump',    label: '跳', size: 56, cls: 'btn-jump' },
-  { action: 'dodge',   label: '避', size: 52, cls: 'btn-dodge' },
-  { action: 'musou',   label: '無', size: 52, cls: 'btn-musou' },
-  { action: 'target',  label: '鎖', size: 42, cls: 'btn-target' },
+  { action: 'attack',  label: '攻', size: 68, cls: 'btn-attack', menu: true },
+  { action: 'charge',  label: '蓄', size: 56, cls: 'btn-charge', menu: false },
+  { action: 'jump',    label: '跳', size: 56, cls: 'btn-jump',   menu: false },
+  { action: 'dodge',   label: '避', size: 52, cls: 'btn-dodge',  menu: true },
+  { action: 'musou',   label: '無', size: 52, cls: 'btn-musou',  menu: false },
+  { action: 'target',  label: '鎖', size: 42, cls: 'btn-target', menu: false },
 ];
 
 const CHARGE_HOLD = 300;   // ms to hold before charge fires
@@ -23,16 +24,21 @@ export function createTouchButtons(container, inputDev) {
   const btns = {};
   const held = {};
   const latch = {};
+  const pressed = {};      // edge-triggered for menu readState
 
-  for (const { action, label, size, cls } of BTNS) {
+  let menuMode = false;
+
+  for (const { action, label, size, cls, menu } of BTNS) {
     const el = document.createElement('div');
     el.className = `touch-btn ${cls}`;
     el.style.width = el.style.height = size + 'px';
     el.textContent = label;
+    el.dataset.menu = menu ? '1' : '0';
     root.appendChild(el);
     btns[action] = el;
     held[action] = false;
     latch[action] = false;
+    pressed[action] = false;
 
     let chargeTimer = null;
     let chargeFired = false;
@@ -42,6 +48,7 @@ export function createTouchButtons(container, inputDev) {
       e.stopPropagation();
       held[action] = true;
       latch[action] = true;
+      pressed[action] = true;
       el.classList.add('active');
 
       // Charge: long-press detection
@@ -75,6 +82,20 @@ export function createTouchButtons(container, inputDev) {
 
   container.appendChild(root);
 
+  function updateMenuVisibility() {
+    for (const { action, menu } of BTNS) {
+      btns[action].style.display = menuMode ? (menu ? '' : 'none') : '';
+    }
+    // In menu mode, relabel attack→決定, dodge→返回
+    if (menuMode) {
+      btns.attack.textContent = '決';
+      btns.dodge.textContent = '戻';
+    } else {
+      btns.attack.textContent = '攻';
+      btns.dodge.textContent = '避';
+    }
+  }
+
   return {
     /** Read current button state into the input device's latch/held. Called each sample(). */
     inject(dev) {
@@ -83,6 +104,15 @@ export function createTouchButtons(container, inputDev) {
         dev.held[a] = held[a];
       }
     },
+    /** Read edge-triggered presses for menu navigation. Clears after read. */
+    readState() {
+      const s = { attackPressed: pressed.attack, dodgePressed: pressed.dodge };
+      pressed.attack = false;
+      pressed.dodge = false;
+      return s;
+    },
+    startMenuMode() { menuMode = true; updateMenuVisibility(); },
+    stopMenuMode() { menuMode = false; updateMenuVisibility(); },
     show() { root.style.display = ''; },
     hide() { root.style.display = 'none'; },
     destroy() { root.remove(); },

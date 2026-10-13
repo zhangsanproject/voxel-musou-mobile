@@ -53,12 +53,26 @@ export function canLockOrientation() {
   return !!(screen.orientation && screen.orientation.lock);
 }
 
-/** Try to lock to landscape. Silently fails on unsupported browsers. */
+/** Try to lock to landscape and request fullscreen. Silently fails on unsupported browsers. */
 export function lockLandscape() {
+  // Request fullscreen first (required before orientation lock on some browsers)
+  requestFullscreen();
   if (!canLockOrientation()) return;
   try {
     const type = screen.orientation.type;
     const target = type.includes('portrait') ? 'landscape' : type;
     screen.orientation.lock(target).catch(() => {});
   } catch { /* unsupported */ }
+}
+
+/** Request fullscreen. Must be called from a user gesture on iOS. */
+export function requestFullscreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();   // Safari iOS
+}
+
+/** Whether the page is currently in fullscreen. */
+export function isFullscreen() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
 }

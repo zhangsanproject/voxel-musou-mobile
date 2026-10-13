@@ -51,9 +51,10 @@ import { createPrologue } from './story/prologue.js';
 import { createResult } from './story/result.js';
 import { difficulty } from './core/difficulty.js';
 import { record } from './core/progress.js';
-import { isMobile, touchSupported, classify, gpuTier, getEnemyCap, isLandscape, lockLandscape } from './core/device.js';
+import { isMobile, touchSupported, classify, gpuTier, getEnemyCap, isLandscape, lockLandscape, requestFullscreen } from './core/device.js';
 import { createTouchJoysticks } from './input/touch.js';
 import { createTouchButtons } from './input/buttons.js';
+import { createTouchNav } from './input/nav.js';
 import { createHaptics } from './input/haptics.js';
 import { initQuality, tickQuality } from './core/quality.js';
 
@@ -93,7 +94,7 @@ game.story = createStory(game);
 const input = createInput();
 
 // ---- mobile touch controls
-let touchCtrls = null, touchBtns = null, haptics = null;
+let touchCtrls = null, touchBtns = null, haptics = null, touchNav = null;
 if (touchSupported) {
   const touchRoot = document.getElementById('touch-controls') || (() => {
     const el = document.createElement('div'); el.id = 'touch-controls'; document.body.appendChild(el); return el;
@@ -103,7 +104,16 @@ if (touchSupported) {
   haptics = createHaptics();
   input.setTouchActive(true);
   lockLandscape();
+  // Request fullscreen on first touch (required by iOS Safari)
+  const fsOnce = () => { requestFullscreen(); document.removeEventListener('touchstart', fsOnce); };
+  document.addEventListener('touchstart', fsOnce, { once: true, passive: true });
 }
+// Expose touch controls for screen modules (title, select) to read joystick for menu nav
+window.__touchCtrls = touchCtrls;
+window.__touchBtns = touchBtns;
+// Show touch controls immediately on touch devices (visible from boot)
+if (touchCtrls) touchCtrls.show();
+if (touchBtns) touchBtns.hide();   // hidden until battle starts
 
 // ---- render side
 let crowdView = createCrowdView(scene, game);          // rebuilt when the battle's army pair changes (startBattle)
@@ -238,8 +248,17 @@ const flow = {
     const set = state === 'loading' || state === 'prologue';   // deploy() already started this battle (its field is on screen)
     state = s; ctx = c;
     if (s === 'title') { world.load(HOME); game.crowd.reset(); }   // menus stand on HOME, the field empty (under the ink)
-    if (s === 'battle') { if (!set) startBattle(c); setPaused(false); replay(hudEl, 'in'); }
-    else { setPaused(false); hudEl.hidden = true; $(s).hidden = false; screens[s].enter(c); }
+    if (s === 'battle') {
+      if (!set) startBattle(c); setPaused(false); replay(hudEl, 'in');
+      // Show battle touch controls (joysticks + action buttons)
+      if (touchCtrls) touchCtrls.show();
+      if (touchBtns) { touchBtns.show(); touchBtns.stopMenuMode(); }
+    } else {
+      setPaused(false); hudEl.hidden = true; $(s).hidden = false; screens[s].enter(c);
+      // Show menu mode touch controls (joystick + confirm/back buttons only)
+      if (touchCtrls) touchCtrls.show();
+      if (touchBtns) { touchBtns.show(); touchBtns.startMenuMode(); }
+    }
     emit('flow', { state: s, ctx: c });
     if (s === 'loading') { deploy(c); return nextFrame(); }
     // Results and the prologue only change DOM; a deployed battle is already compiled and presented.

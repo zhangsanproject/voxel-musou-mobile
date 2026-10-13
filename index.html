@@ -927,9 +927,9 @@
     #touch-controls { display: block; }
   }
   /* Virtual joysticks */
-  .touch-joy { position: absolute; bottom: 10%; pointer-events: auto; z-index: 101; }
-  .touch-joy-left { left: 6%; }
-  .touch-joy-right { right: 6%; }
+  .touch-joy { position: absolute; pointer-events: auto; z-index: 101; }
+  .touch-joy-left { left: 4%; bottom: 12%; }
+  .touch-joy-right { right: 30%; bottom: 6%; }
   .touch-joy-base { position: relative; border-radius: 50%; background: rgba(255,255,255,0.12);
     border: 2px solid rgba(255,255,255,0.25); box-shadow: 0 0 20px rgba(0,0,0,0.3);
     display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.15s; }
@@ -937,10 +937,10 @@
     border: 2px solid rgba(255,255,255,0.5); box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     transition: transform 0.05s ease-out; }
 
-  /* Action buttons */
-  .touch-buttons { position: absolute; right: 4%; bottom: 8%; pointer-events: auto; z-index: 101;
+  /* Action buttons — anchored to the far right, clear of the right joystick */
+  .touch-buttons { position: absolute; right: 2%; bottom: 10%; pointer-events: auto; z-index: 102;
     display: grid; grid-template-columns: repeat(3, auto); grid-template-rows: repeat(2, auto);
-    gap: 10px; justify-items: center; align-items: center; }
+    gap: 8px; justify-items: center; align-items: center; }
   .touch-btn { border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
     color: rgba(255,255,255,0.85); font: 700 1.4rem/1 var(--kai); display: flex; align-items: center; justify-content: center;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: transform 0.08s, background 0.08s; cursor: pointer; }

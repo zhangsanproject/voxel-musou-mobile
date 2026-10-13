@@ -44,12 +44,16 @@ export function sfx(kind) { const c = actx(); if (c) for (const v of SFX[kind]) 
 const KEYS = { ArrowUp: -1, KeyW: -1, ArrowDown: 1, KeyS: 1, ArrowLeft: -1, KeyA: -1, ArrowRight: 1, KeyD: 1 };
 const OK = new Set(['Enter', 'NumpadEnter', 'Space', 'KeyJ']), BACK = new Set(['Escape', 'Backspace', 'KeyK']);
 /**
- * Keyboard + gamepad menu driver, active between start() and stop(). cb: { move(±1), ok(), back() }.
+ * Keyboard + gamepad + touch joystick menu driver, active between start() and stop(). cb: { move(±1), ok(), back() }.
  * Gamepad: d-pad / left stick (repeat 350 ms, then 120 ms), A / Start = ok, B = back. Buttons already held at start()
  * must be released first (the press that opened this screen does not fire again here).
+ * Touch: left virtual joystick vertical axis (window.__touchCtrls), attack button = ok, dodge button = back.
  */
 export function createNav(cb) {
   let on = false, raf = 0, held = {}, rep = 0, repT = 0;
+  // Touch nav state
+  let touchRep = 0, touchRepT = 0;
+  const TOUCH_THRESHOLD = 0.45;
   const key = (e) => {
     if (!on || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.code in KEYS) { e.preventDefault(); cb.move(KEYS[e.code]); }
@@ -60,29 +64,57 @@ export function createNav(cb) {
   const poll = (now) => {
     if (!on) return;
     raf = requestAnimationFrame(poll);
+    // Gamepad
     const p = navigator.getGamepads ? navigator.getGamepads()[0] : null;
-    if (!p) return;
-    const b = (i) => !!(p.buttons[i] && p.buttons[i].pressed);
-    const edge = (i) => { const d = b(i), was = held[i]; held[i] = d; return d && was === false; };
-    if (edge(0) || edge(9)) cb.ok();
-    else if (edge(1)) cb.back();
-    const y = p.axes[1] || 0, x = p.axes[0] || 0;
-    const dir = b(12) || y < -0.5 || x < -0.5 ? -1 : b(13) || y > 0.5 || x > 0.5 ? 1 : b(14) ? -1 : b(15) ? 1 : 0;
-    if (!dir) rep = 0;
-    else if (dir !== rep) { rep = dir; repT = now + 350; cb.move(dir); }
-    else if (now >= repT) { repT = now + 120; cb.move(dir); }
+    if (p) {
+      const b = (i) => !!(p.buttons[i] && p.buttons[i].pressed);
+      const edge = (i) => { const d = b(i), was = held[i]; held[i] = d; return d && was === false; };
+      if (edge(0) || edge(9)) cb.ok();
+      else if (edge(1)) cb.back();
+      const y = p.axes[1] || 0, x = p.axes[0] || 0;
+      const dir = b(12) || y < -0.5 || x < -0.5 ? -1 : b(13) || y > 0.5 || x > 0.5 ? 1 : b(14) ? -1 : b(15) ? 1 : 0;
+      if (!dir) rep = 0;
+      else if (dir !== rep) { rep = dir; repT = now + 350; cb.move(dir); }
+      else if (now >= repT) { repT = now + 120; cb.move(dir); }
+    }
+    // Touch joystick: poll left stick for vertical navigation
+    const tc = window.__touchCtrls;
+    if (tc) {
+      const m = tc.move();
+      const dir = m.y < -TOUCH_THRESHOLD ? -1 : m.y > TOUCH_THRESHOLD ? 1 : 0;
+      if (!dir) touchRep = 0;
+      else if (dir !== touchRep) { touchRep = dir; touchRepT = now + 350; cb.move(dir); }
+      else if (now >= touchRepT) { touchRepT = now + 120; cb.move(dir); }
+      // Touch buttons: attack = ok, dodge/jump = back
+      const tb = window.__touchBtns;
+      if (tb) {
+        const bs = tb.readState?.() || {};
+        if (bs.attackPressed) { cb.ok(); bs.attackPressed = false; }
+        if (bs.dodgePressed) { cb.back(); bs.dodgePressed = false; }
+      }
+    }
   };
   addEventListener('keydown', key);
   return {
     start() {
-      on = true; rep = 0; held = {};
+      on = true; rep = 0; held = {}; touchRep = 0;
       const p = navigator.getGamepads ? navigator.getGamepads()[0] : null;
       if (p) p.buttons.forEach((q, i) => { held[i] = q.pressed ? true : false; });   // true = wait for release
       for (const i of [0, 1, 9]) if (held[i] === undefined) held[i] = false;
       if (p && (Math.abs(p.axes[1] || 0) > 0.5 || Math.abs(p.axes[0] || 0) > 0.5)) { rep = (p.axes[1] || p.axes[0]) < 0 ? -1 : 1; repT = Infinity; }   // stick held: wait for release
+      // Show touch controls in menu mode (hide action buttons, keep left joystick)
+      const tc = window.__touchCtrls;
+      if (tc) tc.show();
+      const tb = window.__touchBtns;
+      if (tb) { tb.hide(); tb.startMenuMode?.(); }
       raf = requestAnimationFrame(poll);
     },
-    stop() { on = false; cancelAnimationFrame(raf); },
+    stop() {
+      on = false; cancelAnimationFrame(raf);
+      // Restore action buttons when leaving menu
+      const tb = window.__touchBtns;
+      if (tb) { tb.show(); tb.stopMenuMode?.(); }
+    },
   };
 }
 
