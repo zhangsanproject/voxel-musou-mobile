@@ -327,28 +327,6 @@ addEventListener('blur', () => { if (state === 'battle') setPaused(true); });
 document.getElementById('pause-btn')?.addEventListener('click', () => {
   if (state === 'battle' && !paused) setPaused(true);
 });
-// Fullscreen toggle button
-const fsBtn = document.getElementById('fs-btn');
-if (fsBtn) {
-  const updateFsIcon = () => {
-    const fs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    fsBtn.textContent = fs ? '↙' : '⛶';    // ↙ exit, ⛶ enter
-    fsBtn.setAttribute('aria-label', fs ? 'Exit fullscreen' : 'Fullscreen');
-    document.body.classList.toggle('is-fullscreen', fs);
-  };
-  fsBtn.addEventListener('click', () => {
-    const fs = !!(document.fullscreenElement || document.webkitFullscreenElement);
-    if (fs) {
-      (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
-    } else {
-      const el = document.documentElement;
-      (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el);
-    }
-  });
-  document.addEventListener('fullscreenchange', updateFsIcon);
-  document.addEventListener('webkitfullscreenchange', updateFsIcon);
-  updateFsIcon();
-}
 
 // ---- loop
 let acc = 0, last = performance.now();
