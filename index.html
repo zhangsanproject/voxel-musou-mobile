@@ -963,6 +963,14 @@
     width: 44px; height: 44px; border-radius: 10px; background: rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.25);
     color: #f4ead8; font-size: 20px; cursor: pointer; align-items: center; justify-content: center; }
   @media (pointer: coarse) { #pause-btn { display: flex; } }
+  /* Fullscreen toggle button (top-right, next to pause) */
+  #fs-btn { position: fixed; top: 12px; right: 64px; z-index: 102; pointer-events: auto;
+    width: 44px; height: 44px; border-radius: 10px; background: rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.25);
+    color: #f4ead8; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.2s; }
+  #fs-btn:hover { background: rgba(0,0,0,0.6); }
+  /* Hide fullscreen button when already fullscreen */
+  :fullscreen ~ #fs-btn, :-webkit-full-screen ~ #fs-btn { opacity: 0.3; }
 
   /* Portrait overlay: shown when phone is in portrait mode */
   #portrait-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(26,18,13,0.95);
@@ -990,6 +998,7 @@
 <body class="inkhold">
 <canvas id="c"></canvas>
 <button id="pause-btn" aria-label="Pause">⏸</button>
+<button id="fs-btn" aria-label="Fullscreen">⛶</button>
 <div id="hud" hidden></div>
 <div id="menu" hidden>
   <div class="t">趙雲<i>常山</i></div>
