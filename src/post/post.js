@@ -16,6 +16,7 @@ import * as THREE from 'three';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 import { SUN_DIR } from '../world/sky.js';
+import { isMobile } from '../core/device.js';
 
 // Tunables. Every key k is uniform u<K> in all passes.
 // Tuned on overview / crowd-fight / musou captures toward the concept stats (luma mean ≈ 0.36, p5 ≤ 0.08, p95 ≥ 0.78,
@@ -207,7 +208,7 @@ export function createPost({ canvas, width, height }) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   // Mobile: cap pixel ratio to 1.5 for performance (retina screens can be 3×)
-  if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+  if (isMobile) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   }
 

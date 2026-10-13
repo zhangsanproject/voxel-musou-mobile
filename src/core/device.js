@@ -2,10 +2,15 @@
 // Exports: isMobile, gpuTier ('high'|'mid'|'low'), isLandscape, getEnemyCap(), touchSupported.
 // gpuTier is set once at boot (classify()) and stays fixed for the session.
 
-export const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-  || ('ontouchstart' in window && navigator.maxTouchPoints > 1);
+// Guard: these modules are also imported by Node.js test scripts (no window/navigator)
+const hasDOM = typeof window !== 'undefined';
 
-export const touchSupported = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+// Mobile detection: UA + coarse pointer (excludes touchscreen laptops like Surface with a mouse)
+const uaMobile = hasDOM && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const coarsePointer = hasDOM && typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
+export const isMobile = uaMobile || (coarsePointer && 'ontouchstart' in window && navigator.maxTouchPoints > 1);
+
+export const touchSupported = hasDOM && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
 // High-end GPU patterns (A15+/Snapdragon 8 Gen1+): Adreno 7xx, Apple M1/M2, Mali-G710+
 const HIGH_RE = /adreno.(7[1-9]\d|[89]\d\d)|apple.(m[1-4]|a1[5-9]|a[2-9]\d)|mali.g(7[1-9]\d|[89]\d\d)|xclipse.(9[2-9]\d)|rdna.[3-9]/i;
@@ -45,17 +50,17 @@ export function getEnemyCap() {
 
 /** Whether the viewport is currently landscape. */
 export function isLandscape() {
-  return innerWidth > innerHeight;
+  return hasDOM && innerWidth > innerHeight;
 }
 
 /** Whether the device supports screen orientation lock. */
 export function canLockOrientation() {
-  return !!(screen.orientation && screen.orientation.lock);
+  return hasDOM && !!(screen.orientation && screen.orientation.lock);
 }
 
 /** Try to lock to landscape and request fullscreen. Silently fails on unsupported browsers. */
 export function lockLandscape() {
-  // Request fullscreen first (required before orientation lock on some browsers)
+  if (!hasDOM) return;
   requestFullscreen();
   if (!canLockOrientation()) return;
   try {
@@ -67,6 +72,7 @@ export function lockLandscape() {
 
 /** Request fullscreen. Must be called from a user gesture on iOS. */
 export function requestFullscreen() {
+  if (!hasDOM) return;
   const el = document.documentElement;
   if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
   else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();   // Safari iOS
@@ -74,5 +80,5 @@ export function requestFullscreen() {
 
 /** Whether the page is currently in fullscreen. */
 export function isFullscreen() {
-  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  return hasDOM && !!(document.fullscreenElement || document.webkitFullscreenElement);
 }

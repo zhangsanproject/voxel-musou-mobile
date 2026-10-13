@@ -928,8 +928,8 @@
   }
   /* Virtual joysticks */
   .touch-joy { position: absolute; pointer-events: auto; z-index: 101; }
-  .touch-joy-left { left: 4%; bottom: 12%; }
-  .touch-joy-right { right: 30%; bottom: 6%; }
+  .touch-joy-left { left: calc(4% + env(safe-area-inset-left, 0px)); bottom: 12%; }
+  .touch-joy-right { right: calc(30% + env(safe-area-inset-right, 0px)); bottom: 6%; }
   .touch-joy-base { position: relative; border-radius: 50%; background: rgba(255,255,255,0.12);
     border: 2px solid rgba(255,255,255,0.25); box-shadow: 0 0 20px rgba(0,0,0,0.3);
     display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.15s; }
@@ -938,7 +938,7 @@
     transition: transform 0.05s ease-out; }
 
   /* Action buttons — anchored to the far right, clear of the right joystick */
-  .touch-buttons { position: absolute; right: 2%; bottom: 10%; pointer-events: auto; z-index: 102;
+  .touch-buttons { position: absolute; right: calc(2% + env(safe-area-inset-right, 0px)); bottom: 10%; pointer-events: auto; z-index: 102;
     display: grid; grid-template-columns: repeat(3, auto); grid-template-rows: repeat(2, auto);
     gap: 8px; justify-items: center; align-items: center; }
   .touch-btn { border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
@@ -969,8 +969,8 @@
     color: #f4ead8; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     transition: opacity 0.2s; }
   #fs-btn:hover { background: rgba(0,0,0,0.6); }
-  /* Hide fullscreen button when already fullscreen */
-  :fullscreen ~ #fs-btn, :-webkit-full-screen ~ #fs-btn { opacity: 0.3; }
+  /* Fullscreen button dimmed when already fullscreen (set by JS class on body) */
+  body.is-fullscreen #fs-btn { opacity: 0.4; }
 
   /* Portrait overlay: shown when phone is in portrait mode */
   #portrait-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(26,18,13,0.95);
@@ -984,12 +984,12 @@
     #portrait-overlay { display: flex; }
   }
 
-  /* Mobile HUD adjustments */
+  /* Mobile HUD adjustments — push HUD readouts above the touch control zone */
   @media (pointer: coarse) {
     html { font-size: calc(100vh / 64); }
     #hud .h-map { width: 16rem; right: 1.5%; top: 3rem; }
-    #hud .h-ko { right: 4%; bottom: 22%; }
-    #hud .h-chain { left: 3%; bottom: 26%; }
+    #hud .h-ko { right: 4%; bottom: 34%; }
+    #hud .h-chain { left: 3%; bottom: 38%; }
     #hud .h-obj { left: 2%; top: 3rem; max-width: 45%; }
     #hud .h-intro .zh { font-size: 6rem; }
   }

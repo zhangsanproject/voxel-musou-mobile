@@ -18,7 +18,7 @@ const BTNS = [
 
 const CHARGE_HOLD = 300;   // ms to hold before charge fires
 
-export function createTouchButtons(container, inputDev) {
+export function createTouchButtons(container) {
   const root = document.createElement('div');
   root.className = 'touch-buttons';
   const btns = {};

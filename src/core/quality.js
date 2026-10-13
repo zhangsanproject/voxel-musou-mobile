@@ -51,9 +51,9 @@ export function fullBloom()  { return level >= 3; }
 
 /** Render scale factor (1.0 = full, 0.75 = 75%, 0.5 = 50%). */
 export function renderScale() {
-  if (level >= 2) return 1.0;
-  if (level === 1) return 0.75;
-  return 0.5;
+  if (level >= 3) return 1.0;
+  if (level === 2) return 0.75;
+  return 0.5;    // level 1
 }
 
 /** MSAA samples for the current level. */

@@ -38,7 +38,7 @@ export function createInput() {
   const live = () => battle && menu && menu.hidden;                 // battle running, pause menu closed
   // requestPointerLock returns a promise in current browsers (rejects without a user gesture, e.g. the ?go= shortcut)
   // On touch devices, skip pointer lock entirely — virtual joysticks handle camera.
-  const lock = (click = false) => { clickLock = click; if (touchActive || (live() && !locked() && !noLock)) { if (touchActive) return; try { const p = canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch (e) { noLock = true; } } };
+  const lock = (click = false) => { clickLock = click; if (!touchActive && live() && !locked() && !noLock) { try { const p = canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch (e) { noLock = true; } } };
 
   // Touch input state: injected by the mobile touch controls (src/input/touch.js, src/input/buttons.js)
   let touchMove = null;   // { x, y } from left joystick, or null
@@ -115,11 +115,11 @@ export function createInput() {
         wantYaw = -rx * k * LOOK.padYaw; wantPitch = ry * k * LOOK.padPitch;
       }
     }
-    // Touch joystick input: override movement and add camera look
-    if (touchActive && touchMove) {
+    // Touch joystick input: use when active and deflected (allows gamepad fallback if touch is idle)
+    if (touchActive && touchMove && (Math.abs(touchMove.x) > 0.01 || Math.abs(touchMove.y) > 0.01)) {
       mx = touchMove.x; my = -touchMove.y;     // touch Y is inverted (up = negative screen, positive game)
     }
-    if (touchActive && touchLook) {
+    if (touchActive && touchLook && (Math.abs(touchLook.x) > 0.01 || Math.abs(touchLook.y) > 0.01)) {
       // Use same easing as gamepad stick
       wantYaw = -touchLook.x * LOOK.padYaw;
       wantPitch = touchLook.y * LOOK.padPitch;
@@ -152,14 +152,8 @@ export function createInput() {
     touchLook = look;    // { x, y } normalized [-1, 1]
   }
 
-  /** Inject a button press from touch controls. */
-  function injectButton(action, pressed, heldState) {
-    if (pressed) dev.latch[action] = true;
-    if (heldState !== undefined) dev.held[action] = heldState;
-  }
-
   /** Set whether touch controls are active (controls pointer lock bypass). */
   function setTouchActive(v) { touchActive = v; }
 
-  return { sample, injectTouch, injectButton, setTouchActive, dev };
+  return { sample, injectTouch, setTouchActive, dev };
 }

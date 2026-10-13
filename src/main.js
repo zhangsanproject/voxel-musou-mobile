@@ -54,7 +54,6 @@ import { record } from './core/progress.js';
 import { isMobile, touchSupported, classify, gpuTier, getEnemyCap, isLandscape, lockLandscape, requestFullscreen } from './core/device.js';
 import { createTouchJoysticks } from './input/touch.js';
 import { createTouchButtons } from './input/buttons.js';
-import { createTouchNav } from './input/nav.js';
 import { createHaptics } from './input/haptics.js';
 import { initQuality, tickQuality } from './core/quality.js';
 
@@ -100,12 +99,15 @@ if (touchSupported) {
     const el = document.createElement('div'); el.id = 'touch-controls'; document.body.appendChild(el); return el;
   })();
   touchCtrls = createTouchJoysticks(touchRoot);
-  touchBtns = createTouchButtons(touchRoot, input);
+  touchBtns = createTouchButtons(touchRoot);
   haptics = createHaptics();
   input.setTouchActive(true);
-  lockLandscape();
-  // Request fullscreen on first touch (required by iOS Safari)
-  const fsOnce = () => { requestFullscreen(); document.removeEventListener('touchstart', fsOnce); };
+  // Request fullscreen + lock orientation on first touch (browser requires user gesture)
+  const fsOnce = () => {
+    requestFullscreen();
+    lockLandscape();
+    document.removeEventListener('touchstart', fsOnce);
+  };
   document.addEventListener('touchstart', fsOnce, { once: true, passive: true });
 }
 // Expose touch controls for screen modules (title, select) to read joystick for menu nav
@@ -332,7 +334,7 @@ if (fsBtn) {
     const fs = !!(document.fullscreenElement || document.webkitFullscreenElement);
     fsBtn.textContent = fs ? '↙' : '⛶';    // ↙ exit, ⛶ enter
     fsBtn.setAttribute('aria-label', fs ? 'Exit fullscreen' : 'Fullscreen');
-    fsBtn.style.opacity = fs ? '0.5' : '1';
+    document.body.classList.toggle('is-fullscreen', fs);
   };
   fsBtn.addEventListener('click', () => {
     const fs = !!(document.fullscreenElement || document.webkitFullscreenElement);

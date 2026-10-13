@@ -85,12 +85,12 @@ export function createNav(cb) {
       if (!dir) touchRep = 0;
       else if (dir !== touchRep) { touchRep = dir; touchRepT = now + 350; cb.move(dir); }
       else if (now >= touchRepT) { touchRepT = now + 120; cb.move(dir); }
-      // Touch buttons: attack = ok, dodge/jump = back
+      // Touch buttons: attack = ok, dodge = back
       const tb = window.__touchBtns;
       if (tb) {
-        const bs = tb.readState?.() || {};
-        if (bs.attackPressed) { cb.ok(); bs.attackPressed = false; }
-        if (bs.dodgePressed) { cb.back(); bs.dodgePressed = false; }
+        const bs = tb.readState?.();
+        if (bs?.attackPressed) cb.ok();
+        if (bs?.dodgePressed) cb.back();
       }
     }
   };
